@@ -1,4 +1,10 @@
 CREATE TABLE Album (
+    user_id INT PRIMARY KEY,
+    
+    user_name VARCHAR(150) NOT NULL, 
+
+
+
     album_id INT PRIMARY KEY,
     album_record_label VARCHAR(150) NOT NULL,
     album_title VARCHAR(150) NOT NULL,
