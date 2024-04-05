@@ -4,13 +4,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const signUpText = document.getElementById('signUp');
     const alertBox = document.getElementById('alert');
     // Init array to store all user detail
-    let userDetail = [];
+    let userDetail;
 
 
     // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array, log to console when done and catch eorror
-    fetch('login.php')
+    fetch('signup.php')
     .then(phpResponse => phpResponse.json())
-    .then(table => table.forEach(row => userDetail.push(row)))
+    .then(table => userDetail = table)
+    .then(function(){console.log(userDetail)})
     .catch(error => console.error('Errrooooorrrr: ', error));
 
 
@@ -21,21 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Init var to store the username and password entered by user
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        // Init var to store return from check function
-        // -1 : user does not exists or wrong password
-        // > -1 : userIndex
-        const userIndex = userLoginValidation(username, password);
-    
-        // Check if password matches for the username
-        if (userIndex > -1) {
-            if (userDetail[userIndex][2] === 0){
-                // Redirect to the homepage
-                window.location.href = '/homepage.html';
-            }
-            else if (userDetail[userIndex][2] === 1){
-                // Redirect to the operatorpage
-                window.location.href = '/operatorPage.html';
-            }
+   
+        // Check if username has been used
+        if (usernameUnuseValidation(username)) {
+            insertUser(username, password);
+            // Redirect to the homepage
+            window.location.href = '/homepage.html';
         } 
         else {
             // Display error message
@@ -52,17 +44,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     
-    // Function which checks whether password matches the user's passsword
-    function userLoginValidation(input_username, input_password){
+    // Function to find if username has been used
+    function usernameUnuseValidation(input_username, input_password){
         // Finds index of username
         // Returns -1 if not found
-        let locUserIndex = userDetail.findIndex(row => row[0] === input_username);
+        let locUserIndex = userDetail.indexOf(input_username);
 
-        // If not -1(user does not exist) and the password of user by index is same as input_password, return locUserIndex
-        if ((locUserIndex !== -1) && (userDetail[locUserIndex][1] === input_password))
-            return locUserIndex;
+        // If -1(user does not exist) return true(username is unused)
+        if (locUserIndex === -1)
+            return true;
         else 
-            return -1;
+            return false;
+    }
+
+
+    // Function to insert new user record to database
+    function insertUser(input_username, input_password){
+
     }
 
 

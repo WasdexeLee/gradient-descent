@@ -16,21 +16,20 @@ if ($connection->connect_error){
 
 
 // Create query, prepare and bind parameters
-$query_template = "SELECT user_name, user_password, user_operator FROM User";
+$query_template = "SELECT user_name FROM User";
 $prepared_query = $connection->prepare($query_template);
 
-// Init arrays to store response
-$result = [];
+// Init array to store response
 $pass = [];
 
 // Execute query and bind results to array
 $prepared_query->execute();
-$prepared_query->bind_result($result[0], $result[1], $result[2]);
+$prepared_query->bind_result($result);
 
 
 // Fetch all response from server
 while ($prepared_query->fetch())
-    $pass[] = [$result[0], $result[1], $result[2]];
+    $pass[] = $result;
 
 
 // Encode into json formate and echo back to Javascript 
