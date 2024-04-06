@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array, log to console when done and catch eorror
     fetch('login.php')
-    .then(phpResponse => phpResponse.json())
+    .then(response => response.json())
     .then(table => table.forEach(row => userDetail.push(row)))
-    .catch(error => console.error('Errrooooorrrr: ', error));
+    .catch(error => console.error('ERROR: ', error));
 
 
     // Event listener for when form is submitted
