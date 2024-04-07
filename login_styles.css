@@ -60,8 +60,27 @@ input[type="password"] {
 }
 
 .alert {
-  font-size: 15;
+  font-size: 10;
   color: red;
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
+}
+
+/* Existing styles ... */
+
+.identity-group {
+  display: flex; /* Aligns the radio options in a row */
+  justify-content: start; /* Aligns items to the start of the container */
+  margin-bottom: 15px; /* Provides some space below the group */
+}
+
+.identity-option {
+  display: flex; /* Aligns each radio button with its label */
+  align-items: center; /* Centers items vertically */
+  margin-right: 20px; /* Adds some space between the two options */
+}
+
+.identity-option label {
+  margin-left: 5px; /* Adds a small space between the radio button and its label */
+  font-size: 0.9rem; /* Makes the font size of the label smaller */
 }

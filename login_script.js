@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for when user clicks on signup text
     signUpText.addEventListener('click', function () {
         // Redirect to the sign-up page
-        window.location.href = '/signup.html';
+        window.location.href = 'signup.html';
     });
 
     
