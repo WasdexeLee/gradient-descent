@@ -1,11 +1,8 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     // Init variable to store form, signuptext and alertbox 
     const loginForm = document.getElementById('loginForm');
     const signUpText = document.getElementById('signUp');
     const alertBox = document.getElementById('alert');
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirmPassword');
     // Init array to store all username
     let existingUsername;
 
@@ -42,19 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Password match check
-    if (password === confirmPassword) {
-        // Here you'd typically send the data to the server and wait for a response
-        // Assuming the response indicates a successful sign-up, proceed to redirect
-
-        console.log("Sign-up successful. Redirecting to login page."); // Logging for demonstration
-        
-        // Redirect to login page
-        window.location.href = 'login.html'; // Adjust the URL as needed
-    } else {
-        // If passwords don't match, inform the user
-        alert("The passwords do not match. Please try again.");
-    }
 
     // Event listener for when user clicks on signup text
     signUpText.addEventListener('click', function () {
