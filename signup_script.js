@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check if username has been used
         fetchExistingUsername()
+            // .then(() => console.log("oops")) // fetch api returns promise, as long as the next .then takes promise, forces to wait
+            .then(() => console.log(existingUsername))
             .then(() => userSignupValidation(username, password, confirmPassword))
             .then(validationReturn => {
                 if (validationReturn) {
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return fetch('signup.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(array => existingUsername = array)
-            .then(function () { console.log(existingUsername) })  //to remove
+            .then(() => console.log(existingUsername))
             .catch(error => console.error('ERROR: ', error));
     }
 

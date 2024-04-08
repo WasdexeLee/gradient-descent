@@ -1,48 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Init array to store all username
-    let existingUsername;
+    let foodDetail = [];
 
 
     let formData = new FormData();
-    formData.append('func', 'getUserName');
+    formData.append('func', 'getFoodDetail');
     // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array, log to console when done and catch eorror
-    fetch('signup.php', {method: 'POST', body: formData, })
+    fetch('menu.php', {method: 'POST', body: formData, })
     .then(phpResponse => phpResponse.json())
-    .then(array => existingUsername = array)
+    .then(array => array.forEach(row => foodDetail.push(row)))
     .then(function(){console.log(existingUsername)})  //to remove
     .catch(error => console.error('ERROR: ', error));
-
-
-    // Event listener for when form is submitted
-    loginForm.addEventListener('submit', function (event) {
-        // Prevents default submission for the form 
-        event.preventDefault();
-        // Init var to store the username and password entered by user
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        // const password_confirmation = document.getElementById('password_confirmation').value;
-   
-        // Check if username has been used
-        // if (userSignupValidation(username, password, password_confirmation)) {
-        if (userSignupValidation(username, password)) {
-            insertUser(username, password);
-            // Redirect to the homepage
-            window.location.href = '/homepage.html';
-        } 
-        else {
-            // Display error message
-            alertBox.style.display = 'block';
-        }
-    });
-
-
-    // Event listener for when user clicks on signup text
-    signUpText.addEventListener('click', function () {
-        // Redirect to the sign-up page
-        window.location.href = '/signup.html';
-    });
-
     
+   
     // Function to find if username has been used and if password is matching
     // function userSignupValidation(input_username, input_password, input_password_confirmation){
     function userSignupValidation(input_username, input_password){
