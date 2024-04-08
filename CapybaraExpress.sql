@@ -4,6 +4,7 @@ CREATE TABLE User (
     user_password VARCHAR(50) NOT NULL, 
     user_email VARCHAR(50) NOT NULL,
     user_address VARCHAR(150) NOT NULL, 
+    user_phone VARCHAR(30) NOT NULL, 
     user_notification BOOLEAN NOT NULL,
     user_operator BOOLEAN NOT NULL DEFAULT FALSE
 )ENGINE = InnoDB;
@@ -11,10 +12,10 @@ CREATE TABLE User (
 
 INSERT INTO User 
 VALUES
-(NULL, 'admin', 'admin', 'admin@gmail.com', '99, Jalan 99, Selangor', TRUE, DEFAULT),
-(NULL, 'capy', 'loves', 'food@gmail.com', '38, Jalan Capy, Kuala Lumpur', TRUE, DEFAULT),
-(NULL, 'zoomer', 'lazyyi', 'zoomer33@gmail.com', '199, Jalan Tun Tan Cheng Lock, 41442, Kuala Lumpur', TRUE, DEFAULT),
-(NULL, 'Chef', 'quick22', 'capyba@gmail.com', '20, Jalan KK, 41222, Selangor', FALSE, TRUE)
+(NULL, 'admin', 'admin', 'admin@gmail.com', '99, Jalan 99, Selangor', '013-189 0189', TRUE, DEFAULT),
+(NULL, 'capy', 'loves', 'food@gmail.com', '38, Jalan Capy, Kuala Lumpur', '019-506 6516', TRUE, DEFAULT),
+(NULL, 'zoomer', 'lazyyi', 'zoomer33@gmail.com', '199, Jalan Tun Tan Cheng Lock, 41442, Kuala Lumpur', '018-255 0568', TRUE, DEFAULT),
+(NULL, 'Chef', 'quick22', 'capyba@gmail.com', '20, Jalan KK, 41222, Selangor', '010-223 9402', FALSE, TRUE)
 
 
 CREATE TABLE FoodCategory (

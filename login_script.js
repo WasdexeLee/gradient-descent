@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let userDetail = [];
 
 
-    // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array, log to console when done and catch eorror
+    // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array and catch eorror
     fetch('login.php')
     .then(response => response.json())
     .then(table => table.forEach(row => userDetail.push(row)))
@@ -64,7 +64,4 @@ document.addEventListener('DOMContentLoaded', function () {
         else 
             return -1;
     }
-
-
-    
 });

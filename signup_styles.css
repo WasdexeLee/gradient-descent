@@ -6,35 +6,35 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-  }
-  
-  .login-container {
+}
+
+.login-container {
     background: #fff;
     padding: 40px 60px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  form {
+}
+
+form {
     display: flex;
     flex-direction: column;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 15px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
-  }
-  
-  .btn-login {
+}
+
+.btn-signup {
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -42,49 +42,66 @@ body {
     color: white;
     cursor: pointer;
     margin-top: 10px;
-  }
-  
-  .sign-up-text {
+}
+
+.login-text {
     text-align: center;
-    margin-top: 20px;
-  }
-  
-  .sign-up-text span {
+    margin-top: 40px;
+}
+
+.login-text span {
     color: #337ab7;
     cursor: pointer;
     text-decoration: underline;
-  }
-  
-  /* Additional styles for signup.html */
-  #signupForm .form-group input[type="checkbox"] {
+}
+
+
+.alert {
+    font-size: 10;
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+/* Additional styles for signup.html */
+#signupForm .form-group input[type="checkbox"] {
     margin-right: 10px;
-  }
-  
-  #signupForm label {
+}
+
+#signupForm label {
     display: flex;
     align-items: center;
-  }
-  
-  /* Adjusts the spacing and alignment for checkbox */
-  #signupForm .form-group {
+}
+
+/* Adjusts the spacing and alignment for checkbox */
+#signupForm .form-group {
     flex-direction: row;
     align-items: center;
-  }
-  
-  .identity-group {
-    display: flex; /* Aligns the radio options in a row */
-    justify-content: start; /* Aligns items to the start of the container */
-    margin-bottom: 15px; /* Provides some space below the group */
-  }
-  
-  .identity-option {
-    display: flex; /* Aligns each radio button with its label */
-    align-items: center; /* Centers items vertically */
-    margin-right: 20px; /* Adds some space between the two options */
-  }
-  
-  .identity-option label {
-    margin-left: 5px; /* Adds a small space between the radio button and its label */
-    font-size: 0.9rem; /* Makes the font size of the label smaller */
-  }
-  
+}
+
+.identity-group {
+    display: flex;
+    /* Aligns the radio options in a row */
+    justify-content: start;
+    /* Aligns items to the start of the container */
+    margin-bottom: 15px;
+    /* Provides some space below the group */
+}
+
+.identity-option {
+    display: flex;
+    /* Aligns each radio button with its label */
+    align-items: center;
+    /* Centers items vertically */
+    margin-right: 20px;
+    /* Adds some space between the two options */
+}
+
+.identity-option label {
+    margin-left: 5px;
+    /* Adds a small space between the radio button and its label */
+    margin-top: 4px;
+    font-size: 0.9rem;
+    /* Makes the font size of the label smaller */
+}

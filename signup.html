@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="login_styles.css"> <!-- Assuming reuse of the same CSS for consistency -->
+    <link rel="stylesheet" href="signup_styles.css"> <!-- Assuming reuse of the same CSS for consistency -->
     <script src="signup_script.js"></script>
 </head>
 
@@ -16,7 +16,7 @@
             <h2>Sign Up</h2>
 
             <div class="form-group">
-                <input type="text" id="name" name="name" required placeholder="Name">
+                <input type="text" id="username" name="username" required placeholder="Username">
             </div>
 
             <div class="form-group">
@@ -28,7 +28,8 @@
             </div>
 
             <div class="form-group">
-                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password">
+                <input type="password" id="confirmPassword" name="confirmPassword" required
+                    placeholder="Confirm Password">
             </div>
 
             <div class="form-group">
@@ -39,18 +40,37 @@
                 <input type="text" id="address" name="address" required placeholder="Address">
             </div>
 
+            <div class="form-group identity-group">
+                <div class="identity-option">
+                    <input type="radio" id="operator" name="operator" value="true" required>
+                    <label for="operator">Operator</label>
+                </div>
+                <div class="identity-option">
+                    <input type="radio" id="customer" name="operator" value="false" required>
+                    <label for="customer">Customer</label>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label>
                     <input type="checkbox" id="notification" name="notification"> Want to receive notifications?
                 </label>
             </div>
 
-            <button type="submit" class="btn-login">Sign Up</button>
+            <div id="alertUsername" class="alert" style="display: none;">
+                Username is taken
+            </div>
+
+            <div id="alertPassword" class="alert" style="display: none;">
+                Passwords do not match
+            </div>
+
+            <button type="submit" class="btn-signup">Sign Up</button>
+
+            <p class="login-text">Have an account? <span id="logIn">Log In</span></p>
         </form>
     </div>
 
 </body>
 
 </html>
-
-

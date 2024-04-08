@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Init variable to store form, signuptext and alertbox 
-    const loginForm = document.getElementById('loginForm');
-    const signUpText = document.getElementById('signUp');
-    const alertBox = document.getElementById('alert');
     // Init array to store all username
     let existingUsername;
 

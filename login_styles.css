@@ -1,86 +1,94 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .login-container {
-  background: #fff;
-  padding: 40px 60px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    padding: 40px 60px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .btn-login {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #337ab7;
-  color: white;
-  cursor: pointer;
-  margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #337ab7;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 .sign-up-text {
-  text-align: center;
-  margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .sign-up-text span {
-  color: #337ab7;
-  cursor: pointer;
-  text-decoration: underline;
+    color: #337ab7;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .alert {
-  font-size: 10;
-  color: red;
-  margin-top: 10px;
-  text-align: center;
+    font-size: 10;
+    color: red;
+    margin-top: 10px;
+    text-align: center;
 }
 
 /* Existing styles ... */
 
 .identity-group {
-  display: flex; /* Aligns the radio options in a row */
-  justify-content: start; /* Aligns items to the start of the container */
-  margin-bottom: 15px; /* Provides some space below the group */
+    display: flex;
+    /* Aligns the radio options in a row */
+    justify-content: start;
+    /* Aligns items to the start of the container */
+    margin-bottom: 15px;
+    /* Provides some space below the group */
 }
 
 .identity-option {
-  display: flex; /* Aligns each radio button with its label */
-  align-items: center; /* Centers items vertically */
-  margin-right: 20px; /* Adds some space between the two options */
+    display: flex;
+    /* Aligns each radio button with its label */
+    align-items: center;
+    /* Centers items vertically */
+    margin-right: 20px;
+    /* Adds some space between the two options */
 }
 
 .identity-option label {
-  margin-left: 5px; /* Adds a small space between the radio button and its label */
-  font-size: 0.9rem; /* Makes the font size of the label smaller */
+    margin-left: 5px;
+    /* Adds a small space between the radio button and its label */
+    font-size: 0.9rem;
+    /* Makes the font size of the label smaller */
 }
