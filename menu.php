@@ -1,5 +1,18 @@
 <?php 
 
+// Enum to address different food details
+enum Food: int {
+    case NAME = 0;
+    case CATEGORY_ID = 1;
+    case DESCRIPTION = 2;
+    case PRICE = 3;
+    case AVAILABILITY = 4;
+    case IMAGE = 5;
+    case PREP_TIME = 6;
+    case NUM_SOLD = 7;
+}
+
+
 // Credentials
 $host = "localhost";
 $username = "root";
@@ -16,11 +29,12 @@ if ($connection->connect_error){
 
 
 if (isset($_POST['func'])){
-    if ($_POST['func'] === 'getUserName')
+    if ($_POST['func'] === 'getFoodDetail')
         getFoodDetail($connection);
     else if ($_POST['func'] === 'insertUser')
         insertUser($connection);
 }
+
 
 
 function getFoodDetail(&$connection){
@@ -34,12 +48,13 @@ function getFoodDetail(&$connection){
 
     // Execute query and bind results to array
     $prepared_query->execute();
-    $prepared_query->bind_result($result[0], $result[1], $result[2], $result[3], $result[4], $result[5], $result[6], $result[7]);
+    $prepared_query->bind_result($result[Food::NAME->value], $result[Food::CATEGORY_ID->value], $result[Food::DESCRIPTION->value], $result[Food::PRICE->value], $result[Food::AVAILABILITY->value], $result[Food::IMAGE->value], $result[Food::PREP_TIME->value], $result[Food::NUM_SOLD->value]);
 
 
     // Fetch all response from server
     while ($prepared_query->fetch())
-        $pass[] = [$result[0], $result[1], $result[2], $result[3], $result[4], $result[5], $result[6], $result[7]];
+        $pass[] = [$result[Food::NAME->value], $result[Food::CATEGORY_ID->value], $result[Food::DESCRIPTION->value], $result[Food::PRICE->value], $result[Food::AVAILABILITY->value], $result[Food::IMAGE->value], $result[Food::PREP_TIME->value], $result[Food::NUM_SOLD->value]];
+        // $pass[] = [$result[0], $result[1], $result[2], $result[3], $result[4], $result[5], $result[6], $result[7]];
 
 
     // Encode into json formate and echo back to Javascript 

@@ -5,9 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const alertBox = document.getElementById('alert');
     // Init array to store all user detail
     let userDetail = [];
+    // Init enum to make code more readable
+    const User = Object.freeze({
+        NAME: 0,
+        PASSWORD: 1,
+        IDENTITY: 2
+    })
 
 
-    // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array and catch eorror
+    // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array and catch error
     fetch('login.php')
     .then(response => response.json())
     .then(table => table.forEach(row => userDetail.push(row)))
@@ -28,11 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Check if password matches for the username
         if (userIndex > -1) {
-            if (userDetail[userIndex][2] === 0){
+            // Check identity of user to redirect page
+            if (userDetail[userIndex][User.IDENTITY] === 0){
                 // Redirect to the homepage
                 window.location.href = '/homepage.html';
             }
-            else if (userDetail[userIndex][2] === 1){
+            else if (userDetail[userIndex][User.IDENTITY] === 1){
                 // Redirect to the operatorpage
                 window.location.href = '/operatorPage.html';
             }
@@ -56,10 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function userLoginValidation(input_username, input_password){
         // Finds index of username
         // Returns -1 if not found
-        let locUserIndex = userDetail.findIndex(row => row[0] === input_username);
+        let locUserIndex = userDetail.findIndex(row => row[User.NAME] === input_username);
 
         // If not -1(user does not exist) and the password of user by index is same as input_password, return locUserIndex
-        if ((locUserIndex !== -1) && (userDetail[locUserIndex][1] === input_password))
+        if ((locUserIndex !== -1) && (userDetail[locUserIndex][User.PASSWORD] === input_password))
             return locUserIndex;
         else 
             return -1;

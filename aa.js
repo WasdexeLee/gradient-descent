@@ -1,34 +1,3 @@
-// Creating a FormData object
-var formData = new FormData();
-formData.append('name', name);
-
-// Sending the data to the server using fetch
-fetch('process.php', {
-    method: 'POST',
-    body: formData,
-})
-.then(response => response.text())
-.then(data => {
-    console.log(data); // Process the response data
-})
-.catch(error => {
-    console.error('Error:', error); // Handle the error if any
-});
-
-
-if (isset($_POST['name'])) {
-    $name = htmlspecialchars($_POST['name']); // Sanitize the input
-    echo "Hello, " . $name . "!"; // Send a response back
-} else {
-    echo "Name not received.";
-}
-
-
-
-
-
-
-
 
 
 

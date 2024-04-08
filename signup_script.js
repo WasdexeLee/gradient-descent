@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check if username has been used
         fetchExistingUsername()
-            // .then(() => console.log("oops")) // fetch api returns promise, as long as the next .then takes promise, forces to wait
             .then(() => console.log(existingUsername))
             .then(() => userSignupValidation(username, password, confirmPassword))
             .then(validationReturn => {

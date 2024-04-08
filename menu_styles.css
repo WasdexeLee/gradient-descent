@@ -17,10 +17,6 @@
         flex: 0 0 auto;
         max-width: 90%;
     }
-
-    p {
-        text-decoration: underline;
-    }
 }
 
 
@@ -37,12 +33,21 @@
 
 
 .row.no-gutters,
-.col-md-4 {
+.col-md-4, 
+.img-fluid {
     height: 100%;
 }
 
 
-.desc {
+.desc-onel {
+    overflow: hidden; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 1; 
+    -webkit-box-orient: vertical;
+}
+
+
+.desc-twol {
     overflow: hidden; 
     display: -webkit-box; 
     -webkit-line-clamp: 2; 
