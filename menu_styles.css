@@ -28,14 +28,27 @@
 
 .card {
     margin: 1vw;
-    height: 150px;
+    height: 165px;
+    overflow: hidden;
 }
 
 
 .row.no-gutters,
-.col-md-4, 
-.img-fluid {
+.col-md-4 {
     height: 100%;
+}
+
+
+.col-md-4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.img-fluid {
+    height: 95%;
+    border-radius: 2%;
 }
 
 
@@ -62,11 +75,45 @@
 }
 
 
-.btn-addtc {
+.button-avail-div {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
     position: absolute; 
     bottom: 5%; 
     right: 5%; 
-    padding: 1.5%;
-    border-radius: 40%; 
+}
+
+
+.button-div {
+   display: inline-flex;
+   margin-bottom: 2px;
+}
+
+
+.btn {
+    padding: 3px;
     display: flex; 
+    align-items: center;
+}
+
+
+.num-in-cart {
+    width: 29px;
+    text-align: center;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ffffff; /* Adjust background color as needed */
+    z-index: 1000; /* Ensure menu is above other content */
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.content {
+    padding-top: 50px; /* Adjust top padding to accommodate fixed menu height */
 }

@@ -11,6 +11,20 @@
 </head>
 
 <body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="food-image/download.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Your Restaurant Name
+        </a>
+
+        <div class="nav-item">
+            <a class="nav-link" href="#">
+                <img src="food-image/download.svg" width="30" height="30" alt="">
+            </a>
+        </div>
+    </nav>
+
+
     <div class="container-fluid">
         <!-- <div class="container"> -->
         <div class="row">
@@ -31,8 +45,7 @@
                         <div class="card">
                             <div class="row no-gutters">
                                 <div class="col-md-4">
-                                    <img src="https://via.placeholder.com/150" class="img-fluid"
-                                        alt="...">
+                                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -41,11 +54,21 @@
                                         <!-- Card text -->
                                         <p class="card-text desc-twol">
                                             This is a wider card
+                                            supporting text below as a gggggggg
+                                            supporting text below as a ggggggggg
                                             supporting text below as a natural
                                             lead-in to</p>
-                                        <p class="card-text price"><small class="text-muted">$18.90</small></p>
-                                        <button type="button" class="btn btn-primary btn-addtc"><img
-                                                src="food-image/plus-white.svg"></button>
+                                        <p class="card-text price">$18.90</p>
+                                        <div class="button-avail-div">
+                                            <div class="button-div">
+                                                <button type="button" class="btn btn-primary btnRm"><img
+                                                        src="food-image/icon-minus.svg"></button>
+                                                <div class="num-in-cart">3</div>
+                                                <button type="button" class="btn btn-primary btnAdd"><img
+                                                        src="food-image/icon-plus.svg"></button>
+                                            </div>
+                                            <small class="card-text text-muted avail">5 available</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
