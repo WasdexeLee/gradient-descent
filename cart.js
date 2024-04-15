@@ -3,17 +3,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let foodDetail = [];
     // Init enum to make code more readable
     const Food = Object.freeze({
-        NAME: 0,
-        CATEGORY_ID: 1,
-        DESCRIPTION: 2,
-        PRICE: 3,
-        AVAILABILITY: 4,
-        IMAGE: 5,
-        PREP_TIME: 6,
-        NUM_SOLD: 7
+        ID: 0,
+        NAME: 1,
+        CATEGORY_ID: 2,
+        DESCRIPTION: 3,
+        PRICE: 4,
+        AVAILABILITY: 5,
+        IMAGE: 6,
+        PREP_TIME: 7,
+        NUM_SOLD: 8
     })
-    // Init boolean to check whether in col 1 or 2 to determine whether to create new row or not
-    let col2 = false;
 
 
     // Get all details of every food item from database and sort according to category
@@ -36,61 +35,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Function to dynamically load card of food item into webpage
+    // Function to dynamically load card of cart item into webpage
     function dynamicLoadCard() {
         const foodItemContainer = document.getElementById('food-item-col');
         let currentRow;
-        let col6, card, innerRow, col4, foodImg, col8, cardBody, cardTitle, cardDesc, cardPrice, btnRm, rmImg, numICDiv, btnAdd, addImg, btnAvailDiv, btnDiv, avail;
+        let col12, card, innerRow, col3, foodImg, col9, cardBody, cardTitle, btnRm, rmImg, numICDiv, btnAdd, addImg, btnAvailDiv, btnDiv, avail, cardDel, cardDelSmall, cardPrice;
         foodDetail.forEach(item => {
-            if (!col2) {
-                currentRow = document.createElement('div');
-                currentRow.className = 'row';
-                foodItemContainer.appendChild(currentRow);
-            }
-            col2 = !col2;
+            currentRow = document.createElement('div');
+            currentRow.className = 'row';
+            foodItemContainer.appendChild(currentRow);
 
-            col6 = document.createElement('div');
-            col6.className = 'col-lg-6';
+            col12 = document.createElement('div');
+            col12.className = 'col-lg-12';
             card = document.createElement('div');
             card.className = 'card';
             innerRow = document.createElement('div');
             innerRow.className = 'row no-gutters';
 
             card.appendChild(innerRow);
-            col6.appendChild(card);
-            currentRow.appendChild(col6);
+            col12.appendChild(card);
+            currentRow.appendChild(col12);
 
 
-            col4 = document.createElement('div');
-            col4.className = 'col-md-4';
+            col3 = document.createElement('div');
+            col3.className = 'col-md-3';
             foodImg = document.createElement('img');
             foodImg.className = 'img-fluid';
             foodImg.src = item[Food.IMAGE];
 
-            innerRow.appendChild(col4);
-            col4.appendChild(foodImg);
+            innerRow.appendChild(col3);
+            col3.appendChild(foodImg);
 
 
-            col8 = document.createElement('div');
-            col8.className = 'col-md-8';
+            col9 = document.createElement('div');
+            col9.className = 'col-md-9';
             cardBody = document.createElement('div');
             cardBody.className = 'card-body';
             cardTitle = document.createElement('h5');
             cardTitle.className = 'card-title';
             cardTitle.textContent = item[Food.NAME];
-            cardDesc = document.createElement('p');
-            cardDesc.className = 'card-text desc-twol';
-            cardDesc.textContent = item[Food.DESCRIPTION];
-            cardPrice = document.createElement('p');
-            cardPrice.className = 'card-text price';
-            item[Food.PRICE] = item[Food.PRICE].toFixed(2);
-            cardPrice.textContent = "RM " + item[Food.PRICE].toString();
 
             cardBody.appendChild(cardTitle);
-            cardBody.appendChild(cardDesc);
-            cardBody.appendChild(cardPrice);
-            col8.appendChild(cardBody);
-            innerRow.appendChild(col8);
+            col9.appendChild(cardBody);
+            innerRow.appendChild(col9);
 
 
             btnAvailDiv = document.createElement('div');
@@ -102,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnRm.className = 'btn btn-primary btnRm';
             rmImg = document.createElement('img');
             rmImg.src = 'food-image/icon-minus.svg';
-            numICDiv =  document.createElement('div');
+            numICDiv = document.createElement('div');
             numICDiv.className = 'num-in-cart';
             numICDiv.textContent = 0;
             btnAdd = document.createElement('button');
@@ -114,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
             avail.className = 'card-text text-muted avail';
             avail.textContent = item[Food.AVAILABILITY].toString() + ' available';
 
-
             btnRm.appendChild(rmImg);
             btnAdd.appendChild(addImg);
             btnDiv.appendChild(btnRm);
@@ -123,7 +109,21 @@ document.addEventListener('DOMContentLoaded', function () {
             btnAvailDiv.appendChild(btnDiv);
             btnAvailDiv.appendChild(avail);
             cardBody.appendChild(btnAvailDiv);
-       })
+
+
+            cardPrice = document.createElement('p');
+            cardPrice.className = 'card-text price';
+            item[Food.PRICE] = item[Food.PRICE].toFixed(2);
+            cardPrice.textContent = "RM " + item[Food.PRICE].toString();
+            cardDel = document.createElement('p');
+            cardDel.className = 'card-text txtDel';
+            cardDelSmall = document.createElement('small');
+            cardDelSmall.textContent = "Remove from Cart";
+
+            cardBody.appendChild(cardPrice);
+            cardDel.appendChild(cardDelSmall);
+            cardBody.appendChild(cardDel);
+        })
 
         checkTitleLine();
     }
@@ -136,49 +136,49 @@ document.addEventListener('DOMContentLoaded', function () {
         let lineHeight, clientHeight, displayRows, descP;
 
         cardTitleArray.forEach(elem => {
-                        lineHeight = parseFloat(window.getComputedStyle(elem).lineHeight);
-                        clientHeight = elem.clientHeight;
-                        displayRows = clientHeight / lineHeight;
+            lineHeight = parseFloat(window.getComputedStyle(elem).lineHeight);
+            clientHeight = elem.clientHeight;
+            displayRows = clientHeight / lineHeight;
 
-                        if (displayRows > 1){
-                            descP = elem.nextElementSibling;
-                            descP.classList.remove('desc-twol');
-                            descP.classList.add('desc-onel');
-                        }
-                        else if (displayRows <= 1){
-                            descP = elem.nextElementSibling;
-                            descP.classList.remove('desc-onel');
-                            descP.classList.add('desc-twol');
-                        }
+            if (displayRows > 1) {
+                descP = elem.nextElementSibling;
+                descP.classList.remove('desc-twol');
+                descP.classList.add('desc-onel');
+            }
+            else if (displayRows <= 1) {
+                descP = elem.nextElementSibling;
+                descP.classList.remove('desc-onel');
+                descP.classList.add('desc-twol');
+            }
         });
     }
 
 
 
 
-    function buttonListener(){
+    function buttonListener() {
         const rmBtn = document.querySelectorAll('.btn.btn-primary.btnRm');
         const addBtn = document.querySelectorAll('.btnAdd');
         let numICDiv, parentDiv, availDiv;
 
 
         rmBtn.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    numICDiv = btn.nextElementSibling;
-                    if (parseInt(numICDiv.textContent) > 0)
-                        numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-                })
+            btn.addEventListener('click', () => {
+                numICDiv = btn.nextElementSibling;
+                if (parseInt(numICDiv.textContent) > 0)
+                    numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
+            })
         })
 
         addBtn.forEach(btn => {
             console.log('hi');
-                btn.addEventListener('click', () => {
-                    numICDiv = btn.previousElementSibling;
-                    parentDiv = btn.parentElement;
-                    availDiv = parentDiv.nextElementSibling;
-                    if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
-                        numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
-                })
+            btn.addEventListener('click', () => {
+                numICDiv = btn.previousElementSibling;
+                parentDiv = btn.parentElement;
+                availDiv = parentDiv.nextElementSibling;
+                if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
+                    numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
+            })
         })
 
 

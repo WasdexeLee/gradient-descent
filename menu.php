@@ -2,14 +2,15 @@
 
 // Enum to address different food details
 enum Food: int {
-    case NAME = 0;
-    case CATEGORY_ID = 1;
-    case DESCRIPTION = 2;
-    case PRICE = 3;
-    case AVAILABILITY = 4;
-    case IMAGE = 5;
-    case PREP_TIME = 6;
-    case NUM_SOLD = 7;
+    case ID = 0;
+    case NAME = 1;
+    case CATEGORY_ID = 2;
+    case DESCRIPTION = 3;
+    case PRICE = 4;
+    case AVAILABILITY = 5;
+    case IMAGE = 6;
+    case PREP_TIME = 7;
+    case NUM_SOLD = 8;
 }
 
 
@@ -39,7 +40,7 @@ if (isset($_POST['func'])){
 
 function getFoodDetail(&$connection){
     // Create query, prepare and bind parameters
-    $query_template = "SELECT food_name, food_category_id, food_description, food_price, food_availability, food_image, food_prep_time, food_num_sold FROM Food";
+    $query_template = "SELECT food_id, food_name, food_category_id, food_description, food_price, food_availability, food_image, food_prep_time, food_num_sold FROM Food";
     $prepared_query = $connection->prepare($query_template);
 
     // Init array to store response
@@ -48,13 +49,12 @@ function getFoodDetail(&$connection){
 
     // Execute query and bind results to array
     $prepared_query->execute();
-    $prepared_query->bind_result($result[Food::NAME->value], $result[Food::CATEGORY_ID->value], $result[Food::DESCRIPTION->value], $result[Food::PRICE->value], $result[Food::AVAILABILITY->value], $result[Food::IMAGE->value], $result[Food::PREP_TIME->value], $result[Food::NUM_SOLD->value]);
+    $prepared_query->bind_result($result[Food::ID->value], $result[Food::NAME->value], $result[Food::CATEGORY_ID->value], $result[Food::DESCRIPTION->value], $result[Food::PRICE->value], $result[Food::AVAILABILITY->value], $result[Food::IMAGE->value], $result[Food::PREP_TIME->value], $result[Food::NUM_SOLD->value]);
 
 
     // Fetch all response from server
     while ($prepared_query->fetch())
-        $pass[] = [$result[Food::NAME->value], $result[Food::CATEGORY_ID->value], $result[Food::DESCRIPTION->value], $result[Food::PRICE->value], $result[Food::AVAILABILITY->value], $result[Food::IMAGE->value], $result[Food::PREP_TIME->value], $result[Food::NUM_SOLD->value]];
-        // $pass[] = [$result[0], $result[1], $result[2], $result[3], $result[4], $result[5], $result[6], $result[7]];
+        $pass[] = [$result[Food::ID->value], $result[Food::NAME->value], $result[Food::CATEGORY_ID->value], $result[Food::DESCRIPTION->value], $result[Food::PRICE->value], $result[Food::AVAILABILITY->value], $result[Food::IMAGE->value], $result[Food::PREP_TIME->value], $result[Food::NUM_SOLD->value]];
 
 
     // Encode into json formate and echo back to Javascript 
