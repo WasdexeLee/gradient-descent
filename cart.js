@@ -14,12 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     // Init boolean to check whether in col 1 or 2 to determine whether to create new row or not
     let col2 = false;
-    const cartIcon = document.getElementById('navbar-cart');
-
-
-    cartIcon.addEventListener('click', () => {
-        window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
-    })
 
 
     // Get all details of every food item from database and sort according to category
