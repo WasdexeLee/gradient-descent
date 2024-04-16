@@ -32,8 +32,10 @@ if ($connection->connect_error){
 if (isset($_POST['func'])){
     if ($_POST['func'] === 'getFoodDetail')
         getFoodDetail($connection);
-    else if ($_POST['func'] === 'insertCart')
-        insertCart($connection);
+    else if ($_POST['func'] === 'getCart')
+        getCart($connection);
+    else if ($_POST['func'] === 'modifyCart')
+        modifyCart($connection);
 }
 
 
@@ -65,29 +67,82 @@ function getFoodDetail(&$connection){
 }
 
 
-function insertCart(&$connection){
-     // Create query, prepare and bind parameters
-    $query_template = "INSERT INTO Cart VALUES (?, ?, ?)";
+function getCart(&$connection){
+    // Create query, prepare and bind parameters
+    $query_template = "SELECT food_id, food_num FROM Cart WHERE (Cart.user_id = ?)";
     $prepared_query = $connection->prepare($query_template);
 
+    $user_id = intval($_POST['user_id']);
+    
+    $prepared_query->bind_param("i", $user_id);
 
-    $json = json_decode($_POST['cartItem']);
-    // $json = $_POST['cartItem'];
-    // echo $json->'1';
-    $st = " l";
-    foreach ($json as $key => $value)
-        $st = $st . $key . $value;
-    echo $st;
+    // Init array to store response
+    $result = [];
+    $pass = [];
 
+    // Execute query and bind results to array
+    $prepared_query->execute();
+    $prepared_query->bind_result($result[0], $result[1]);
 
-    // // Bind parameter to query 
-    // $prepared_query->bind_param("sssssii", $_POST['user_name'], $_POST['user_password'], $_POST['user_email'], $_POST['user_address'], $_POST['user_phone'], $user_notification, $user_operator);
-    // $prepared_query->execute();
+    // Fetch all response from server
+    while ($prepared_query->fetch())
+        $pass[] = [$result[0], $result[1]];
 
-    // echo "Insert Success";
+    echo json_encode($pass);
 
     // Close query
     $prepared_query->close();
+}
+
+
+function modifyCart(&$connection){
+    $delete_cart_item = json_decode(($_POST['delete_cart_item']));
+    $update_cart_item = json_decode(($_POST['update_cart_item']));
+    $insert_cart_item = json_decode(($_POST['insert_cart_item']));
+    $user_id = intval($_POST['user_id']);
+
+    // Create query, prepare and bind parameters for delete
+    $query_template = "DELETE FROM Cart WHERE (user_id = ?) AND (food_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    foreach ($delete_cart_item as $food_id){
+        $prepared_query->bind_param("ii", $user_id, $food_id);
+        $prepared_query->execute();
+    }
+
+    // Close query
+    $prepared_query->close();
+
+
+    // Create query, prepare and bind parameters for update
+    $query_template = "UPDATE Cart SET food_num = ? WHERE (user_id = ?) AND (food_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    foreach ($update_cart_item as $food_id => $food_num){
+        $prepared_query->bind_param("iii", $user_id, $food_id, $food_num);
+        $prepared_query->execute();
+    }
+
+    // Close query
+    $prepared_query->close();
+
+
+    // Create query, prepare and bind parameters for delete
+    $query_template = "INSERT INTO Cart VALUES (?, ?, ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    foreach ($insert_cart_item as $food_id => $food_num){
+        $prepared_query->bind_param("iii", $user_id, $food_id, $food_num);
+        $prepared_query->execute();
+    }
+
+    // Close query
+    $prepared_query->close();
+
+    echo "Modify Success";
 }
 
 

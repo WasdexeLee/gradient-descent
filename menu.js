@@ -17,44 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let col2 = false;
     // Get cart icon to add event listener
     const cartIcon = document.getElementById('navbar-cart');
+    // Variable to store previous cart items
+    let prevCartItem = [];
 
 
-    // Activates when cart icon is clicked
-    cartIcon.addEventListener('click', () => {
-        // Create json object to be passed to php
-        let cartItem = {};
-        // Get all .num-in-cart which contains number of items in cart 
-        const cartFoodList = document.querySelectorAll('.num-in-cart');
-
-        // Checks through and appends to json if more than 1 added into cart
-        cartFoodList.forEach(item => {
-            if (item.textContent > 0)
-                cartItem[item.id] = parseInt(item.textContent);
-        });
-
-        console.log(cartItem);
-        
-
-        // Append cart data into FormData object to pass to php
-        let locFormData = new FormData();
-
-        locFormData.append('func', 'insertCart');
-        locFormData.append('cartItem', JSON.stringify(cartItem));
-
-        console.log(locFormData['func']);
-        console.log(locFormData['cartItem']);
-        console.log(locFormData.func);
-        // Call fetch API to pass data to menu.php
-        // Use POST method, passes locFormData, wait for response and log to console
-        fetch('menu.php', { method: 'POST', body: locFormData })
-            .then(response => response.text())
-            .then(responseText => console.log(responseText))
-            .catch(error => console.error("ERROR: ", error));
-
-
-
-        // window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
-    })
 
 
     // Get all details of every food item from database and sort according to category
@@ -70,9 +36,20 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(() => dynamicLoadCard())
         .then(() => buttonListener());
 
+    // Get all details of every cart food item from database
+    formData = new FormData();
+    formData.append('func', 'getCart');
+    formData.append('user_id', parseInt(localStorage.getItem('user_id')));
+    // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
+    fetch('menu.php', { method: 'POST', body: formData, })
+        .then(phpResponse => phpResponse.json())
+        .then(table => table.forEach(row => prevCartItem.push(row)))
+        .catch(error => console.error('ERROR: ', error))
+        .then(() => addCartEventListener());
 
     // Every change in webpage size, checks number of line of title and change description length to accomodate title
     window.addEventListener('resize', checkTitleLine);
+
 
 
 
@@ -143,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnRm.className = 'btn btn-primary btnRm';
             rmImg = document.createElement('img');
             rmImg.src = 'food-image/icon-minus.svg';
-            numICDiv =  document.createElement('div');
+            numICDiv = document.createElement('div');
             numICDiv.id = item[Food.ID];
             numICDiv.className = 'num-in-cart';
             numICDiv.textContent = 0;
@@ -165,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnAvailDiv.appendChild(btnDiv);
             btnAvailDiv.appendChild(avail);
             cardBody.appendChild(btnAvailDiv);
-       })
+        })
 
         checkTitleLine();
     }
@@ -178,52 +155,110 @@ document.addEventListener('DOMContentLoaded', function () {
         let lineHeight, clientHeight, displayRows, descP;
 
         cardTitleArray.forEach(elem => {
-                        lineHeight = parseFloat(window.getComputedStyle(elem).lineHeight);
-                        clientHeight = elem.clientHeight;
-                        displayRows = clientHeight / lineHeight;
+            lineHeight = parseFloat(window.getComputedStyle(elem).lineHeight);
+            clientHeight = elem.clientHeight;
+            displayRows = clientHeight / lineHeight;
 
-                        if (displayRows > 1){
-                            descP = elem.nextElementSibling;
-                            descP.classList.remove('desc-twol');
-                            descP.classList.add('desc-onel');
-                        }
-                        else if (displayRows <= 1){
-                            descP = elem.nextElementSibling;
-                            descP.classList.remove('desc-onel');
-                            descP.classList.add('desc-twol');
-                        }
+            if (displayRows > 1) {
+                descP = elem.nextElementSibling;
+                descP.classList.remove('desc-twol');
+                descP.classList.add('desc-onel');
+            }
+            else if (displayRows <= 1) {
+                descP = elem.nextElementSibling;
+                descP.classList.remove('desc-onel');
+                descP.classList.add('desc-twol');
+            }
         });
     }
 
 
 
 
-    function buttonListener(){
+    function buttonListener() {
         const rmBtn = document.querySelectorAll('.btn.btn-primary.btnRm');
         const addBtn = document.querySelectorAll('.btnAdd');
         let numICDiv, parentDiv, availDiv;
 
 
         rmBtn.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    numICDiv = btn.nextElementSibling;
-                    if (parseInt(numICDiv.textContent) > 0)
-                        numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-                })
+            btn.addEventListener('click', () => {
+                numICDiv = btn.nextElementSibling;
+                if (parseInt(numICDiv.textContent) > 0)
+                    numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
+            })
         })
 
         addBtn.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    numICDiv = btn.previousElementSibling;
-                    parentDiv = btn.parentElement;
-                    availDiv = parentDiv.nextElementSibling;
-                    if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
-                        numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
-                })
+            btn.addEventListener('click', () => {
+                numICDiv = btn.previousElementSibling;
+                parentDiv = btn.parentElement;
+                availDiv = parentDiv.nextElementSibling;
+                if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
+                    numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
+            })
         })
+    }
 
 
+    function inCart(item, prevCartItem) {
+        let locIndex = -1;
+        for (let row = 0; row < prevCartItem.length; row++) {
+            if (parseInt(item.id) === prevCartItem[row][0])
+                locIndex = row;
+        }
+        return locIndex;
+    }
 
 
+    function addCartEventListener() {
+        cartIcon.addEventListener('click', () => {
+            // Create json object to be passed to php (either to delete, update or insert to table)
+            let deleteCartItem = [];
+            let updateCartItem = {};
+            let insertCartItem = {};
+            // Get all .num-in-cart which contains number of items in cart 
+            const foodList = document.querySelectorAll('.num-in-cart');
+
+            // Checks through for changes to cart and carries out necessary changes ie. delete, update, insert
+            foodList.forEach(item => {
+                let itemIndex = inCart(item, prevCartItem);
+
+                if (itemIndex >= 0) {
+                    if (parseInt(item.textContent) === 0)
+                        deleteCartItem.push(parseInt(item.id));
+
+                    else if (parseInt(item.textContent) !== prevCartItem[itemIndex][1])
+                        updateCartItem[parseInt(item.id)] = parseInt(item.textContent);
+                }
+                else {
+                    if (parseInt(item.textContent) > 0)
+                        insertCartItem[item.id] = parseInt(item.textContent);
+                }
+            });
+
+            console.log(deleteCartItem);
+            console.log(updateCartItem);
+            console.log(insertCartItem);
+
+
+            // Append cart data into FormData object to pass to php
+            let locFormData = new FormData();
+
+            locFormData.append('func', 'modifyCart');
+            locFormData.append('user_id', localStorage.getItem('user_id').toString());
+            locFormData.append('delete_cart_item', JSON.stringify(deleteCartItem));
+            locFormData.append('update_cart_item', JSON.stringify(updateCartItem));
+            locFormData.append('insert_cart_item', JSON.stringify(insertCartItem));
+
+            // Call fetch API to pass data to menu.php
+            // Use POST method, passes locFormData, wait for response and log to console
+            fetch('menu.php', { method: 'POST', body: locFormData })
+                .then(response => response.text())
+                .then(responseText => console.log(responseText))
+                .catch(error => console.error("ERROR: ", error));
+        });
+
+        // window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
     }
 });
