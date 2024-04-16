@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for when user clicks on login text
     loginText.addEventListener('click', function () {
         // Redirect to the sign-up page
-        window.location.href = '/login.html';
+        window.location.href = 'login.html';
     });
 
 
