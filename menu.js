@@ -39,8 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let locFormData = new FormData();
 
         locFormData.append('func', 'insertCart');
-        locFormData.append('cartItem', cartItem);
+        locFormData.append('cartItem', JSON.stringify(cartItem));
 
+        console.log(locFormData['func']);
+        console.log(locFormData['cartItem']);
+        console.log(locFormData.func);
         // Call fetch API to pass data to menu.php
         // Use POST method, passes locFormData, wait for response and log to console
         fetch('menu.php', { method: 'POST', body: locFormData })
@@ -50,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-        window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
+        // window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
     })
 
 

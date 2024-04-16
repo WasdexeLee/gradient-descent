@@ -32,8 +32,8 @@ if ($connection->connect_error){
 if (isset($_POST['func'])){
     if ($_POST['func'] === 'getFoodDetail')
         getFoodDetail($connection);
-    else if ($_POST['func'] === 'insertUser')
-        insertUser($connection);
+    else if ($_POST['func'] === 'insertCart')
+        insertCart($connection);
 }
 
 
@@ -65,21 +65,26 @@ function getFoodDetail(&$connection){
 }
 
 
-function insertUser(&$connection){
+function insertCart(&$connection){
      // Create query, prepare and bind parameters
-    $query_template = "INSERT INTO User VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+    $query_template = "INSERT INTO Cart VALUES (?, ?, ?)";
     $prepared_query = $connection->prepare($query_template);
 
-    // Convert back to boolean 
-    $user_notification = $_POST['user_notification'] === "TRUE" ? 1 : 0;
-    $user_operator = $_POST['user_operator'] === "TRUE" ? 1 : 0;
-    
 
-    // Bind parameter to query 
-    $prepared_query->bind_param("sssssii", $_POST['user_name'], $_POST['user_password'], $_POST['user_email'], $_POST['user_address'], $_POST['user_phone'], $user_notification, $user_operator);
-    $prepared_query->execute();
+    $json = json_decode($_POST['cartItem']);
+    // $json = $_POST['cartItem'];
+    // echo $json->'1';
+    $st = " l";
+    foreach ($json as $key => $value)
+        $st = $st . $key . $value;
+    echo $st;
 
-    echo "Insert Success";
+
+    // // Bind parameter to query 
+    // $prepared_query->bind_param("sssssii", $_POST['user_name'], $_POST['user_password'], $_POST['user_email'], $_POST['user_address'], $_POST['user_phone'], $user_notification, $user_operator);
+    // $prepared_query->execute();
+
+    // echo "Insert Success";
 
     // Close query
     $prepared_query->close();

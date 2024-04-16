@@ -56,3 +56,16 @@ VALUES
 (NULL, 'Tandoori Chicken Rice Half', 2, 'You wanna eat big chicken', 44.9, 10, 'food-image/Tandoori Chicken Rice Half.webp', 20, DEFAULT),
 (NULL, 'Pan Mee Soup', 3, 'Broga broga broga broga', 11.4, 10, 'food-image/Pan Mee Soup.webp', 22, DEFAULT),
 (NULL, 'Iced Latte', 4, 'Freshly brewed Iced Latte using 100% Arabica coffee beans and fresh milk.', 8.8, 10, 'food-image/Iced Latte.webp', 38, DEFAULT)
+
+
+CREATE TABLE Cart (
+    user_id INT NOT NULL,
+    food_id INT NOT NULL, 
+    food_num INT NOT NULL,
+    PRIMARY KEY(user_id, food_id),
+    FOREIGN KEY(user_id) REFERENCES User(user_id),
+    FOREIGN KEY(food_id) REFERENCES Food(food_id)
+)ENGINE = InnoDB;
+
+
+
