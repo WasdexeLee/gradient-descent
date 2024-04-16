@@ -6,27 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="menu_styles.css">
-    <script src="menu_script.js"></script>
+    <link rel="stylesheet" href="menu.css">
+    <script src="menu.js"></script>
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="food-image/download.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Your Restaurant Name
-        </a>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="food-image/download.svg" class="img-fluid"
+                    id="navbar-logo">Capybara Express</a>
 
-        <div class="nav-item">
-            <a class="nav-link" href="#">
-                <img src="food-image/download.svg" width="30" height="30" alt="">
-            </a>
+            <div class="nav-item">
+                <img src="food-image/cart.png" class="img-fluid nav-link" id="navbar-cart">
+            </div>
         </div>
     </nav>
 
-
-    <div class="container-fluid">
-        <!-- <div class="container"> -->
+    <div class="container-fluid mt-5">
         <div class="row">
 
             <!-- Category Display Column -->
@@ -36,78 +33,6 @@
 
             <!-- Food Item Column -->
             <div class="col-lg-11" id="food-item-col">
-
-
-
-                <div class="row">
-                    <!-- Column 1 -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <!-- Card title -->
-                                        <h5 class="card-title">Card title</h5>
-                                        <!-- Card text -->
-                                        <p class="card-text desc-twol">
-                                            This is a wider card
-                                            supporting text below as a gggggggg
-                                            supporting text below as a ggggggggg
-                                            supporting text below as a natural
-                                            lead-in to</p>
-                                        <p class="card-text price">$18.90</p>
-                                        <div class="button-avail-div">
-                                            <div class="button-div">
-                                                <button type="button" class="btn btn-primary btnRm"><img
-                                                        src="food-image/icon-minus.svg"></button>
-                                                <div class="num-in-cart">3</div>
-                                                <button type="button" class="btn btn-primary btnAdd"><img
-                                                        src="food-image/icon-plus.svg"></button>
-                                            </div>
-                                            <small class="card-text text-muted avail">5 available</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-                    <!-- Column 2 -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="row no-gutters" style="height: 100%;">
-                                <div class="col-md-4" style="height: 100%;">
-                                    <!-- Card image -->
-                                    <img src="https://via.placeholder.com/150" class="img-fluid" style="height: 100%;"
-                                        alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <!-- Card title -->
-                                        <h5 class="card-title">Card title</h5>
-                                        <!-- Card text -->
-                                        <p class="card-text"
-                                            style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                            card 2
-                                            lead-in to</p>
-                                        <p class="card-text" style="position: absolute; bottom: 5%;"><small
-                                                class="text-muted">$
-                                                18.90</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
 
             </div>
         </div>

@@ -3,17 +3,58 @@ document.addEventListener('DOMContentLoaded', function () {
     let foodDetail = [];
     // Init enum to make code more readable
     const Food = Object.freeze({
-        NAME: 0,
-        CATEGORY_ID: 1,
-        DESCRIPTION: 2,
-        PRICE: 3,
-        AVAILABILITY: 4,
-        IMAGE: 5,
-        PREP_TIME: 6,
-        NUM_SOLD: 7
+        ID: 0,
+        NAME: 1,
+        CATEGORY_ID: 2,
+        DESCRIPTION: 3,
+        PRICE: 4,
+        AVAILABILITY: 5,
+        IMAGE: 6,
+        PREP_TIME: 7,
+        NUM_SOLD: 8
     })
     // Init boolean to check whether in col 1 or 2 to determine whether to create new row or not
     let col2 = false;
+    // Get cart icon to add event listener
+    const cartIcon = document.getElementById('navbar-cart');
+
+
+    // Activates when cart icon is clicked
+    cartIcon.addEventListener('click', () => {
+        // Create json object to be passed to php
+        let cartItem = {};
+        // Get all .num-in-cart which contains number of items in cart 
+        const cartFoodList = document.querySelectorAll('.num-in-cart');
+
+        // Checks through and appends to json if more than 1 added into cart
+        cartFoodList.forEach(item => {
+            if (item.textContent > 0)
+                cartItem[item.id] = parseInt(item.textContent);
+        });
+
+        console.log(cartItem);
+        
+
+        // Append cart data into FormData object to pass to php
+        let locFormData = new FormData();
+
+        locFormData.append('func', 'insertCart');
+        locFormData.append('cartItem', JSON.stringify(cartItem));
+
+        console.log(locFormData['func']);
+        console.log(locFormData['cartItem']);
+        console.log(locFormData.func);
+        // Call fetch API to pass data to menu.php
+        // Use POST method, passes locFormData, wait for response and log to console
+        fetch('menu.php', { method: 'POST', body: locFormData })
+            .then(response => response.text())
+            .then(responseText => console.log(responseText))
+            .catch(error => console.error("ERROR: ", error));
+
+
+
+        // window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
+    })
 
 
     // Get all details of every food item from database and sort according to category
@@ -103,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
             rmImg = document.createElement('img');
             rmImg.src = 'food-image/icon-minus.svg';
             numICDiv =  document.createElement('div');
+            numICDiv.id = item[Food.ID];
             numICDiv.className = 'num-in-cart';
             numICDiv.textContent = 0;
             btnAdd = document.createElement('button');
@@ -171,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 
         addBtn.forEach(btn => {
-            console.log('hi');
                 btn.addEventListener('click', () => {
                     numICDiv = btn.previousElementSibling;
                     parentDiv = btn.parentElement;

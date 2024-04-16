@@ -1,3 +1,19 @@
+.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top{
+    background-color: #dcdcdc !important;
+}
+
+
+#navbar-logo{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+#navbar-cart{ 
+    margin-left: 94%;
+}
+
+
 .container-fluid{
     padding-top: 3%;
     display: flex;
@@ -89,6 +105,8 @@
 .button-div {
    display: inline-flex;
    margin-bottom: 2px;
+   background-color: #e6e6e6;
+   border-radius: 10%;
 }
 
 
@@ -104,16 +122,3 @@
     text-align: center;
 }
 
-
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #ffffff; /* Adjust background color as needed */
-    z-index: 1000; /* Ensure menu is above other content */
-    padding: 10px; /* Adjust padding as needed */
-}
-
-.content {
-    padding-top: 50px; /* Adjust top padding to accommodate fixed menu height */
-}
