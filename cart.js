@@ -91,7 +91,13 @@ document.addEventListener('DOMContentLoaded', function () {
             rmImg.src = 'food-image/icon-minus.svg';
             numICDiv = document.createElement('div');
             numICDiv.className = 'num-in-cart';
-            numICDiv.textContent = 0;
+
+            let itemIndex = inCart(numICDiv, prevCartItem);
+            if (itemIndex >= 0)
+                numICDiv.textContent = prevCartItem[itemIndex][1];
+            else
+                numICDiv.textContent = 0;
+
             btnAdd = document.createElement('button');
             btnAdd.type = 'button';
             btnAdd.className = 'btn btn-primary btnAdd';
