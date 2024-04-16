@@ -34,10 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Check if password matches for the username
         if (userIndex > -1) {
+            localStorage.setItem('user_id', userIndex);
+
             // Check identity of user to redirect page
             if (userDetail[userIndex][User.IDENTITY] === 0){
                 // Redirect to the homepage
-                window.location.href = '/homepage.html';
+                window.location.href = '/DI Assignment Code Files/CapybaraExpress/menu.html';
             }
             else if (userDetail[userIndex][User.IDENTITY] === 1){
                 // Redirect to the operatorpage
