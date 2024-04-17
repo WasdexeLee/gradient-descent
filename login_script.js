@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Check if password matches for the username
         if (userIndex > -1) {
-            localStorage.setItem('user_id', userIndex);
+            localStorage.setItem('user_id', userIndrx);
 
             // Check identity of user to redirect page
             if (userDetail[userIndex][User.IDENTITY] === 0){

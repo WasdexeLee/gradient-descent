@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Init array to store all username
+    // Init array to store food detail
     let foodDetail = [];
     // Init enum to make code more readable
     const Food = Object.freeze({
@@ -23,23 +23,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Get all details of every food item from database and sort according to category
-    let formData = new FormData();
-    formData.append('func', 'getFoodDetail');
-    // Call login.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
-    fetch('menu.php', { method: 'POST', body: formData, })
-        .then(phpResponse => phpResponse.json())
-        .then(table => table.forEach(row => foodDetail.push(row)))
-        .catch(error => console.error('ERROR: ', error))
-        .then(() => foodDetail.sort((a, b) => a[Food.CATEGORY_ID] - b[Food.CATEGORY_ID]))
+    getFoodDetail();
 
     getCart()
         .then(() => dynamicLoadCard())
         .then(() => buttonListener())
-        .then(addCartEventListener());
+        .then(() => addCartEventListener());
 
     // Every change in webpage size, checks number of line of title and change description length to accomodate title
-    window.addEventListener('resize', checkTitleLine);
+    window.addEventListener('resize', checkTitleLine());
 
     window.addEventListener('beforeunload', function () {
         console.log('Page is unloading!');
@@ -47,6 +39,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    function getFoodDetail() {
+        // Get all details of every food item from database and sort according to category
+        let formData = new FormData();
+        formData.append('func', 'getFoodDetail');
+        // Call login.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
+        fetch('menu.php', { method: 'POST', body: formData, })
+            .then(phpResponse => phpResponse.json())
+            .then(table => table.forEach(row => foodDetail.push(row)))
+            .catch(error => console.error('ERROR: ', error))
+            .then(() => foodDetail.sort((a, b) => a[Food.CATEGORY_ID] - b[Food.CATEGORY_ID]))
+    }
 
 
     // Function to dynamically load card of food item into webpage
@@ -114,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnRm.type = 'button';
             btnRm.className = 'btn btn-primary btnRm';
             rmImg = document.createElement('img');
-            rmImg.src = 'food-image/icon-minus.svg';
+            rmImg.src = 'webpage-image/icon-minus.svg';
             numICDiv = document.createElement('div');
             numICDiv.id = item[Food.ID];
             numICDiv.className = 'num-in-cart';
@@ -129,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnAdd.type = 'button';
             btnAdd.className = 'btn btn-primary btnAdd';
             addImg = document.createElement('img');
-            addImg.src = 'food-image/icon-plus.svg';
+            addImg.src = 'webpage-image/icon-plus.svg';
             avail = document.createElement('small');
             avail.className = 'card-text text-muted avail';
             avail.textContent = item[Food.AVAILABILITY].toString() + ' available';
@@ -147,8 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         checkTitleLine();
     }
-
-
 
 
     function checkTitleLine() {
@@ -172,8 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-
 
 
     function buttonListener() {
@@ -214,8 +213,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addCartEventListener() {
         cartIcon.addEventListener('click', () => {
-            getCart()
-                .then(() => updateCart());
+            // getCart()
+            // .then(() => updateCart());
+            updateCart();
+
             window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
         });
     }
