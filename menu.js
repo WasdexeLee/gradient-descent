@@ -206,42 +206,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
             }
         });
-
-
-        // document.getElementById('myList').addEventListener('click', function(event) {
-        //     // Check if the clicked element is an LI
-        //     if (event.target.tagName === 'LI') {
-        //       alert('Clicked ' + event.target.textContent);
-        //     }
-        //   });
-
-          
-
-        // const rmBtn = document.querySelectorAll('.btn.btn-primary.btnRm');
-        // const addBtn = document.querySelectorAll('.btnAdd');
-
-
-        // rmBtn.forEach(btn => {
-        //     console.log(btn.classList, btn.className);
-        //     console.log((btn.className === 'btn btn-primary btnRm'));
-        //     console.log((btn.className === 'btn btn-primary btnAdd'));
-            
-        //     btn.addEventListener('click', () => {
-        //         numICDiv = btn.nextElementSibling;
-        //         if (parseInt(numICDiv.textContent) > 0)
-        //             numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-        //     })
-        // })
-
-        // addBtn.forEach(btn => {
-        //     btn.addEventListener('click', () => {
-        //         numICDiv = btn.previousElementSibling;
-        //         parentDiv = btn.parentElement;
-        //         availDiv = parentDiv.nextElementSibling;
-        //         if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
-        //             numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
-        //     })
-        // })
     }
 
 
