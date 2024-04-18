@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: url('webpage_image/background2.jpg') no-repeat center center fixed;
+    background: url('webpage-image/background1.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -23,17 +23,17 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex; /* This will line up the navigation items horizontally */
+    display: flex; /* Line up the navigation items horizontally */
     justify-content: center; /* Center the items horizontally */
 }
 
 .navbar ul li {
-    margin: 0 20px; /* Add some horizontal spacing between items */
+    margin: 0 20px; /* Horizontal spacing between items */
 }
 
 .navbar ul li a {
     text-decoration: none;
-    color: white;
+    color: black; /* Updated color to match the navbar text */
     font-weight: bold;
 }
 
@@ -58,6 +58,14 @@ input[type="tel"] {
     margin: 8px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: transparent; /* Ensure background matches form */
+    user-select: none;
+}
+
+input.editable {
+    background-color: white; /* Visible change when editable */
+    cursor: text;
+    user-select: text;
 }
 
 button {

@@ -1,30 +1,35 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('profileForm');
     const editButton = document.getElementById('editButton');
-    const submitButton = document.getElementById('submitButton');
+    const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
+    console.log(inputs);
 
     editButton.addEventListener('click', function () {
-        const inputs = form.querySelectorAll('input');
-        inputs.forEach(input => {
-            if (input.name !== 'username') { // Keep username non-editable
+        if (editButton.innerText === "Edit") {
+            inputs.forEach(input => {
+                input.classList.add('editable');
                 input.readOnly = false;
-            }
-        });
-        submitButton.disabled = false;
-    });
+            });
+            editButton.innerText = "Submit";
+        } else {
+            const form = document.getElementById('profileForm');
+            const formData = new FormData(form);
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const formData = new FormData(form);
-        fetch('profile.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.text())
-          .then(data => {
-              alert('Profile updated successfully!');
-              submitButton.disabled = true;
-              form.querySelectorAll('input').forEach(input => input.readOnly = true);
-          })
-          .catch(error => console.error('Error:', error));
+            // fetch('profile.php', {
+            //     method: 'POST',
+            //     body: formData
+            // })
+            // .then(response => response.text())
+            // .then(data => {
+            //     alert('Profile updated successfully!');
+                inputs.forEach(input => {
+                    input.classList.remove('editable');
+                    input.readOnly = true;
+ 
+                });
+                editButton.innerText = "Edit";
+  
+            // })
+            // .catch(error => console.error('Error:', error));
+        }
     });
 });
