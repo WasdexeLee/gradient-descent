@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Forces user to login 
     if (localStorage.getItem('user_id') === null)
-        window.location.href = '/DI Assignment Code Files/CapybaraExpress/login.html';
+        window.location.href = '../html/login.html';
 
 
     // Init array to store all username
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnRm.type = 'button';
             btnRm.className = 'btn btn-primary btnRm';
             rmImg = document.createElement('img');
-            rmImg.src = 'webpage-image/icon-minus.svg';
+            rmImg.src = '../webpage-image/icon-minus.svg';
             numICDiv = document.createElement('div');
             numICDiv.id = item[Cart.ID];
             numICDiv.className = 'num-in-cart';
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnAdd.type = 'button';
             btnAdd.className = 'btn btn-primary btnAdd';
             addImg = document.createElement('img');
-            addImg.src = 'webpage-image/icon-plus.svg';
+            addImg.src = '../webpage-image/icon-plus.svg';
             avail = document.createElement('small');
             avail.className = 'card-text text-muted avail';
             avail.textContent = item[Cart.AVAILABILITY].toString() + ' available';
@@ -128,17 +128,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function buttonListener() {
-        // Get all card-body to add event listener
+        // Get container which is the food-item-col column which contains all food items column
         const container = document.getElementById('food-item-col');
         let numICDiv, parentDiv, availDiv;
 
         container.addEventListener('click', event => {
             if (event.target.className === 'btn btn-primary btnRm') {
                 numICDiv = event.target.nextElementSibling;
-                if (parseInt(numICDiv.textContent) > 0)
+                if (parseInt(numICDiv.textContent) > 0){
                     numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-                else 
-                    warnUserDelete(event.target);
+                    if (parseInt(numICDiv.textContent) === 0)
+                        warnUserDelete(event.target);
+                }
             }
 
             if (event.target.className === 'btn btn-primary btnAdd') {
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('func', 'getCart');
         formData.append('user_id', parseInt(localStorage.getItem('user_id')));
         // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
-        return fetch('cart.php', { method: 'POST', body: formData, })
+        return fetch('../php-script/cart.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => cartItem.push(row)))
             .catch(error => console.error('ERROR: ', error))
@@ -209,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Call fetch API to pass data to menu.php
         // Use POST method, passes locFormData, wait for response and log to console
-        fetch('cart.php', { method: 'POST', body: locFormData })
+        fetch('../php-script/cart.php', { method: 'POST', body: locFormData })
             .then(response => response.text())
             .then(responseText => console.log(responseText))
             .catch(error => console.error("ERROR: ", error));
@@ -217,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function warnUserDelete(item) {
+        $('#exampleModal').modal('toggle');
         
     }
 });

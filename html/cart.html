@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="cart.css">
-    <script src="cart.js"></script>
+    <link rel="stylesheet" href="../css-script/cart.css">
+    <script src="../js-script/cart.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -17,25 +17,22 @@
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="webpage-image/nvidia.svg" class="img-fluid"
+            <a class="navbar-brand" href="#"><img src="../webpage-image/nvidia.svg" class="img-fluid"
                     id="navbar-logo">Capybara Express</a>
 
             <div class="nav-item">
-                <img src="webpage-image/cart.png" class="img-fluid nav-link" id="navbar-cart">
+                <img src="../webpage-image/cart.png" class="img-fluid nav-link" id="navbar-cart">
             </div>
         </div>
     </nav>
 
     <!-- Warning Box -->
-
-    <button type="button" class="btn btn-primary" id="openModal">Open Modal</button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="warnUserDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Popup Title</h5>
+                    <h5 class="modal-title" id="ModalLabel">Popup Title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

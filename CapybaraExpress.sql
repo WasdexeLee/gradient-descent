@@ -49,13 +49,13 @@ CREATE TABLE Food (
 
 INSERT INTO Food
 VALUES
-(NULL, 'Drumstick Fried Chikin Combo', 1, 'Drumstick Korean Fried Chikin (2pcs) Seasoned With One Type of Korean Sauces Served Together With Kimchi French Fries and Kimchi', 18.9, 10, 'food-image/Drumstick Fried Chikin Combo.webp', 30, DEFAULT),
-(NULL, 'Soy Garlic (Authentic Korean Flavor)', 1, 'Korean Fried Chicken Only The crispy and tender chicken is coated in a luscious glaze that is both sweet and spicy, creating a delightful taste sensation.', 15.9, 10, 'food-image/Soy Garlic (Authentic Korean Flavor).webp', 30, DEFAULT),
-(NULL, 'Tau Fu Fah', 5, 'I Love to Eat TOFFUUUUFAH', 5.9, 10, 'food-image/Tau Fu Fah.webp', 25, DEFAULT),
-(NULL, 'Peach Gum Snow Fungus with Longan', 5, 'Nice', 8.9, 10, 'food-image/Peach Gum Snow Fungus with Longan.webp', 15, DEFAULT),
-(NULL, 'Tandoori Chicken Rice Half', 2, 'You wanna eat big chicken', 44.9, 10, 'food-image/Tandoori Chicken Rice Half.webp', 20, DEFAULT),
-(NULL, 'Pan Mee Soup', 3, 'Broga broga broga broga', 11.4, 10, 'food-image/Pan Mee Soup.webp', 22, DEFAULT),
-(NULL, 'Iced Latte', 4, 'Freshly brewed Iced Latte using 100% Arabica coffee beans and fresh milk.', 8.8, 10, 'food-image/Iced Latte.webp', 38, DEFAULT)
+(NULL, 'Drumstick Fried Chikin Combo', 1, 'Drumstick Korean Fried Chikin (2pcs) Seasoned With One Type of Korean Sauces Served Together With Kimchi French Fries and Kimchi', 18.9, 10, '../food-image/Drumstick Fried Chikin Combo.webp', 30, DEFAULT),
+(NULL, 'Soy Garlic (Authentic Korean Flavor)', 1, 'Korean Fried Chicken Only The crispy and tender chicken is coated in a luscious glaze that is both sweet and spicy, creating a delightful taste sensation.', 15.9, 10, '../food-image/Soy Garlic (Authentic Korean Flavor).webp', 30, DEFAULT),
+(NULL, 'Tau Fu Fah', 5, 'I Love to Eat TOFFUUUUFAH', 5.9, 10, '../food-image/Tau Fu Fah.webp', 25, DEFAULT),
+(NULL, 'Peach Gum Snow Fungus with Longan', 5, 'Nice', 8.9, 10, '../food-image/Peach Gum Snow Fungus with Longan.webp', 15, DEFAULT),
+(NULL, 'Tandoori Chicken Rice Half', 2, 'You wanna eat big chicken', 44.9, 10, '../food-image/Tandoori Chicken Rice Half.webp', 20, DEFAULT),
+(NULL, 'Pan Mee Soup', 3, 'Broga broga broga broga', 11.4, 10, '../food-image/Pan Mee Soup.webp', 22, DEFAULT),
+(NULL, 'Iced Latte', 4, 'Freshly brewed Iced Latte using 100% Arabica coffee beans and fresh milk.', 8.8, 10, '../food-image/Iced Latte.webp', 38, DEFAULT)
 
 
 CREATE TABLE Cart (

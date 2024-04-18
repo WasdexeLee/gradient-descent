@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Forces user to login 
     if (localStorage.getItem('user_id') === null)
-        window.location.href = '/DI Assignment Code Files/CapybaraExpress/login.html';
+        window.location.href = '../html/login.html';
 
 
     // Init array to store food detail
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let formData = new FormData();
         formData.append('func', 'getFoodDetail');
         // Call login.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
-        return fetch('menu.php', { method: 'POST', body: formData, })
+        return fetch('../php-script/menu.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => foodDetail.push(row)))
             .catch(error => console.error('ERROR: ', error))
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // .then(() => updateCart());
             updateCart();
 
-            window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
+            window.location.href = '../html/cart.html';
         });
     }
 
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('func', 'getCart');
         formData.append('user_id', parseInt(localStorage.getItem('user_id')));
         // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
-        return fetch('menu.php', { method: 'POST', body: formData, })
+        return fetch('../php-script/menu.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => prevCartItem.push(row)))
             .catch(error => console.error('ERROR: ', error));
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Call fetch API to pass data to menu.php
         // Use POST method, passes locFormData, wait for response and log to console
-        fetch('menu.php', { method: 'POST', body: locFormData })
+        fetch('../php-script/menu.php', { method: 'POST', body: locFormData })
             .then(response => response.text())
             .then(responseText => console.log(responseText))
             .catch(error => console.error("ERROR: ", error));
