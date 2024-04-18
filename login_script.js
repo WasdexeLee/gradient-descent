@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Prevents default submission for the form 
         event.preventDefault();
         // Init var to store the username and password entered by user
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const username = loginForm.username.value;
+        const password = loginForm.password.value;
         // Init var to store return from check function
         // -1 : user does not exists or wrong password
         // > -1 : userIndex

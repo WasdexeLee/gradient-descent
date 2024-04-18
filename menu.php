@@ -121,7 +121,7 @@ function modifyCart(&$connection){
 
     // Bind parameter to query 
     foreach ($update_cart_item as $food_id => $food_num){
-        $prepared_query->bind_param("iii", $user_id, $food_id, $food_num);
+        $prepared_query->bind_param("iii", $food_num, $user_id, $food_id);
         $prepared_query->execute();
     }
 

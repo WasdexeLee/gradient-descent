@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log("Sign-up successful. Redirecting to login page.");
 
                     // Redirect to the homepage
-                    window.location.href = '/login.html';
+                    window.location.href = '/DI Assignment Code Files/CapybaraExpress/login.html';
                 }
             });
     });

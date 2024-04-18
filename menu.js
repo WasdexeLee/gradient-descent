@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Init array to store all username
+    // Forces user to login 
+    if (localStorage.getItem('user_id') === null)
+        window.location.href = '/DI Assignment Code Files/CapybaraExpress/login.html';
+
+
+    // Init array to store food detail
     let foodDetail = [];
     // Init enum to make code more readable
     const Food = Object.freeze({
@@ -23,35 +28,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Get all details of every food item from database and sort according to category
-    let formData = new FormData();
-    formData.append('func', 'getFoodDetail');
-    // Call login.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
-    fetch('menu.php', { method: 'POST', body: formData, })
-        .then(phpResponse => phpResponse.json())
-        .then(table => table.forEach(row => foodDetail.push(row)))
-        .catch(error => console.error('ERROR: ', error))
-        .then(() => foodDetail.sort((a, b) => a[Food.CATEGORY_ID] - b[Food.CATEGORY_ID]))
-        // .then(function () { console.log(foodDetail) })  //to remove
-        .then(() => dynamicLoadCard())
-        .then(() => buttonListener());
+    getFoodDetail().then(() => {
+        getCart()
+            .then(() => dynamicLoadCard())
+            .then(() => buttonListener())
+            .then(() => addCartEventListener());
+    });
 
-    // Get all details of every cart food item from database
-    formData = new FormData();
-    formData.append('func', 'getCart');
-    formData.append('user_id', parseInt(localStorage.getItem('user_id')));
-    // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
-    fetch('menu.php', { method: 'POST', body: formData, })
-        .then(phpResponse => phpResponse.json())
-        .then(table => table.forEach(row => prevCartItem.push(row)))
-        .catch(error => console.error('ERROR: ', error))
-        .then(() => addCartEventListener());
 
     // Every change in webpage size, checks number of line of title and change description length to accomodate title
-    window.addEventListener('resize', checkTitleLine);
+    window.addEventListener('resize', checkTitleLine());
+
+    window.addEventListener('beforeunload', function () {
+        console.log('Page is unloading!');
+        updateCart();
+    });
 
 
-
+    function getFoodDetail() {
+        // Get all details of every food item from database and sort according to category
+        let formData = new FormData();
+        formData.append('func', 'getFoodDetail');
+        // Call login.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
+        return fetch('menu.php', { method: 'POST', body: formData, })
+            .then(phpResponse => phpResponse.json())
+            .then(table => table.forEach(row => foodDetail.push(row)))
+            .catch(error => console.error('ERROR: ', error))
+            .then(() => foodDetail.sort((a, b) => a[Food.CATEGORY_ID] - b[Food.CATEGORY_ID]));
+    }
 
 
     // Function to dynamically load card of food item into webpage
@@ -119,16 +123,22 @@ document.addEventListener('DOMContentLoaded', function () {
             btnRm.type = 'button';
             btnRm.className = 'btn btn-primary btnRm';
             rmImg = document.createElement('img');
-            rmImg.src = 'food-image/icon-minus.svg';
+            rmImg.src = 'webpage-image/icon-minus.svg';
             numICDiv = document.createElement('div');
             numICDiv.id = item[Food.ID];
             numICDiv.className = 'num-in-cart';
-            numICDiv.textContent = 0;
+
+            let itemIndex = inCart(numICDiv, prevCartItem);
+            if (itemIndex >= 0)
+                numICDiv.textContent = prevCartItem[itemIndex][1];
+            else
+                numICDiv.textContent = 0;
+
             btnAdd = document.createElement('button');
             btnAdd.type = 'button';
             btnAdd.className = 'btn btn-primary btnAdd';
             addImg = document.createElement('img');
-            addImg.src = 'food-image/icon-plus.svg';
+            addImg.src = 'webpage-image/icon-plus.svg';
             avail = document.createElement('small');
             avail.className = 'card-text text-muted avail';
             avail.textContent = item[Food.AVAILABILITY].toString() + ' available';
@@ -148,12 +158,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
-
     function checkTitleLine() {
+        // Get all card-title div(s)
         const cardTitleArray = document.querySelectorAll('.card-title');
+        // Declare vars
         let lineHeight, clientHeight, displayRows, descP;
 
+        // Go through all div(s)
+        // If displaying 2 or more rows, change style to 1 line description
+        // If displaying 1 row, change style to 2 line description
         cardTitleArray.forEach(elem => {
             lineHeight = parseFloat(window.getComputedStyle(elem).lineHeight);
             clientHeight = elem.clientHeight;
@@ -173,31 +186,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
-
     function buttonListener() {
-        const rmBtn = document.querySelectorAll('.btn.btn-primary.btnRm');
-        const addBtn = document.querySelectorAll('.btnAdd');
+        // Get all card-body to add event listener
+        const container = document.getElementById('food-item-col');
         let numICDiv, parentDiv, availDiv;
 
-
-        rmBtn.forEach(btn => {
-            btn.addEventListener('click', () => {
-                numICDiv = btn.nextElementSibling;
+        container.addEventListener('click', event => {
+            if (event.target.className === 'btn btn-primary btnRm') {
+                numICDiv = event.target.nextElementSibling;
                 if (parseInt(numICDiv.textContent) > 0)
                     numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-            })
-        })
+            }
 
-        addBtn.forEach(btn => {
-            btn.addEventListener('click', () => {
-                numICDiv = btn.previousElementSibling;
-                parentDiv = btn.parentElement;
+            if (event.target.className === 'btn btn-primary btnAdd') {
+                numICDiv = event.target.previousElementSibling;
+                parentDiv = event.target.parentElement;
                 availDiv = parentDiv.nextElementSibling;
                 if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
                     numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
-            })
-        })
+            }
+        });
     }
 
 
@@ -213,52 +221,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addCartEventListener() {
         cartIcon.addEventListener('click', () => {
-            // Create json object to be passed to php (either to delete, update or insert to table)
-            let deleteCartItem = [];
-            let updateCartItem = {};
-            let insertCartItem = {};
-            // Get all .num-in-cart which contains number of items in cart 
-            const foodList = document.querySelectorAll('.num-in-cart');
+            // getCart()
+            // .then(() => updateCart());
+            updateCart();
 
-            // Checks through for changes to cart and carries out necessary changes ie. delete, update, insert
-            foodList.forEach(item => {
-                let itemIndex = inCart(item, prevCartItem);
-
-                if (itemIndex >= 0) {
-                    if (parseInt(item.textContent) === 0)
-                        deleteCartItem.push(parseInt(item.id));
-
-                    else if (parseInt(item.textContent) !== prevCartItem[itemIndex][1])
-                        updateCartItem[parseInt(item.id)] = parseInt(item.textContent);
-                }
-                else {
-                    if (parseInt(item.textContent) > 0)
-                        insertCartItem[item.id] = parseInt(item.textContent);
-                }
-            });
-
-            console.log(deleteCartItem);
-            console.log(updateCartItem);
-            console.log(insertCartItem);
+            window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
+        });
+    }
 
 
-            // Append cart data into FormData object to pass to php
-            let locFormData = new FormData();
+    function getCart() {
+        // Get all details of every cart food item from database
+        formData = new FormData();
+        formData.append('func', 'getCart');
+        formData.append('user_id', parseInt(localStorage.getItem('user_id')));
+        // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
+        return fetch('menu.php', { method: 'POST', body: formData, })
+            .then(phpResponse => phpResponse.json())
+            .then(table => table.forEach(row => prevCartItem.push(row)))
+            .catch(error => console.error('ERROR: ', error));
+    }
 
-            locFormData.append('func', 'modifyCart');
-            locFormData.append('user_id', localStorage.getItem('user_id').toString());
-            locFormData.append('delete_cart_item', JSON.stringify(deleteCartItem));
-            locFormData.append('update_cart_item', JSON.stringify(updateCartItem));
-            locFormData.append('insert_cart_item', JSON.stringify(insertCartItem));
 
-            // Call fetch API to pass data to menu.php
-            // Use POST method, passes locFormData, wait for response and log to console
-            fetch('menu.php', { method: 'POST', body: locFormData })
-                .then(response => response.text())
-                .then(responseText => console.log(responseText))
-                .catch(error => console.error("ERROR: ", error));
+    function updateCart() {
+        // Create json object to be passed to php (either to delete, update or insert to table)
+        let deleteCartItem = [];
+        let updateCartItem = {};
+        let insertCartItem = {};
+        // Get all .num-in-cart which contains number of items in cart 
+        const foodList = document.querySelectorAll('.num-in-cart');
+
+        // Checks through for changes to cart and carries out necessary changes ie. delete, update, insert
+        foodList.forEach(item => {
+            let itemIndex = inCart(item, prevCartItem);
+
+            if (itemIndex >= 0) {
+                if (parseInt(item.textContent) === 0)
+                    deleteCartItem.push(parseInt(item.id));
+
+                else if (parseInt(item.textContent) !== prevCartItem[itemIndex][1])
+                    updateCartItem[parseInt(item.id)] = parseInt(item.textContent);
+            }
+            else {
+                if (parseInt(item.textContent) > 0)
+                    insertCartItem[item.id] = parseInt(item.textContent);
+            }
         });
 
-        // window.location.href = '/DI Assignment Code Files/CapybaraExpress/cart.html';
+
+        // Append cart data into FormData object to pass to php
+        let locFormData = new FormData();
+
+        locFormData.append('func', 'modifyCart');
+        locFormData.append('user_id', localStorage.getItem('user_id').toString());
+        locFormData.append('delete_cart_item', JSON.stringify(deleteCartItem));
+        locFormData.append('update_cart_item', JSON.stringify(updateCartItem));
+        locFormData.append('insert_cart_item', JSON.stringify(insertCartItem));
+
+        // Call fetch API to pass data to menu.php
+        // Use POST method, passes locFormData, wait for response and log to console
+        fetch('menu.php', { method: 'POST', body: locFormData })
+            .then(response => response.text())
+            .then(responseText => console.log(responseText))
+            .catch(error => console.error("ERROR: ", error));
     }
 });
