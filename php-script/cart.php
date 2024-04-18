@@ -33,6 +33,8 @@ if (isset($_POST['func'])){
         getCart($connection);
     else if ($_POST['func'] === 'modifyCart')
         modifyCart($connection);
+    else if ($_POST['func'] === 'deleteItem')
+        deleteItem($connection);
 }
 
 
@@ -93,6 +95,25 @@ function modifyCart(&$connection){
         $prepared_query->bind_param("iii", $food_num, $user_id, $food_id);
         $prepared_query->execute();
     }
+
+    // Close query
+    $prepared_query->close();
+
+    echo "Modify Success";
+}
+
+
+function deleteItem(&$connection){
+    $user_id = intval($_POST['user_id']);
+    $food_id = intval($_POST['delete_cart_item']);
+
+    // Create query, prepare and bind parameters for delete
+    $query_template = "DELETE FROM Cart WHERE (user_id = ?) AND (food_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+        $prepared_query->bind_param("ii", $user_id, $food_id);
+        $prepared_query->execute();
 
     // Close query
     $prepared_query->close();

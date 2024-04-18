@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('beforeunload', function () {
         console.log('Page is unloading!');
-        updateCart();
+        modifyCart();
     });
 
 
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cardDel.className = 'card-text txtDel';
             cardDelSmall = document.createElement('small');
             cardDelSmall.textContent = "Remove from Cart";
+            cardDelSmall.id = item[Cart.ID];
 
             cardBody.appendChild(cardPrice);
             cardDel.appendChild(cardDelSmall);
@@ -150,6 +151,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
                     numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
             }
+
+            if (event.target.className === 'card-text txtDel')
+                warnUserDelete(event.target);
         });
     }
 
@@ -177,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function updateCart() {
+    function modifyCart() {
         // Create json object to be passed to php (either to delete, update or insert to table)
         let deleteCartItem = [];
         let updateCartItem = {};
@@ -218,17 +222,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    function deleteItem(item) {
+        // Append cart data into FormData object to pass to php
+        let locFormData = new FormData();
+
+        locFormData.append('func', 'deleteItem');
+        locFormData.append('user_id', localStorage.getItem('user_id').toString());
+        locFormData.append('delete_cart_item', item.id);
+
+        // Call fetch API to pass data to menu.php
+        // Use POST method, passes locFormData, wait for response and log to console
+        return fetch('../php-script/cart.php', { method: 'POST', body: locFormData })
+            .then(response => response.text())
+            .then(responseText => console.log(responseText))
+            .catch(error => console.error("ERROR: ", error));
+    }
+
+
     function warnUserDelete(item) {
         const modalBody = document.getElementById('modalBody');
+        $('#warnUserDeleteModal').modal('toggle');
 
         for (let i = 0; i < cartItem.length; i++){
-                console.log(cartItem[i][Cart.NAME]);
-            if (cartItem[i][Cart.ID] === parseInt(item.id)){
+            if (parseInt(item.id) === cartItem[i][Cart.ID]){
                 modalBody.textContent = cartItem[i][Cart.NAME];
                 break;
             }
         }
 
-        $('#warnUserDeleteModal').modal('toggle');
+        document.getElementById('yesButton').addEventListener('click', () => {
+            deleteItem(item)
+                .then(() => location.reload());
+        })
     }
 });

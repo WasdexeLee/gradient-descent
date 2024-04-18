@@ -14,6 +14,26 @@
 }
 
 
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+
+.btn.btn-secondary { 
+    min-width: 50px;
+    text-align: center;
+    justify-content: center;
+}
+
+
+#yesButton {
+    background-color: rgb(230, 67, 61) !important;
+    border-color: rgb(230, 67, 61) !important;
+    margin-right: 50px;
+}
+
+
 .container-fluid {
     padding-top: 3%;
     display: flex;
@@ -141,6 +161,11 @@ button > * {
 .num-in-cart {
     width: 29px;
     text-align: center;
+}
+
+
+.card-text.txtDel > * {
+    pointer-events: none;
 }
 
 
