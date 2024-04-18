@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Forces user to login 
+    if (localStorage.getItem('user_id') === null)
+        window.location.href = '/DI Assignment Code Files/CapybaraExpress/login.html';
+
+
     // Init array to store all username
     let foodDetail = [];
     // Init enum to make code more readable
@@ -21,10 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
     getCart()
         .then(() => dynamicLoadCard())
         .then(() => buttonListener())
-
-
-    // Every change in webpage size, checks number of line of title and change description length to accomodate title
-    window.addEventListener('resize', checkTitleLine);
 
 
     window.addEventListener('beforeunload', function () {
@@ -122,31 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
             cardDel.appendChild(cardDelSmall);
             cardBody.appendChild(cardDel);
         })
-
-        checkTitleLine();
-    }
-
-
-    function checkTitleLine() {
-        const cardTitleArray = document.querySelectorAll('.card-title');
-        let lineHeight, clientHeight, displayRows, descP;
-
-        cardTitleArray.forEach(elem => {
-            lineHeight = parseFloat(window.getComputedStyle(elem).lineHeight);
-            clientHeight = elem.clientHeight;
-            displayRows = clientHeight / lineHeight;
-
-            if (displayRows > 1) {
-                descP = elem.nextElementSibling;
-                descP.classList.remove('desc-twol');
-                descP.classList.add('desc-onel');
-            }
-            else if (displayRows <= 1) {
-                descP = elem.nextElementSibling;
-                descP.classList.remove('desc-onel');
-                descP.classList.add('desc-twol');
-            }
-        });
     }
 
 
@@ -165,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 
         addBtn.forEach(btn => {
-            console.log('hi');
             btn.addEventListener('click', () => {
                 numICDiv = btn.previousElementSibling;
                 parentDiv = btn.parentElement;

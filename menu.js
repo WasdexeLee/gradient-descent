@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Forces user to login 
+    if (localStorage.getItem('user_id') === null)
+        window.location.href = '/DI Assignment Code Files/CapybaraExpress/login.html';
+
+
     // Init array to store food detail
     let foodDetail = [];
     // Init enum to make code more readable
@@ -23,12 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    getFoodDetail();
+    getFoodDetail().then(() => {
+        getCart()
+            .then(() => dynamicLoadCard())
+            .then(() => buttonListener())
+            .then(() => addCartEventListener());
+    });
 
-    getCart()
-        .then(() => dynamicLoadCard())
-        .then(() => buttonListener())
-        .then(() => addCartEventListener());
 
     // Every change in webpage size, checks number of line of title and change description length to accomodate title
     window.addEventListener('resize', checkTitleLine());
@@ -44,11 +50,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let formData = new FormData();
         formData.append('func', 'getFoodDetail');
         // Call login.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
-        fetch('menu.php', { method: 'POST', body: formData, })
+        return fetch('menu.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => foodDetail.push(row)))
             .catch(error => console.error('ERROR: ', error))
-            .then(() => foodDetail.sort((a, b) => a[Food.CATEGORY_ID] - b[Food.CATEGORY_ID]))
+            .then(() => foodDetail.sort((a, b) => a[Food.CATEGORY_ID] - b[Food.CATEGORY_ID]));
     }
 
 
@@ -153,9 +159,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function checkTitleLine() {
+        // Get all card-title div(s)
         const cardTitleArray = document.querySelectorAll('.card-title');
+        // Declare vars
         let lineHeight, clientHeight, displayRows, descP;
 
+        // Go through all div(s)
+        // If displaying 2 or more rows, change style to 1 line description
+        // If displaying 1 row, change style to 2 line description
         cardTitleArray.forEach(elem => {
             lineHeight = parseFloat(window.getComputedStyle(elem).lineHeight);
             clientHeight = elem.clientHeight;
@@ -176,28 +187,61 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function buttonListener() {
-        const rmBtn = document.querySelectorAll('.btn.btn-primary.btnRm');
-        const addBtn = document.querySelectorAll('.btnAdd');
+        // Get all card-body to add event listener
+        const container = document.getElementById('food-item-col');
         let numICDiv, parentDiv, availDiv;
 
-
-        rmBtn.forEach(btn => {
-            btn.addEventListener('click', () => {
-                numICDiv = btn.nextElementSibling;
+        container.addEventListener('click', event => {
+            if (event.target.className === 'btn btn-primary btnRm') {
+                numICDiv = event.target.nextElementSibling;
                 if (parseInt(numICDiv.textContent) > 0)
                     numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-            })
-        })
+            }
 
-        addBtn.forEach(btn => {
-            btn.addEventListener('click', () => {
-                numICDiv = btn.previousElementSibling;
-                parentDiv = btn.parentElement;
+            if (event.target.className === 'btn btn-primary btnAdd') {
+                numICDiv = event.target.previousElementSibling;
+                parentDiv = event.target.parentElement;
                 availDiv = parentDiv.nextElementSibling;
                 if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
                     numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
-            })
-        })
+            }
+        });
+
+
+        // document.getElementById('myList').addEventListener('click', function(event) {
+        //     // Check if the clicked element is an LI
+        //     if (event.target.tagName === 'LI') {
+        //       alert('Clicked ' + event.target.textContent);
+        //     }
+        //   });
+
+          
+
+        // const rmBtn = document.querySelectorAll('.btn.btn-primary.btnRm');
+        // const addBtn = document.querySelectorAll('.btnAdd');
+
+
+        // rmBtn.forEach(btn => {
+        //     console.log(btn.classList, btn.className);
+        //     console.log((btn.className === 'btn btn-primary btnRm'));
+        //     console.log((btn.className === 'btn btn-primary btnAdd'));
+            
+        //     btn.addEventListener('click', () => {
+        //         numICDiv = btn.nextElementSibling;
+        //         if (parseInt(numICDiv.textContent) > 0)
+        //             numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
+        //     })
+        // })
+
+        // addBtn.forEach(btn => {
+        //     btn.addEventListener('click', () => {
+        //         numICDiv = btn.previousElementSibling;
+        //         parentDiv = btn.parentElement;
+        //         availDiv = parentDiv.nextElementSibling;
+        //         if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
+        //             numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
+        //     })
+        // })
     }
 
 
@@ -231,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return fetch('menu.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => prevCartItem.push(row)))
-            .catch(error => console.error('ERROR: ', error))
+            .catch(error => console.error('ERROR: ', error));
     }
 
 
