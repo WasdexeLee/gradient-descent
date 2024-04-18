@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCart();
     });
 
+
     // Function to dynamically load card of cart item into webpage
     function dynamicLoadCard() {
         const foodItemContainer = document.getElementById('food-item-col');
@@ -127,31 +128,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function buttonListener() {
-        const rmBtn = document.querySelectorAll('.btn.btn-primary.btnRm');
-        const addBtn = document.querySelectorAll('.btnAdd');
+        // Get all card-body to add event listener
+        const container = document.getElementById('food-item-col');
         let numICDiv, parentDiv, availDiv;
 
-
-        rmBtn.forEach(btn => {
-            btn.addEventListener('click', () => {
-                numICDiv = btn.nextElementSibling;
+        container.addEventListener('click', event => {
+            if (event.target.className === 'btn btn-primary btnRm') {
+                numICDiv = event.target.nextElementSibling;
                 if (parseInt(numICDiv.textContent) > 0)
                     numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-            })
-        })
+                else 
+                    warnUserDelete(event.target);
+            }
 
-        addBtn.forEach(btn => {
-            btn.addEventListener('click', () => {
-                numICDiv = btn.previousElementSibling;
-                parentDiv = btn.parentElement;
+            if (event.target.className === 'btn btn-primary btnAdd') {
+                numICDiv = event.target.previousElementSibling;
+                parentDiv = event.target.parentElement;
                 availDiv = parentDiv.nextElementSibling;
                 if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
                     numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
-            })
-        })
+            }
+        });
     }
 
-    
+
     function getCart() {
         // Get all details of every cart food item from database
         formData = new FormData();
@@ -213,5 +213,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(responseText => console.log(responseText))
             .catch(error => console.error("ERROR: ", error));
+    }
+
+
+    function warnUserDelete(item) {
+        
     }
 });

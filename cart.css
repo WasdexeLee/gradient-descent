@@ -126,6 +126,11 @@
 }
 
 
+button > * {
+    pointer-events: none;
+}
+
+
 .btn {
     padding: 3px;
     display: flex;

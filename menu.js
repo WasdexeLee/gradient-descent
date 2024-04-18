@@ -268,10 +268,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        console.log(deleteCartItem);
-        console.log(updateCartItem);
-        console.log(insertCartItem);
-
 
         // Append cart data into FormData object to pass to php
         let locFormData = new FormData();
