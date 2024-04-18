@@ -136,9 +136,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (event.target.className === 'btn btn-primary btnRm') {
                 numICDiv = event.target.nextElementSibling;
                 if (parseInt(numICDiv.textContent) > 0){
-                    numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-                    if (parseInt(numICDiv.textContent) === 0)
-                        warnUserDelete(event.target);
+                    if (parseInt(numICDiv.textContent) === 1)
+                        warnUserDelete(numICDiv);
+                    else
+                        numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
                 }
             }
 
@@ -218,7 +219,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function warnUserDelete(item) {
-        $('#exampleModal').modal('toggle');
-        
+        const modalBody = document.getElementById('modalBody');
+
+        for (let i = 0; i < cartItem.length; i++){
+                console.log(cartItem[i][Cart.NAME]);
+            if (cartItem[i][Cart.ID] === parseInt(item.id)){
+                modalBody.textContent = cartItem[i][Cart.NAME];
+                break;
+            }
+        }
+
+        $('#warnUserDeleteModal').modal('toggle');
     }
 });

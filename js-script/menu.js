@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnRm.type = 'button';
             btnRm.className = 'btn btn-primary btnRm';
             rmImg = document.createElement('img');
-            rmImg.src = 'webpage-image/icon-minus.svg';
+            rmImg.src = '../webpage-image/icon-minus.svg';
             numICDiv = document.createElement('div');
             numICDiv.id = item[Food.ID];
             numICDiv.className = 'num-in-cart';
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnAdd.type = 'button';
             btnAdd.className = 'btn btn-primary btnAdd';
             addImg = document.createElement('img');
-            addImg.src = 'webpage-image/icon-plus.svg';
+            addImg.src = '../webpage-image/icon-plus.svg';
             avail = document.createElement('small');
             avail.className = 'card-text text-muted avail';
             avail.textContent = item[Food.AVAILABILITY].toString() + ' available';

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Call login.php script and take response from script, convert to json array, push all rows in json array to userDetail 2D array and catch error
-    fetch('login.php')
+    fetch('../php-script/login.php')
     .then(response => response.json())
     .then(table => table.forEach(row => userDetail.push(row)))
     .catch(error => console.error('ERROR: ', error));
@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Check if password matches for the username
         if (userIndex > -1) {
-            localStorage.setItem('user_id', userIndex);
+            localStorage.setItem('user_id', (userIndex + 1));
 
             // Check identity of user to redirect page
             if (userDetail[userIndex][User.IDENTITY] === 0){
                 // Redirect to the homepage
-                window.location.href = '/DI Assignment Code Files/CapybaraExpress/menu.html';
+                window.location.href = '../html/menu.html';
             }
             else if (userDetail[userIndex][User.IDENTITY] === 1){
                 // Redirect to the operatorpage
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for when user clicks on signup text
     signUpText.addEventListener('click', function () {
         // Redirect to the sign-up page
-        window.location.href = 'signup.html';
+        window.location.href = '../html/signup.html';
     });
 
     
