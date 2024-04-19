@@ -12,7 +12,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-<body data-spy="scroll" data-target="#category-bar" data-offset="80">
+<!-- <body data-spy="scroll" data-target="#category-bar" data-offset="80"> -->
+<body>
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
@@ -26,144 +27,58 @@
     </nav>
 
 
-    <div class="container-fluid" style="padding: 0; margin: 0;">
+<!-- <body data-spy="scroll" data-target="#category-bar" data-offset="80"> -->
+    <div class="container-fluid" id="main-container" data-spy="scroll" data-target="#category-bar" data-offset="130">
         <!-- Main Content Area -->
-        <div class="row mx-0" style="width: 100%;">
-            <!-- New Div for additional content -->
-            <div class="col-lg-1">
-
-
-                <div class="nav-pills bg-light position-fixed" style="top: 103px; padding: 0;">
-
+        <div class="row" id="main-row">
+            <div class="col-lg-1 d-none d-md-block nav-pills" id="main-col">
+                <div class="position-fixed" id="category-bar">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#section1">
-                                <span data-feather="home"></span>
-                                Pizza
+                        <li class="nav-item category-item">
+                            <a class="nav-link active" href="#section1">
+                                Fried
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#section2">
-                                <span data-feather="file"></span>
-                                Burger
+                                Chicken
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#section3">
-                                <span data-feather="shopping-cart"></span>
-                                Pasta
+                                Noodle
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#section4">
-                                <span data-feather="users"></span>
-                                Desserts
+                                Drinks
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section5">
+                                Dessert
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
-
-
-
             </div>
 
 
-
-
-
-
-
-
-
-
-            <!-- Existing Container-fluid -->
             <div class="col-lg-11">
-                <div class="container-fluid mt-5">
+                <div class="container-fluid mt-4">
                     <div class="row">
                         <!-- Food Item Column -->
                         <div class="col-lg-12" id="food-item-col">
-                            <!-- Main content will be here -->
+                            <!-- Food Items -->
+
+
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
-
-
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-
-
-    
-    <div class="container-fluid mt-5">
-        <div class="row">
-
-
-
-            <div class="col-lg-11" id="food-item-col" style="margin-left: 9%;">
-
-            </div>
-        </div>
-    </div>
-
-
-
-            
-    <div class="col-lg-1 nav-pills bg-light position-fixed" style="top:80px; padding: 0;">
-
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#section1">
-                    <span data-feather="home"></span>
-                    Pizza
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#section2">
-                    <span data-feather="file"></span>
-                    Burger
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#section3">
-                    <span data-feather="shopping-cart"></span>
-                    Pasta
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#section4">
-                    <span data-feather="users"></span>
-                    Desserts
-                </a>
-            </li>
-        </ul>
-    </div>
-
-         -->

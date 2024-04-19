@@ -1,29 +1,38 @@
-.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top{
+.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
     background-color: #dcdcdc !important;
 }
 
 
-#navbar-logo{
+#navbar-logo {
     margin-left: 10%;
     margin-right: 10%;
 }
 
 
-#navbar-cart{ 
+#navbar-cart {
     margin-left: 94%;
 }
 
 
-.category-item {
-    height: 40px;
-    line-height: 40px;
-    margin: 10px;
+#main-col,
+#main-container {
+    padding: 0;
+    margin: 0;
 }
 
 
-.category-item.active {
-    background-color: #1dea0e;
-    color: white;
+#main-row {
+    width: 100%;
+}
+
+
+#main-col {
+    top: 0px;
+    padding: 0;
+    padding-top: 103px;
+    width: 8.3333%;
+    height: 100%;
+    background-color: #c6ffc2 !important;
 }
 
 
@@ -32,8 +41,13 @@
 }
 
 
-.container-fluid{
-    padding-top: 3%;
+.nav-link.active {
+    background-color: white !important;
+    border-radius: 0;
+}
+
+
+.container-fluid {
     display: flex;
     justify-content: center;
 }
@@ -51,6 +65,14 @@
         flex: 0 0 auto;
         max-width: 90%;
     }
+}
+
+
+.category-text {
+    font-size: xx-large;
+    font-weight: 500;
+    padding-left: 46px;
+    margin-top: 45px;
 }
 
 
@@ -73,7 +95,7 @@
 }
 
 
-.col-md-4{
+.col-md-4 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,17 +109,17 @@
 
 
 .desc-onel {
-    overflow: hidden; 
-    display: -webkit-box; 
-    -webkit-line-clamp: 1; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 
 
 .desc-twol {
-    overflow: hidden; 
-    display: -webkit-box; 
-    -webkit-line-clamp: 2; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
@@ -114,28 +136,28 @@
     flex-direction: column;
     width: fit-content;
     align-items: center;
-    position: absolute; 
-    bottom: 5%; 
-    right: 5%; 
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
 }
 
 
 .button-div {
-   display: inline-flex;
-   margin-bottom: 2px;
-   background-color: #e6e6e6;
-   border-radius: 10%;
+    display: inline-flex;
+    margin-bottom: 2px;
+    background-color: #e6e6e6;
+    border-radius: 10%;
 }
 
 
-button > * {
+button>* {
     pointer-events: none;
 }
 
 
 .btn {
     padding: 3px;
-    display: flex; 
+    display: flex;
     align-items: center;
 }
 
@@ -144,4 +166,3 @@ button > * {
     width: 29px;
     text-align: center;
 }
-

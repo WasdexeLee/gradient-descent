@@ -32,6 +32,8 @@ if ($connection->connect_error){
 if (isset($_POST['func'])){
     if ($_POST['func'] === 'getFoodDetail')
         getFoodDetail($connection);
+    else if ($_POST['func'] === 'getCategory')
+        getCategory($connection);
     else if ($_POST['func'] === 'getCart')
         getCart($connection);
     else if ($_POST['func'] === 'modifyCart')
@@ -143,6 +145,30 @@ function modifyCart(&$connection){
     $prepared_query->close();
 
     echo "Modify Success";
+}
+
+
+function getCategory(&$connection){
+    // Create query, prepare and bind parameters
+    $query_template = "SELECT food_category_id, food_category_name FROM FoodCategory";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Init array to store response
+    $result = [];
+    $pass = [];
+
+    // Execute query and bind results to array
+    $prepared_query->execute();
+    $prepared_query->bind_result($result[0], $result[1]);
+
+    // Fetch all response from server
+    while ($prepared_query->fetch())
+        $pass[] = [$result[0], $result[1]];
+
+    echo json_encode($pass);
+
+    // Close query
+    $prepared_query->close();
 }
 
 
