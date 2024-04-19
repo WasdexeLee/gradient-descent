@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+        // Forces user to login 
+        if (localStorage.getItem('user_id') === null)
+            window.location.href = '../html/login.html';
+        
+    
     const editButton = document.getElementById('editButton');
     const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
     const profileForm = document.getElementById('profileForm');
