@@ -14,6 +14,24 @@
 }
 
 
+.category-item {
+    height: 40px;
+    line-height: 40px;
+    margin: 10px;
+}
+
+
+.category-item.active {
+    background-color: #1dea0e;
+    color: white;
+}
+
+
+.nav-link {
+    color: black !important;
+}
+
+
 .container-fluid{
     padding-top: 3%;
     display: flex;

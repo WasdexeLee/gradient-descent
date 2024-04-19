@@ -67,24 +67,8 @@ function getCart(&$connection){
 
 
 function modifyCart(&$connection){
-    $delete_cart_item = json_decode(($_POST['delete_cart_item']));
     $update_cart_item = json_decode(($_POST['update_cart_item']));
-    $insert_cart_item = json_decode(($_POST['insert_cart_item']));
     $user_id = intval($_POST['user_id']);
-
-    // Create query, prepare and bind parameters for delete
-    $query_template = "DELETE FROM Cart WHERE (user_id = ?) AND (food_id = ?)";
-    $prepared_query = $connection->prepare($query_template);
-
-    // Bind parameter to query 
-    foreach ($delete_cart_item as $food_id){
-        $prepared_query->bind_param("ii", $user_id, $food_id);
-        $prepared_query->execute();
-    }
-
-    // Close query
-    $prepared_query->close();
-
 
     // Create query, prepare and bind parameters for update
     $query_template = "UPDATE Cart SET food_num = ? WHERE (user_id = ?) AND (food_id = ?)";
@@ -118,7 +102,7 @@ function deleteItem(&$connection){
     // Close query
     $prepared_query->close();
 
-    echo "Modify Success";
+    echo "Delete Success";
 }
 
 

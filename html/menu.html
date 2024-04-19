@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css-script/menu.css">
     <script src="../js-script/menu.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#category-bar" data-offset="80">
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
@@ -23,12 +25,52 @@
         </div>
     </nav>
 
+
+    
+
+
+    <nav class="nav-pills bg-light sticky-top" style="width: fit-content;">
+        <!-- <div class="position-sticky" style="top: 0;" id="category-bar"> -->
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#section1">
+                        <span data-feather="home"></span>
+                        Pizza
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section2">
+                        <span data-feather="file"></span>
+                        Burger
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section3">
+                        <span data-feather="shopping-cart"></span>
+                        Pasta
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section4">
+                        <span data-feather="users"></span>
+                        Desserts
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
     <div class="container-fluid mt-5">
         <div class="row">
 
             <!-- Category Display Column -->
-            <div class="col-lg-1">
-                <p>category</p>
+            <div class="col-lg-1 sticky-top">
+                <!-- <p>category</p> -->
+
+            
+
+
             </div>
 
             <!-- Food Item Column -->

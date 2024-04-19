@@ -162,12 +162,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Get all details of every cart food item from database
         formData = new FormData();
         formData.append('func', 'getCart');
-        formData.append('user_id', parseInt(localStorage.getItem('user_id')));
+        formData.append('user_id', localStorage.getItem('user_id'));
         // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
         return fetch('../php-script/cart.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => cartItem.push(row)))
-            .catch(error => console.error('ERROR: ', error))
+            .catch(error => console.error('ERROR: ', error));
     }
 
 
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let locFormData = new FormData();
 
         locFormData.append('func', 'modifyCart');
-        locFormData.append('user_id', localStorage.getItem('user_id').toString());
+        locFormData.append('user_id', localStorage.getItem('user_id'));
         locFormData.append('delete_cart_item', JSON.stringify(deleteCartItem));
         locFormData.append('update_cart_item', JSON.stringify(updateCartItem));
 
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let locFormData = new FormData();
 
         locFormData.append('func', 'deleteItem');
-        locFormData.append('user_id', localStorage.getItem('user_id').toString());
+        locFormData.append('user_id', localStorage.getItem('user_id'));
         locFormData.append('delete_cart_item', item.id);
 
         // Call fetch API to pass data to menu.php
