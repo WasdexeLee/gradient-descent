@@ -117,9 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
             cardPrice.textContent = "RM " + item[Cart.PRICE].toString();
             cardDel = document.createElement('p');
             cardDel.className = 'card-text txtDel';
+            cardDel.id = item[Cart.ID];
             cardDelSmall = document.createElement('small');
             cardDelSmall.textContent = "Remove from Cart";
-            cardDelSmall.id = item[Cart.ID];
 
             cardBody.appendChild(cardPrice);
             cardDel.appendChild(cardDelSmall);
