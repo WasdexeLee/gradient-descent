@@ -38,10 +38,11 @@
     padding-top: 3%;
     display: flex;
     justify-content: center;
+    margin-bottom: 10%;
 }
 
 
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
     .col-lg-1 {
         flex: 0 0 auto;
         order: -1;
@@ -53,12 +54,12 @@
         flex: 0 0 auto;
         max-width: 90%;
     }
-}
+} */
 
 
 .card {
-    margin: 1vw;
-    height: 165px;
+    margin: 0.6vw;
+    height: 150px;
     overflow: hidden;
 }
 
@@ -101,7 +102,7 @@
 
 
 .card-title {
-    max-width: 50%;
+    max-width: 65%;
 }
 
 .desc-onel {

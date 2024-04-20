@@ -58,6 +58,36 @@ VALUES
 (NULL, 'Iced Latte', 4, 'Freshly brewed Iced Latte using 100% Arabica coffee beans and fresh milk.', 8.8, 10, '../food-image/Iced Latte.webp', 38, DEFAULT)
 
 
+
+(NULL, 'Da Vinci Tau Fu Fah Ice', 5, 'Taro Creme, Pandan Tau Fu Fah, Soy Milk Ice, Four Seasons Ball, Red Bean', 17.46, 10, '../food-image/Da Vinci Tau Fu Fah Ice.webp', 38, DEFAULT)
+(NULL, 'Picasso Tau Fu Fah Ice', 5, 'Taro Creme, Pandan Tau Fu Fah, Soy Milk Ice, Sago, Cendol', 16.51, 13, '../food-image/Picasso Tau Fu Fah Ice.webp', 15, DEFAULT)
+(NULL, 'Genki Ice', 5, '(Serves 2 Pax) Soy Shaved Ice, Taro Crème Glutinous Ball, Matcha Red Bean Glutinous Ball, Black Sesame Glutinous Ball, Peanut Glutinous Ball, Cincau, Peach Resin, Barley, Brown Sugar', 31.04, 13, '../food-image/Genki Ice.webp', 15, DEFAULT)
+(NULL, 'Strawberry Ice', 5, 'Soy Shaved Ice, Strawberry Syrup, Konjac Jelly, Calbee Cereal', 23.11, 13, '../food-image/Strawberry Ice.webp', 15, DEFAULT)
+(NULL, 'Boba Soy Milk', 4, 'Boba, Grinded Soybean, Brown Sugar', 10.85, 13, '../food-image/Boba Soy Milk.webp', 15, DEFAULT)
+(NULL, 'Thai Green Tea', 4, 'Thai Green Tea', 8.8, 13, '../food-image/Thai Green Tea.webp', 15, DEFAULT)
+(NULL, 'Thai Milk Tea', 4, 'Thai Milk Tea', 8.8, 13, '../food-image/Thai Milk Tea.webp', 15, DEFAULT)
+(NULL, 'Brownies with Ice Cream', 5, 'Brownies served with vanilla ice cream and a drizzl of chocolate sauce. Topped with fresh strawberry', 12.72, 13, '../food-image/Brownies with Ice Cream.webp', 15, DEFAULT)
+(NULL, 'Banana Split', 5, '3-scoop of ice cream and splited banana. Topped with whipped cream, chocolate sauce, fresh strawberry and cookies crumb', 17.16, 13, '../food-image/Banana Split.webp', 15, DEFAULT)
+(NULL, 'Pink Lemonade', 5, 'Fizzy refreshing drinks with the flavour of raspberry, lemon and crushed strawberry', 17.16, 13, '../food-image/Pink Lemonade.webp', 15, DEFAULT)
+(NULL, 'Iced Berry Cheesecake', 4, 'Fresh milk add on with berry and cheescake sauce', 10.72, 13, '../food-image/Iced Berry Cheesecake.webp', 15, DEFAULT)
+(NULL, 'Passion Spritz', 4, 'Fizzy refreshing drinks with the flavour of passionfruit, crushed lemongrass and topped with passionfruit grain and popping boba', 17.16, 13, '../food-image/Passion Spritz.webp', 15, DEFAULT)
+(NULL, 'Grilled Chicken Salad', 2, 'Grilled chicken served with fresh salad and tomato cherry. Topped with parmesan cheese, tartar sauce and olive oil', 22.73, 13, '../food-image/Grilled Chicken Salad.webp', 15, DEFAULT)
+(NULL, 'Grilled Chicken', 2, 'Grilled chicken served with french fries, coleslaw, toasted garlic bread and homemade black pepper sauce side', 24.16, 13, '../food-image/Grilled Chicken.webp', 15, DEFAULT)
+(NULL, 'Classic Chicken Chop', 2, 'Chicken chop served with french fries, coleslaw, toasted garlic bread and homemade black pepper sauce', 24.16, 13, '../food-image/Classic Chicken Chop.webp', 15, DEFAULT)
+
+
+
+
+(NULL, '', 4, '', 2, 13, '../food-image/.webp', 15, DEFAULT)
+(NULL, '', 4, '', 2, 13, '../food-image/.webp', 15, DEFAULT)
+(NULL, '', 4, '', 2, 13, '../food-image/.webp', 15, DEFAULT)
+
+
+
+(NULL, '', 4, '', 2, 13, '../food-image/Iced Latte.webp', 15, DEFAULT)
+(NULL, '', 4, '', 2, 13, '../food-image/Iced Latte.webp', 15, DEFAULT)
+
+
 CREATE TABLE Cart (
     user_id INT NOT NULL,
     food_id INT NOT NULL, 

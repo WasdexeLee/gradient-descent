@@ -36,6 +36,11 @@
 }
 
 
+#category-bar {
+    width: 100%;
+}
+
+
 .nav-link {
     color: black !important;
 }
@@ -50,6 +55,7 @@
 .container-fluid {
     display: flex;
     justify-content: center;
+    margin-bottom: 10%;
 }
 
 
