@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: url('webpage-image/background1.jpg') no-repeat center center fixed;
+    background: url('../webpage-image/background1.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -44,7 +44,9 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
     margin-top: 70px; /* Adjust based on nav height */
+    border: 0px;
 }
+
 
 form {
     display: flex;
@@ -56,16 +58,20 @@ input[type="email"],
 input[type="tel"] {
     padding: 8px;
     margin: 8px 0;
-    border: 1px solid #ccc;
+    border: 0;
     border-radius: 4px;
     background-color: transparent; /* Ensure background matches form */
     user-select: none;
+    outline: none;
+    font-size: 16px;
 }
+
 
 input.editable {
     background-color: white; /* Visible change when editable */
     cursor: text;
     user-select: text;
+    border: 0;
 }
 
 button {
