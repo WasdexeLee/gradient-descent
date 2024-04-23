@@ -27,7 +27,7 @@
 }
 
 
-#yesButton {
+#yes-button {
     background-color: rgb(230, 67, 61) !important;
     border-color: rgb(230, 67, 61) !important;
     margin-right: 50px;
@@ -180,7 +180,22 @@ button > * {
     background-color: antiquewhite;
     padding: 2%;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: 1rem; /* Regular font size */
+    color: #1e1e1e; /* Dark grey text color */
+}
+
+
+.footer-row-top {
+    border-bottom: 1px solid #3f3f3f;
+    padding-bottom: 0.7%;
+}
+
+
+.subtotal-price {
+    font-size: 1.5rem; /* Larger font size for price */
+    font-weight: 650;
+    color: #007bff; /* Blue color for price */
 }
 
 
@@ -188,5 +203,6 @@ button > * {
     margin-top: 4%;
     width: 70%;
     padding: 1.8%;
-    font-size: x-large;
+    font-size: 1.32rem;
+    font-weight: 500;
 }

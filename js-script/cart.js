@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get all food items in cart of current user 
     getCart()
         .then(() => dynamicLoadCard())
-        .then(() => buttonListener())
+        .then(() => buttonListener());
 
 
     window.addEventListener('beforeunload', function () {
@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
                 }
             }
+            // add here so that we change price and then we change total
 
             if (event.target.className === 'btn btn-primary btnAdd') {
                 numICDiv = event.target.previousElementSibling;
@@ -238,17 +239,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function warnUserDelete(item) {
-        const modalBody = document.getElementById('modalBody');
+        // Toggle the modal to display using ID 
         $('#warnUserDeleteModal').modal('toggle');
 
-        for (let i = 0; i < cartItem.length; i++){
-            if (parseInt(item.id) === cartItem[i][Cart.ID]){
-                modalBody.textContent = cartItem[i][Cart.NAME];
-                break;
-            }
-        }
+        // Get the modalBody which will be used to insert the name of the item to be removed
+        const modalBody = document.getElementById('modalBody');
 
-        document.getElementById('yesButton').addEventListener('click', () => {
+        // Finds the index of the item and retrieve its name from cartItem using the index and write to modalBody
+        modalBody.textContent = cartItem[inCart(item, cartItem)][Cart.NAME];
+
+        // Add event listener to yes-button
+        // On click, removes the item selected using deleteItem function
+        // Next, calls page to reload
+        document.getElementById('yes-button').addEventListener('click', () => {
             deleteItem(item)
                 .then(() => location.reload());
         })
