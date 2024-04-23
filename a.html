@@ -1,73 +1,62 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
+    <title>Stylish Footer</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css-script/cart.css">
-    <script src="../js-script/cart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif; /* Applies Roboto font to the body, affects all text */
+        }
+        #footer-container {
+            background-color: #f8f9fa; /* Light grey background */
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
+            padding: 12px 0; /* Uniform padding for better spacing */
+        }
+        .footer-item {
+            background-color: #ffffff; /* White background */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 1rem; /* Regular font size */
+            color: #555555; /* Dark grey text color */
+        }
+        .footer-item div {
+            font-size: 1rem; /* Same font size for all text */
+            color: #555555; /* Dark grey text color */
+        }
+        .footer-item b {
+            font-size: 1.2rem; /* Larger font size for price */
+            color: #007bff; /* Blue color for price */
+        }
+        .btn-checkout {
+            width: 100%; /* Full width button */
+            margin-top: 10px; /* Spacing between subtotal and button */
+            font-weight: 500; /* Slightly bolder font for the button */
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-bottom container-fluid text-center" id="footer-container">
+        <div class="row justify-content-center" style="width: 100%;">
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-lg-8 footer-item text-left">Items (5)</div>
+                    <div class="col-lg-4 footer-item">
+                        <div>Subtotal: <b>RM <span style="color: #007bff;">99.99</span></b></div>
+                        <button type="button" class="btn btn-primary btn-checkout">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="../webpage-image/nvidia.svg" class="img-fluid"
-                    id="navbar-logo">Capybara Express</a>
-
-            <div class="nav-item">
-                <img src="../webpage-image/cart.png" class="img-fluid nav-link" id="navbar-cart">
-            </div>
-        </div>
-    </nav>
-
-    <!-- Warning Box -->
-    <div class="modal fade" id="warnUserDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Do You Want to Remove this Item?</h5>
-                </div>
-                <div class="modal-body" id="modalBody">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="yesButton" data-dismiss="modal">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="noButton" data-dismiss="modal">No</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid mt-5">
-        <div class="row">
-            <!-- Food Item Column -->
-            <div class="col-lg-12" id="food-item-col">
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Sticky Footer -->
-    <div class="fixed-bottom bg-light">
-        <div class="container-fluid text-center py-2">
-            <div class="row justify-content-center">
-                <div class="col-md-8"> <!-- Adjust the width of the footer by changing col-md-8 -->
-                    <span>&copy; 2024 Capybara Express - All rights reserved.</span>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
-
-
-
-
 
 
 

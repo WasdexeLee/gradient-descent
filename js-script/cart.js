@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
             }
 
-            if (event.target.className === 'card-text txtDel')
+            if (event.target.className === 'card-text txt-del')
                 warnUserDelete(event.target);
         });
     }
@@ -171,46 +171,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function inCart(item, prevCartItem) {
+    function inCart(item, cartItem) {
+        // Set to -1
         let locIndex = -1;
-        for (let row = 0; row < prevCartItem.length; row++) {
-            if (parseInt(item.id) === prevCartItem[row][0])
+
+        // Loop through all item in cart
+        for (let row = 0; row < cartItem.length; row++) {
+            // If the item passed as parameter's id is equal to the item looped from the cart, then item found and return the index of the item
+            if (parseInt(item.id) === cartItem[row][0])
                 locIndex = row;
         }
+        // Return locIndex, if -1, item not found, else item found
         return locIndex;
     }
 
 
     function modifyCart() {
         // Create json object to be passed to php (either to delete, update or insert to table)
-        let deleteCartItem = [];
         let updateCartItem = {};
         // Get all .num-in-cart which contains number of items in cart 
         const foodList = document.querySelectorAll('.num-in-cart');
 
         // Checks through for changes to cart and carries out necessary changes ie. delete, update, insert
         foodList.forEach(item => {
+            // Find index of item in cart
             let itemIndex = inCart(item, cartItem);
 
-            if (itemIndex >= 0) {
-                if (parseInt(item.textContent) === 0)
-                    deleteCartItem.push(parseInt(item.id));
-
-                else if (parseInt(item.textContent) !== cartItem[itemIndex][Cart.NUM])
-                    updateCartItem[parseInt(item.id)] = parseInt(item.textContent);
-            }
+            // If the num-in-cart div text content is not equal to the number of item from the cartItem list pulled from database
+            // Push to JSON updateCartItem to be passed to php
+            if (parseInt(item.textContent) !== cartItem[itemIndex][Cart.NUM])
+                updateCartItem[parseInt(item.id)] = parseInt(item.textContent);
         });
-
-        console.log(deleteCartItem);
-        console.log(updateCartItem);
-
 
         // Append cart data into FormData object to pass to php
         let locFormData = new FormData();
 
+        // Append necessary info for php
         locFormData.append('func', 'modifyCart');
         locFormData.append('user_id', localStorage.getItem('user_id'));
-        locFormData.append('delete_cart_item', JSON.stringify(deleteCartItem));
         locFormData.append('update_cart_item', JSON.stringify(updateCartItem));
 
         // Call fetch API to pass data to menu.php
