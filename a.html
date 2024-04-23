@@ -1,4 +1,143 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css-script/cart.css">
+    <script src="../js-script/cart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="../webpage-image/nvidia.svg" class="img-fluid"
+                    id="navbar-logo">Capybara Express</a>
+
+            <div class="nav-item">
+                <img src="../webpage-image/cart.png" class="img-fluid nav-link" id="navbar-cart">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Warning Box -->
+    <div class="modal fade" id="warnUserDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Do You Want to Remove this Item?</h5>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="yesButton" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-secondary" id="noButton" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <!-- Food Item Column -->
+            <div class="col-lg-12" id="food-item-col">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Footer -->
+    <div class="fixed-bottom bg-light">
+        <div class="container-fluid text-center py-2">
+            <div class="row justify-content-center">
+                <div class="col-md-8"> <!-- Adjust the width of the footer by changing col-md-8 -->
+                    <span>&copy; 2024 Capybara Express - All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Overlay on Image</title>
+<style>
+  .text-overlay {
+    position: relative;
+    display: inline-block;
+  }
+
+  .text-overlay img {
+    display: block; /* removes bottom space/gap */
+    width: 100%; /* adjust as per your requirement */
+  }
+
+  .text-overlay .overlay {
+    position: absolute;
+    bottom: 0; /* align to the bottom of the parent */
+    left: 0;
+    width: 100%; /* full width of the image */
+    padding: 20px 0; /* padding around the text */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* vertically fading background */
+    text-align: center; /* centers text horizontally */
+    box-sizing: border-box;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* shadow for better readability */
+  }
+
+  .text-overlay .overlay h2 {
+    color: white;
+    font-size: 24px; /* adjust as needed */
+    margin: 0; /* removes default margin */
+    padding: 0 20px; /* horizontal padding */
+    display: inline-block; /* keeps text aligned to its own content */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* shadow for better readability */
+  }
+</style>
+</head>
+<body>
+
+<div class="text-overlay">
+  <img src="food-image/Iced Latte.webp" alt="Background Image">
+  <div class="overlay">
+    <h2>Your Text Here</h2>
+  </div>
+</div>
+
+</body>
+</html>
+ -->
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -25,7 +164,6 @@
 <body data-spy="scroll" data-target="#scoller" data-offset="80">
     <div class="container-fluid">
         <div class="row">
-            <!-- Vertical Navbar -->
             <div class="col-md-2 nav-pills d-none d-md-block bg-light sidebar">
                 <div class="position-sticky" style="top: 0;" id="scoller">
                     <ul class="nav flex-column">
@@ -57,7 +195,7 @@
                 </div>
             </div>
 
-            <!-- Page Content -->
+            Page Content
             <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
                 <h1 class="h2">Dashboard</h1>
                 <p>This is some placeholder content for the dashboard. Use this space to provide information or links
@@ -261,14 +399,13 @@
         </div>
     </div>
 
-    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
         feather.replace();
     </script>
 </body>
 
-</html>
+</html> -->
 
 
 
