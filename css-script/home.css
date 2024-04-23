@@ -1,0 +1,74 @@
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: brightness(0) saturate(100%) invert(73%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(93%) contrast(88%);
+    border: 2px solid white;
+    /* Sets a white border around the icons */
+    border-radius: 50%;
+    /* Optional: makes the border rounded */
+    width: 40px;
+    /* Sets the width of the icons including the border */
+    height: 40px;
+    /* Sets the height of the icons including the border */
+    display: flex;
+    /* Ensures the content is centered */
+    align-items: center;
+    /* Center content vertically */
+    justify-content: center;
+    /* Center content horizontally */
+    background-size: 50%;
+    /* Adjust the size of the background image if necessary */
+}
+
+
+
+
+.text-with-stroke {
+    -webkit-text-stroke: 1px black;
+    color: white;
+}
+
+.text-with-border {
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+
+
+
+
+.text-overlay {
+    position: relative;
+    display: inline-block;
+}
+
+
+.text-overlay .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* full width of the image */
+    padding: 20px 0;
+    /* padding around the text */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+    /* vertically fading background */
+    text-align: center;
+    /* centers text horizontally */
+    box-sizing: border-box;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* shadow for better readability */
+}
+
+.text-overlay .overlay h2 {
+    color: white;
+    font-size: 24px;
+    /* adjust as needed */
+    margin: 0;
+    /* removes default margin */
+    padding: 0 20px;
+    /* horizontal padding */
+    display: inline-block;
+    /* keeps text aligned to its own content */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* shadow for better readability */
+}
