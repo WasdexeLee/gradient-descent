@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     // Variable to store cart items
     let cartItem = [];
+    // Array to store all numICDiv and price
+    let numICDivArr, priceArr;
+    // Element Item and Subtotal in footer 
+    let footerItem = document.querySelector('.col-lg-7.text-left.total-item')
+    let footerSubtotal = document.querySelector('.subtotal-price');
 
 
 
@@ -25,8 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get all food items in cart of current user 
     getCart()
         .then(() => dynamicLoadCard())
-        .then(() => buttonListener());
-
+        .then(() => buttonListener())
+        .then(() => updateFooter());
+        
 
     window.addEventListener('beforeunload', function () {
         console.log('Page is unloading!');
@@ -114,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cardPrice = document.createElement('p');
             cardPrice.className = 'card-text price';
             item[Cart.PRICE] = item[Cart.PRICE].toFixed(2);
-            cardPrice.textContent = "RM " + item[Cart.PRICE].toString();
+            cardPrice.textContent = "RM " + (item[Cart.PRICE] * item[Cart.NUM]).toFixed(2).toString();
             cardDel = document.createElement('p');
             cardDel.className = 'card-text txt-del';
             cardDel.id = item[Cart.ID];
@@ -125,6 +131,9 @@ document.addEventListener('DOMContentLoaded', function () {
             cardDel.appendChild(cardDelSmall);
             cardBody.appendChild(cardDel);
         })
+
+        numICDivArr = document.querySelectorAll('.num-in-cart');
+        priceArr = document.querySelectorAll('.card-text.price');
     }
 
 
@@ -136,14 +145,20 @@ document.addEventListener('DOMContentLoaded', function () {
         container.addEventListener('click', event => {
             if (event.target.className === 'btn btn-primary btnRm') {
                 numICDiv = event.target.nextElementSibling;
-                if (parseInt(numICDiv.textContent) > 0){
+                if (parseInt(numICDiv.textContent) > 0) {
                     if (parseInt(numICDiv.textContent) === 1)
                         warnUserDelete(numICDiv);
-                    else{
+                    else {
+                        // Reduce the number-in-cart div by 1 
                         numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
-                        var cardBody = event.target.closest('.card-body');
-                        var price = cardBody.querySelector('.card-text.price').textContent;
-                        console.log(parseFloat(price.slice(3)));
+                        // Obtain the cardBody which contains the targeted element
+                        cardBody = event.target.closest('.card-body');
+                        // Traverse to the first element with class .car-text.price
+                        price = cardBody.querySelector('.card-text.price');
+                        // Set price element textContent to the price of product of num of item and price
+                        price.textContent = "RM " + (cartItem[inCart(numICDiv, cartItem)][Cart.PRICE] * parseInt(numICDiv.textContent)).toFixed(2).toString();
+                        // Call updateFooter() function to update the footer
+                        updateFooter();
                     }
                 }
             }
@@ -153,8 +168,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 numICDiv = event.target.previousElementSibling;
                 parentDiv = event.target.parentElement;
                 availDiv = parentDiv.nextElementSibling;
-                if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent))
+                if (parseInt(numICDiv.textContent) < parseInt(availDiv.textContent)) {
+                    // Increase the number-in-cart div by 1
                     numICDiv.textContent = parseInt(numICDiv.textContent) + 1;
+                    // Obtain the cardBody which contains the targeted element
+                    cardBody = event.target.closest('.card-body');
+                    // Traverse to the first element with class .car-text.price
+                    price = cardBody.querySelector('.card-text.price');
+                    // Set price element textContent to the price of product of num of item and price
+                    price.textContent = "RM " + (cartItem[inCart(numICDiv, cartItem)][Cart.PRICE] * parseInt(numICDiv.textContent)).toFixed(2).toString();
+                    // Call updateFooter() function to update the footer
+                    updateFooter();
+                }
             }
 
             if (event.target.className === 'card-text txt-del')
@@ -259,5 +284,23 @@ document.addEventListener('DOMContentLoaded', function () {
             deleteItem(item)
                 .then(() => location.reload());
         })
+    }
+
+
+    function updateFooter() {
+        // Init item and subtotal to 0 and sum on later
+        item = 0;
+        subtotal = 0;
+
+        // Loop through all numICDiv and price to obtain each item's item and price and sum it up
+        for (let numICDiv of numICDivArr)
+            item += parseInt(numICDiv.textContent);
+
+        for (let price of priceArr)
+            subtotal += parseFloat(price.textContent.slice(3));
+
+        // Write to the footer's element
+        footerItem.textContent = "Items (" + item.toString() + ")";
+        footerSubtotal.textContent = subtotal.toFixed(2).toString();
     }
 });
