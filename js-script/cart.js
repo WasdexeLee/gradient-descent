@@ -139,11 +139,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (parseInt(numICDiv.textContent) > 0){
                     if (parseInt(numICDiv.textContent) === 1)
                         warnUserDelete(numICDiv);
-                    else
+                    else{
                         numICDiv.textContent = parseInt(numICDiv.textContent) - 1;
+                        var cardBody = event.target.closest('.card-body');
+                        var price = cardBody.querySelector('.card-text.price').textContent;
+                        console.log(parseFloat(price.slice(3)));
+                    }
                 }
             }
-            // add here so that we change price and then we change total
+
 
             if (event.target.className === 'btn btn-primary btnAdd') {
                 numICDiv = event.target.previousElementSibling;
