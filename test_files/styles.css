@@ -1,0 +1,20 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+#content {
+  height: 100%;
+  background: rgb(232, 230, 112);
+  position: relative;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide-out {
+  transform: translateY(-100%);
+}
+
+.slide-in {
+  transform: translateY(100%);
+}
