@@ -5,10 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const loginText = document.getElementById('logIn');
     const alertUsernameBox = document.getElementById('alertUsername');
     const alertPasswordBox = document.getElementById('alertPassword');
+    // Var for dynamic address textarea
+    const addressTextarea = document.getElementById('address');
     // Init array to store all username
     let existingUsername = [];
 
 
+
+
+
+    // Event listener for input in textarea
+    addressTextarea.addEventListener('input', () => adjustTextareaHeight());
 
 
     // Event listener for when form is submitted
@@ -50,8 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
-
     // Event listener for when user clicks on login text
     loginText.addEventListener('click', function () {
         // Redirect to the sign-up page
@@ -59,6 +64,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    // Initial call to adjust the text area as the page is loaded
+    adjustTextareaHeight();
+
+
+
+
+    // Function to adjust height of text area dynamically
+    function adjustTextareaHeight() {
+        addressTextarea.style.height = 'auto';  // Reset the height
+        addressTextarea.style.height = addressTextarea.scrollHeight + 'px';  // Set height equal to scroll height
+        console.log('as');
+    }
 
 
     function fetchExistingUsername() {
@@ -73,8 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(() => console.log(existingUsername))
             .catch(error => console.error('ERROR: ', error));
     }
-
-
 
 
     // Function to find if username has been used and if password is matching
@@ -99,8 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
-
     // Function to insert new user record to database
     function insertUser(input_username, input_email, input_password, input_phone, input_address, input_operator, input_notification) {
         // Append signup data into FormData object to pass to php
@@ -116,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Call fetch API to pass data to signup.php
         // Use POST method, passes locFormData, wait for response and log to console
-        fetch('signup.php', { method: 'POST', body: locFormData })
+        fetch('../php-script/signup.php', { method: 'POST', body: locFormData })
             .then(response => response.text())
             .then(responseText => console.log(responseText))
             .catch(error => console.error("ERROR: ", error));

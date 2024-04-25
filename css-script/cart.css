@@ -43,21 +43,6 @@
 }
 
 
-/* @media (max-width: 992px) {
-    .col-lg-1 {
-        flex: 0 0 auto;
-        order: -1;
-        max-width: 10%;
-
-    }
-
-    .col-lg-11 {
-        flex: 0 0 auto;
-        max-width: 90%;
-    }
-} */
-
-
 .card {
     margin: 0.6vw;
     height: 150px;

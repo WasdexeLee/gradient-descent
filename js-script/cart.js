@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+
+
     // Function to dynamically load card of cart item into webpage
     function dynamicLoadCard() {
         const foodItemContainer = document.getElementById('food-item-col');

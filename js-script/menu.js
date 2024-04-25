@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Every change in webpage size, checks number of line of title and change description length to accomodate title
 window.addEventListener('resize', checkTitleLine());
 
+
 window.addEventListener('beforeunload', function () {
     console.log('Page is unloading!');
     updateCart();
