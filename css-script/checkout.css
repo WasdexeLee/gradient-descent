@@ -1,18 +1,24 @@
+.container-col-div {
+    background-color: antiquewhite; margin-top: 5%; border-radius: 15px;
+}
+
+
+
+
 .title-div {
     border-bottom: 1px solid #ccc;
 }
 
 
-
-
-.order-item {
+.child-div {
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
 }
 
-.order-summary {
-    padding: 10px 0;
+.final-div {
+    border: none;
 }
+
 
 .total-amount {
     font-weight: bold;

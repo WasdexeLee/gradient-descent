@@ -19,7 +19,7 @@
     <!-- User information -->
     <div class="container-fluid justify-content-center">
         <div class="row justify-content-center">
-            <div class="col-lg-7" style="background-color: antiquewhite; margin-top: 5%; border-radius: 15px;">
+            <div class="col-lg-7 container-col-div">
 
                 <!-- Title -->
                 <div class="row title-div">
@@ -30,32 +30,33 @@
 
 
                 <!-- Order items -->
-                <div class="row order-item">
+                <div class="row child-div final-div">
                     <div class="col-12">
-                    <!-- Form for user input -->
-                    <form>
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-3 col-form-label">Name</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="name" placeholder="Enter your name"
-                                    required>
+                        <!-- Form for user input -->
+                        <form>
+                            <div class="form-group row">
+                                <label for="name" class="col-lg-12 col-form-label">Name</label>
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="name" placeholder="e.g. Dr Tan"
+                                        required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="address" class="col-sm-3 col-form-label">Address</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="address" placeholder="Enter your address"
-                                    required>
+                            <div class="form-group row">
+                                <label for="address" class="col-lg-12 col-form-label">Address</label>
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="address"
+                                        placeholder="e.g. University Of Nottingham - University Of Nottingham, Semenyih, Hulu Langat, Selangor, Malaysia"
+                                        required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="phone" class="col-sm-3 col-form-label">Phone</label>
-                            <div class="col-sm-9">
-                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"
-                                    required>
+                            <div class="form-group row">
+                                <label for="phone" class="col-lg-12 col-form-label">Phone</label>
+                                <div class="col-lg-12">
+                                    <input type="tel" class="form-control" id="phone" placeholder="e.g. 012-789 3456"
+                                        required>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
 
 
                     </div>
@@ -72,19 +73,16 @@
     <!-- Order Summary -->
     <div class="container-fluid justify-content-center">
         <div class="row justify-content-center">
-            <div class="col-lg-7" style="background-color: antiquewhite; margin-top: 5%; border-radius: 15px;">
-
+            <div class="col-lg-7 container-col-div">
                 <!-- Title -->
-                <div class="row" style="border-bottom: 1px solid #ccc;">
+                <div class="row title-div">
                     <div class="col-12">
                         <h2 class="my-4">Order Summary</h2>
                     </div>
                 </div>
 
-
-
                 <!-- Order items -->
-                <div class="row order-item">
+                <div class="row child-div">
                     <div class="col-3">
                         <img src="path/to/food-thumbnail.jpg" alt="Food Thumbnail" class="img-fluid">
                     </div>
@@ -94,13 +92,11 @@
                     <div class="col-3 text-right">
                         <p>¥15.69</p>
                     </div>
+                    <!-- Repeat for other items -->
                 </div>
 
-
-
-
-                <!-- Repeat for other items -->
-                <div class="row order-summary">
+                <!-- Total Breakdown -->
+                <div class="row child-div">
                     <div class="col-6">
                         <p>Subtotal</p>
                     </div>
@@ -121,9 +117,8 @@
                     </div>
                 </div>
 
-
-
-                <div class="row order-summary" style="border-top: 1px solid #ccc;">
+                <!-- Total -->
+                <div class="row child-div final-div">
                     <div class="col-6 total-amount">
                         <p>Total</p>
                     </div>
@@ -131,14 +126,9 @@
                         <p>¥25.17</p>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
-
     </div>
-
 
 
     <!-- Additional Remark -->

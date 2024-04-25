@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log("Sign-up successful. Redirecting to login page.");
 
                     // Redirect to the homepage
-                    window.location.href = '/DI Assignment Code Files/CapybaraExpress/login.html';
+                    window.location.href = '../html/login.html';
                 }
             });
     });
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for when user clicks on login text
     loginText.addEventListener('click', function () {
         // Redirect to the sign-up page
-        window.location.href = 'login.html';
+        window.location.href = '../html/login.html';
     });
 
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let formData = new FormData();
         formData.append('func', 'getUserName');
         // Call login.php script and take response from script, convert to json array, push row to array and catch eorror
-        return fetch('signup.php', { method: 'POST', body: formData, })
+        return fetch('../php-script/signup.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(array => existingUsername = array)
             .then(() => console.log(existingUsername))
