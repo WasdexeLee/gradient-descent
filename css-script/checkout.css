@@ -1,0 +1,19 @@
+.title-div {
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+
+.order-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.order-summary {
+    padding: 10px 0;
+}
+
+.total-amount {
+    font-weight: bold;
+}
