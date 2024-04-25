@@ -72,3 +72,15 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     /* shadow for better readability */
 }
+
+#scrollButton {
+    background: none;       /* Removes the background */
+    border: none;           /* Removes the border */
+    color: white;           /* Sets the text color to blue (or choose any appropriate color) */
+    padding: 0;             /* Removes padding */
+    font: inherit;          /* Inherits the font from the parent container */
+    cursor: pointer;        /* Keeps the pointer cursor to indicate it's clickable */
+    text-decoration: none; /* Adds underline to mimic a hyperlink */
+    font-size: large;
+}
+
