@@ -54,6 +54,66 @@
 }
 
 
+.row.no-gutters.items-div {
+    height: 85px;
+    width: 100%;
+}
+
+
+.col-md-2.img-col-div {
+    display: flex;
+    justify-content: center;
+}
+
+
+.col-md-2.img-col-div img {
+    height: 85px !important;
+}
+
+
+.price-col-div {
+    padding-right: 3% !important;
+}
+
+
+
+
 .total-amount {
     font-weight: bold;
+}
+
+
+#footer-main-row {
+    margin: 0;
+}
+
+
+.footer-item {
+    background-color: antiquewhite;
+    padding: 2% 2%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: 1rem; 
+    color: #1e1e1e; 
+}
+
+
+.footer-subtotal {
+    margin: auto 0; 
+}
+
+
+.subtotal-price {
+    font-size: 1.5rem;
+    font-weight: 650;
+    color: #007bff; 
+}
+
+
+.btn-checkout { 
+    margin: auto 0;
+    width: 85%;
+    padding: 1.8%;
+    font-size: 1.32rem;
+    font-weight: 500;
 }

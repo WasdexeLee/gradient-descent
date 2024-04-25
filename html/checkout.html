@@ -107,16 +107,24 @@
 
                 <!-- Order items -->
                 <div class="row child-div">
-                    <div class="col-3">
-                        <img src="path/to/food-thumbnail.jpg" alt="Food Thumbnail" class="img-fluid">
+                    <div class="row no-gutters items-div">
+
+                        <div class="col-md-2 img-col-div">
+                            <img class="img-fluid" src="../food-image/Drumstick Fried Chikin Combo.webp">
+                        </div>
+
+                        <div class="col-md-8 item-body-col-div">
+                                <h5>Drumstick Fried Chikin Combo</h5>
+                                <div id="1" class="num-in-cart">x2</div>
+                        </div>
+
+                        <div class="col-md-2 price-col-div text-right">
+                            <p class="price">RM 37.80</p>
+                        </div>
+
                     </div>
-                    <div class="col-6">
-                        <p>Item Description</p>
-                    </div>
-                    <div class="col-3 text-right">
-                        <p>¥15.69</p>
-                    </div>
-                    <!-- Repeat for other items -->
+
+
                 </div>
 
                 <!-- Total Breakdown -->
@@ -223,78 +231,94 @@
 
 
     <!-- Payment Method Section -->
-<div class="container-fluid justify-content-center final-container-div">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 container-col-div">
+    <div class="container-fluid justify-content-center final-container-div">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 container-col-div">
 
-            <!-- Title -->
-            <div class="row title-div">
-                <div class="col-12">
-                    <h2 class="my-4">Payment Method</h2>
+                <!-- Title -->
+                <div class="row title-div">
+                    <div class="col-12">
+                        <h2 class="my-4">Payment Method</h2>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Payment Method Form -->
-            <div class="row child-div final-div">
-                <div class="col-12">
-                    <form>
-                        <!-- Payment Method Dropdown -->
-                        <div class="form-group row">
-                            <label for="paymentMethod" class="col-lg-12 form-label">Select Payment Method</label>
-                            <div class="col-lg-12">
-                                <select class="form-control" id="paymentMethod" required>
-                                    <option value="" disabled selected>Select your option</option>
-                                    <option value="credit_card">Credit Card</option>
-                                    <option value="paypal">PayPal</option>
-                                    <option value="bank_transfer">Bank Transfer</option>
-                                    <!-- Add more payment methods here -->
-                                </select>
+                <!-- Payment Method Form -->
+                <div class="row child-div final-div">
+                    <div class="col-12">
+                        <form>
+                            <!-- Payment Method Dropdown -->
+                            <div class="form-group row">
+                                <label for="paymentMethod" class="col-lg-12 form-label">Select Payment Method</label>
+                                <div class="col-lg-12">
+                                    <select class="form-control" id="paymentMethod" required>
+                                        <option value="" disabled selected>Select your option</option>
+                                        <option value="credit_card">Credit Card</option>
+                                        <option value="paypal">PayPal</option>
+                                        <option value="bank_transfer">Bank Transfer</option>
+                                        <!-- Add more payment methods here -->
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Cardholder Name -->
-                        <div class="form-group row">
-                            <label for="cardholderName" class="col-lg-12 form-label">Cardholder Name</label>
-                            <div class="col-lg-12">
-                                <input type="text" class="form-control" id="cardholderName" placeholder="Enter your name" required>
+                            <!-- Cardholder Name -->
+                            <div class="form-group row">
+                                <label for="cardholderName" class="col-lg-12 form-label">Cardholder Name</label>
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="cardholderName"
+                                        placeholder="Enter your name" required>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Card Number -->
-                        <div class="form-group row">
-                            <label for="cardNumber" class="col-lg-12 form-label">Card Number</label>
-                            <div class="col-lg-12">
-                                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                            <!-- Card Number -->
+                            <div class="form-group row">
+                                <label for="cardNumber" class="col-lg-12 form-label">Card Number</label>
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="cardNumber"
+                                        placeholder="1234 5678 9012 3456" required>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Expiry Date and CVV -->
-                        <div class="form-group row">
-                            <div class="col-lg-6">
-                                <label for="expiryDate" class="form-label">Expiry Date</label>
-                                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                            <!-- Expiry Date and CVV -->
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY"
+                                        required>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                </div>
                             </div>
-                            <div class="col-lg-6">
-                                <label for="cvv" class="form-label">CVV</label>
-                                <input type="text" class="form-control" id="cvv" placeholder="123" required>
-                            </div>
-                        </div>
 
-                        <!-- Submit Button -->
-                        <div class="form-group row">
-                            <div class="col-lg-12">
-                                <button type="submit" class="btn btn-primary mt-3">Submit Payment</button>
+                            <!-- Submit Button -->
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-primary mt-3">Submit Payment</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
+    <!-- Sticky Footer -->
+    <div class="fixed-bottom container-fluid text-center justify-content-center">
+        <div class="row justify-content-center" id="footer-main-row">
+            <div class="col-lg-8 footer-item">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-7 text-left footer-subtotal">Subtotal (5) : <b class="subtotal-price">RM
+                            99.99</b></div>
+                    <div class="col-lg-4">
+                        <button type="button" class="btn btn-primary btn-checkout">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

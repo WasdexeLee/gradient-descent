@@ -303,6 +303,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Write to the footer's element
         footerItem.textContent = "Items (" + item.toString() + ")";
-        footerSubtotal.textContent = subtotal.toFixed(2).toString();
+        footerSubtotal.textContent = "RM " + subtotal.toFixed(2).toString();
     }
 });
