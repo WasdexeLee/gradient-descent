@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '../html/login.html';
 
 
-    // Init array to store all username
-    let foodDetail = [];
     // Init enum to make code more readable
     const Cart = Object.freeze({
         ID: 0,
@@ -16,8 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
         AVAILABILITY: 5,
         IMAGE: 6,
     })
-    // Variable to store cart items
+    // Array to store cart items
     let cartItem = [];
+    // Array to store id of items according to index of cartItem
+    let itemId = [];
     // Array to store all numICDiv and price
     let numICDivArr, priceArr;
     // Element Item and Subtotal in footer 
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Get all food items in cart of current user 
     getCart()
+        .then(() => itemId = cartItem.map(row => row[Cart.ID]))
         .then(() => dynamicLoadCard())
         .then(() => buttonListener())
         .then(() => updateFooter());
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Traverse to the first element with class .car-text.price
                         price = cardBody.querySelector('.card-text.price');
                         // Set price element textContent to the price of product of num of item and price
-                        price.textContent = "RM " + (cartItem[inCart(numICDiv, cartItem)][Cart.PRICE] * parseInt(numICDiv.textContent)).toFixed(2).toString();
+                        price.textContent = "RM " + (cartItem[itemId.indexOf(parseInt(numICDiv.id))][Cart.PRICE] * parseInt(numICDiv.textContent)).toFixed(2).toString();
                         // Call updateFooter() function to update the footer
                         updateFooter();
                     }
@@ -178,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Traverse to the first element with class .car-text.price
                     price = cardBody.querySelector('.card-text.price');
                     // Set price element textContent to the price of product of num of item and price
-                    price.textContent = "RM " + (cartItem[inCart(numICDiv, cartItem)][Cart.PRICE] * parseInt(numICDiv.textContent)).toFixed(2).toString();
+                    price.textContent = "RM " + (cartItem[itemId.indexOf(parseInt(numICDiv.id))][Cart.PRICE] * parseInt(numICDiv.textContent)).toFixed(2).toString();
                     // Call updateFooter() function to update the footer
                     updateFooter();
                 }
@@ -203,31 +204,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function inCart(item, cartItem) {
-        // Set to -1
-        let locIndex = -1;
-
-        // Loop through all item in cart
-        for (let row = 0; row < cartItem.length; row++) {
-            // If the item passed as parameter's id is equal to the item looped from the cart, then item found and return the index of the item
-            if (parseInt(item.id) === cartItem[row][0])
-                locIndex = row;
-        }
-        // Return locIndex, if -1, item not found, else item found
-        return locIndex;
-    }
-
-
     function modifyCart() {
         // Create json object to be passed to php (either to delete, update or insert to table)
         let updateCartItem = {};
-        // Get all .num-in-cart which contains number of items in cart 
-        const foodList = document.querySelectorAll('.num-in-cart');
 
         // Checks through for changes to cart and carries out necessary changes ie. delete, update, insert
-        foodList.forEach(item => {
+        numICDivArr.forEach(item => {
             // Find index of item in cart
-            let itemIndex = inCart(item, cartItem);
+            let itemIndex = itemId.indexOf(parseInt(item.id));
 
             // If the num-in-cart div text content is not equal to the number of item from the cartItem list pulled from database
             // Push to JSON updateCartItem to be passed to php
@@ -277,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const modalBody = document.getElementById('modalBody');
 
         // Finds the index of the item and retrieve its name from cartItem using the index and write to modalBody
-        modalBody.textContent = cartItem[inCart(item, cartItem)][Cart.NAME];
+        modalBody.textContent = cartItem[itemId.indexOf(parseInt(item.id))][Cart.NAME];
 
         // Add event listener to yes-button
         // On click, removes the item selected using deleteItem function
