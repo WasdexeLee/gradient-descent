@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-
             if (event.target.className === 'btn btn-primary btnAdd') {
                 numICDiv = event.target.previousElementSibling;
                 parentDiv = event.target.parentElement;
@@ -188,7 +187,25 @@ document.addEventListener('DOMContentLoaded', function () {
             if (event.target.className === 'card-text txt-del')
                 warnUserDelete(event.target);
         });
+
+
+        // Get cart icon to add event listener
+        const cartIcon = document.getElementById('navbar-cart');
+
+        cartIcon.addEventListener('click', () => {
+            location.reload();
+        });
+
+
+        // Get cart icon to add event listener
+        const checkoutBtn = document.querySelector('.btn.btn-primary.btn-checkout');
+
+        checkoutBtn.addEventListener('click', () => {
+            window.location.href = "../html/checkout.html";
+        });
+ 
     }
+
 
 
     function getCart() {

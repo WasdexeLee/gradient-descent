@@ -54,20 +54,22 @@
 }
 
 
-.row.no-gutters.items-div {
+.items-div {
     height: 85px;
     width: 100%;
+    padding: 5px 0;
 }
 
 
-.col-md-2.img-col-div {
+.img-col-div {
     display: flex;
     justify-content: center;
 }
 
 
-.col-md-2.img-col-div img {
-    height: 85px !important;
+.img-col-div img {
+    height: 75px !important;
+    border-radius: 5px;
 }
 
 
@@ -98,12 +100,12 @@
 }
 
 
-.footer-subtotal {
+.footer-total {
     margin: auto 0; 
 }
 
 
-.subtotal-price {
+.footer-total-amount {
     font-size: 1.5rem;
     font-weight: 650;
     color: #007bff; 

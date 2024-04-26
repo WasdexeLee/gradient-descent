@@ -15,115 +15,76 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     // Variable to store cart items
     let cartItem = [];
-    // Array to store all numICDiv and price
+    // Element address textarea
+    var addressTextarea = document.getElementById('address');
+    // Array to store all numincart and price
     let numICDivArr, priceArr;
-    // Element Item and Subtotal in footer 
-    let footerItem = document.querySelector('.col-lg-7.text-left.total-item')
-    let footerSubtotal = document.querySelector('.subtotal-price');
+    // Element subtotal, deliveryFee, totalAmount
+    let subtotalEl = document.getElementById('subtotal');
+    let deliveryFeeEl = document.getElementById('delivery-fee');
+    let totalAmountEl = document.getElementById('total-amount');
+    // Element Total in footer 
+    let footerTotalEl = document.getElementById('footer-total')
 
+
+
+
+    getCart()
+        .then(() => dynamicLoadItem())
+        .then(() => updateTotalBreakdown())
+        .then(() => updateFooter());
 
 
 
 
     // Function to dynamically load card of cart item into webpage
     function dynamicLoadItem() {
-        const foodItemContainer = document.getElementById('food-item-col');
-        let currentRow;
-        let col12, card, innerRow, col3, foodImg, col9, cardBody, cardTitle, btnRm, rmImg, numICDiv, btnAdd, addImg, btnAvailDiv, btnDiv, avail, cardDel, cardDelSmall, cardPrice;
+        const orderItemContainer = document.getElementById('order-item-col');
+        let itemRow, imgDiv, img, bodyDiv, title, numICDiv, priceDiv, price;
         cartItem.forEach(item => {
-            currentRow = document.createElement('div');
-            currentRow.className = 'row';
-            foodItemContainer.appendChild(currentRow);
 
-            col12 = document.createElement('div');
-            col12.className = 'col-lg-12';
-            card = document.createElement('div');
-            card.className = 'card';
-            innerRow = document.createElement('div');
-            innerRow.className = 'row no-gutters';
+            itemRow = document.createElement('div');
+            itemRow.className = 'row no-gutters items-div';
+            orderItemContainer.appendChild(itemRow);
 
-            card.appendChild(innerRow);
-            col12.appendChild(card);
-            currentRow.appendChild(col12);
+            imgDiv = document.createElement('div');
+            imgDiv.className = 'col-md-2 img-col-div';
+            img = document.createElement('img');
+            img.className = 'img-fluid';
+            img.src = item[Cart.IMAGE];
+            imgDiv.appendChild(img);
+            itemRow.appendChild(imgDiv);
 
-
-            col3 = document.createElement('div');
-            col3.className = 'col-md-3';
-            foodImg = document.createElement('img');
-            foodImg.className = 'img-fluid';
-            foodImg.src = item[Cart.IMAGE];
-
-            innerRow.appendChild(col3);
-            col3.appendChild(foodImg);
-
-
-            col9 = document.createElement('div');
-            col9.className = 'col-md-9';
-            cardBody = document.createElement('div');
-            cardBody.className = 'card-body';
-            cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title';
-            cardTitle.textContent = item[Cart.NAME];
-
-            cardBody.appendChild(cardTitle);
-            col9.appendChild(cardBody);
-            innerRow.appendChild(col9);
-
-
-            btnAvailDiv = document.createElement('div');
-            btnAvailDiv.className = 'button-avail-div';
-            btnDiv = document.createElement('div');
-            btnDiv.className = 'button-div';
-            btnRm = document.createElement('button');
-            btnRm.type = 'button';
-            btnRm.className = 'btn btn-primary btnRm';
-            rmImg = document.createElement('img');
-            rmImg.src = '../webpage-image/icon-minus.svg';
+            bodyDiv = document.createElement('div');
+            bodyDiv.className = 'col-md-8 item-body-col-div';
+            title = document.createElement('h5');
+            title.textContent = item[Cart.NAME];
             numICDiv = document.createElement('div');
-            numICDiv.id = item[Cart.ID];
             numICDiv.className = 'num-in-cart';
-            numICDiv.textContent = item[Cart.NUM];
-            btnAdd = document.createElement('button');
-            btnAdd.type = 'button';
-            btnAdd.className = 'btn btn-primary btnAdd';
-            addImg = document.createElement('img');
-            addImg.src = '../webpage-image/icon-plus.svg';
-            avail = document.createElement('small');
-            avail.className = 'card-text text-muted avail';
-            avail.textContent = item[Cart.AVAILABILITY].toString() + ' available';
+            numICDiv.id = parseInt(item[Cart.ID]);
+            numICDiv.textContent = "x" + item[Cart.NUM].toString();
+            bodyDiv.appendChild(title);
+            bodyDiv.appendChild(numICDiv);
+            itemRow.appendChild(bodyDiv);
 
-            btnRm.appendChild(rmImg);
-            btnAdd.appendChild(addImg);
-            btnDiv.appendChild(btnRm);
-            btnDiv.appendChild(numICDiv);
-            btnDiv.appendChild(btnAdd);
-            btnAvailDiv.appendChild(btnDiv);
-            btnAvailDiv.appendChild(avail);
-            cardBody.appendChild(btnAvailDiv);
-
-
-            cardPrice = document.createElement('p');
-            cardPrice.className = 'card-text price';
-            item[Cart.PRICE] = item[Cart.PRICE].toFixed(2);
-            cardPrice.textContent = "RM " + (item[Cart.PRICE] * item[Cart.NUM]).toFixed(2).toString();
-            cardDel = document.createElement('p');
-            cardDel.className = 'card-text txt-del';
-            cardDel.id = item[Cart.ID];
-            cardDelSmall = document.createElement('small');
-            cardDelSmall.textContent = "Remove from Cart";
-
-            cardBody.appendChild(cardPrice);
-            cardDel.appendChild(cardDelSmall);
-            cardBody.appendChild(cardDel);
+            priceDiv = document.createElement('div');
+            priceDiv.className = 'col-md-2 price-col-div text-right';
+            price = document.createElement('p');
+            price.className = 'price';
+            price.textContent = "RM " + (item[Cart.PRICE] * item[Cart.NUM]).toFixed(2).toString();
+            priceDiv.appendChild(price);
+            itemRow.appendChild(priceDiv);
         })
 
         numICDivArr = document.querySelectorAll('.num-in-cart');
-        priceArr = document.querySelectorAll('.card-text.price');
+        priceArr = document.querySelectorAll('.price');
+
+        // Event listener for input in textarea
+        addressTextarea.addEventListener('input', adjustAddressTextareaHeight);
+        adjustAddressTextareaHeight();
     }
 
 
-
-    
     function getCart() {
         // Get all details of every cart food item from database
         formData = new FormData();
@@ -136,20 +97,52 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('ERROR: ', error));
     }
 
-    function updateFooter() {
-        // Init item and subtotal to 0 and sum on later
-        item = 0;
-        subtotal = 0;
 
-        // Loop through all numICDiv and price to obtain each item's item and price and sum it up
-        for (let numICDiv of numICDivArr)
-            item += parseInt(numICDiv.textContent);
+    // Function to adjust textarea height
+    function adjustAddressTextareaHeight() {
+        addressTextarea.style.height = 'auto';  // Reset the height
+        addressTextarea.style.height = addressTextarea.scrollHeight + 'px';  // Set height equal to scroll height
+    }
+
+
+    function updateTotalBreakdown() {
+        let subtotal = 0;
+        let deliveryFee = 7;
+        let totalAmount = 0;
+
 
         for (let price of priceArr)
             subtotal += parseFloat(price.textContent.slice(3));
 
+        totalAmount = subtotal + deliveryFee;
+
+
+        subtotalEl.textContent = "RM " + subtotal.toFixed(2).toString();
+        deliveryFeeEl.textContent = "RM " + deliveryFee.toFixed(2).toString();
+        totalAmountEl.textContent = "RM " + totalAmount.toFixed(2).toString();
+    }
+
+
+    function updateFooter() {
+        // Init item and totalAmount to 0 and sum on later
+        let item = 0;
+        let totalAmount = 0;
+
+        // Loop through all numICDiv and price to obtain each item's item and price and sum it up
+        for (let numICDiv of numICDivArr)
+            item += parseInt(numICDiv.textContent.slice(1));
+
+        for (let price of priceArr)
+            totalAmount += parseFloat(price.textContent.slice(3));
+
         // Write to the footer's element
-        footerItem.textContent = "Items (" + item.toString() + ")";
-        footerSubtotal.textContent = "RM " + subtotal.toFixed(2).toString();
+        footerTotalEl.textContent = "Items (" + item.toString() + ") : ";
+
+        let footerTotalAmountEl = document.createElement('b');
+        footerTotalAmountEl.className = 'footer-total-amount';
+        footerTotalAmountEl.id = 'footer-total-amount';
+        footerTotalEl.appendChild(footerTotalAmountEl);
+
+        footerTotalAmountEl.textContent = "RM " + totalAmount.toFixed(2).toString();
     }
 });

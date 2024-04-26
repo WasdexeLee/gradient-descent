@@ -7,30 +7,10 @@
     <title>Checkout</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css-script/checkout.css">
-    <!-- <script src="../js-script/cart.js"></script> -->
+    <script src="../js-script/checkout.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Select the textarea
-            var textarea = document.getElementById('address');
-
-            // Function to adjust textarea height
-            function adjustTextareaHeight() {
-                textarea.style.height = 'auto';  // Reset the height
-                textarea.style.height = textarea.scrollHeight + 'px';  // Set height equal to scroll height
-                console.log('as');
-            }
-
-            // Event listener for input in textarea
-            textarea.addEventListener('input', adjustTextareaHeight);
-
-            // Initial call to adjust height on page load
-            adjustTextareaHeight();
-        });
-    </script>
 </head>
 
 
@@ -106,25 +86,7 @@
                 </div>
 
                 <!-- Order items -->
-                <div class="row child-div">
-                    <div class="row no-gutters items-div">
-
-                        <div class="col-md-2 img-col-div">
-                            <img class="img-fluid" src="../food-image/Drumstick Fried Chikin Combo.webp">
-                        </div>
-
-                        <div class="col-md-8 item-body-col-div">
-                                <h5>Drumstick Fried Chikin Combo</h5>
-                                <div id="1" class="num-in-cart">x2</div>
-                        </div>
-
-                        <div class="col-md-2 price-col-div text-right">
-                            <p class="price">RM 37.80</p>
-                        </div>
-
-                    </div>
-
-
+                <div class="row child-div" id="order-item-col">
                 </div>
 
                 <!-- Total Breakdown -->
@@ -133,13 +95,13 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="col-6 text-right">
-                        <p>RM </p>
+                        <p id="subtotal">RM </p>
                     </div>
                     <div class="col-6">
                         <p>Delivery Fee</p>
                     </div>
                     <div class="col-6 text-right">
-                        <p>RM </p>
+                        <p id="delivery-fee">RM </p>
                     </div>
                 </div>
 
@@ -149,7 +111,7 @@
                         <p>Total</p>
                     </div>
                     <div class="col-6 text-right total-amount">
-                        <p>RM </p>
+                        <p id="total-amount">RM </p>
                     </div>
                 </div>
 
@@ -178,7 +140,7 @@
                             <div class="form-group row">
                                 <label for="name" class="col-lg-12 form-label">Note to Driver</label>
                                 <div class="col-lg-12">
-                                    <input type="text" class="form-control" id="name" placeholder="e.g. Dr Tan"
+                                    <input type="text" class="form-control" id="name" placeholder="e.g. Meet me at the lobby"
                                         required>
                                 </div>
                             </div>
@@ -272,8 +234,7 @@
             <div class="col-lg-8 footer-item">
                 <div class="row">
                     <div class="col-lg-1"></div>
-                    <div class="col-lg-7 text-left footer-subtotal">Subtotal (5) : <b class="subtotal-price">RM
-                            99.99</b></div>
+                    <div class="col-lg-7 text-left footer-total" id="footer-total">Total Amount () : <b class="footer-total-amount" id="footer-total-amount">RM </b></div>
                     <div class="col-lg-4">
                         <button type="button" class="btn btn-primary btn-checkout">Place Order</button>
                     </div>
