@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-        // Forces user to login 
-        if (localStorage.getItem('user_id') === null)
-            window.location.href = '../html/login.html';
-        
-    
+    // Forces user to login 
+    if (localStorage.getItem('user_id') === null)
+        window.location.href = '../html/login.html';
+
+
     const editButton = document.getElementById('editButton');
     const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
     const profileForm = document.getElementById('profileForm');
@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //fetch and show the information of user
     formData = new FormData();
-            formData.append('func', 'getUser');
-            formData.append('user_id', localStorage.getItem('user_id'));
+    formData.append('func', 'getUser');
+    formData.append('user_id', localStorage.getItem('user_id'));
 
     fetch('../php-script/profile.php', {
         method: 'POST',
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
 
-//the edit and submit function
+    //the edit and submit function
     editButton.addEventListener('click', function () {
         if (editButton.innerText === "Edit") {
             //the eidt button change to submit button
@@ -58,28 +58,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
+                .then(response => response.text())
 
-            .then(d => console.log(d))
-
-
-            //tell the user that the data has been updated and remove the editable attribute
-            .then(data => {
-                alert('Profile updated successfully!');
-                inputs.forEach(input => {
-                    input.classList.remove('editable');
-                    input.readOnly = true;
- 
-                });
+                .then(d => console.log(d))
 
 
+                //tell the user that the data has been updated and remove the editable attribute
+                .then(data => {
+                    alert('Profile updated successfully!');
+                    inputs.forEach(input => {
+                        input.classList.remove('editable');
+                        input.readOnly = true;
+
+                    });
 
 
 
-                editButton.innerText = "Edit";
-  
-            })
-            .catch(error => console.error('Error:', error));
+
+
+                    editButton.innerText = "Edit";
+
+                })
+                .catch(error => console.error('Error:', error));
         }
     });
 });

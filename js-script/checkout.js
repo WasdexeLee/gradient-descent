@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let subtotalEl = document.getElementById('subtotal');
     let deliveryFeeEl = document.getElementById('delivery-fee');
     let totalAmountEl = document.getElementById('total-amount');
+    // Element cod-price in payment method
+    let codPriceEl = document.getElementById('cod-price');
     // Element Total in footer 
     let footerTotalEl = document.getElementById('footer-total')
 
@@ -31,7 +33,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     getCart()
         .then(() => dynamicLoadItem())
+        .then(() => buttonListener())
         .then(() => updateTotalBreakdown())
+        .then(() => updatePaymentMethod())
         .then(() => updateFooter());
 
 
@@ -50,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             imgDiv = document.createElement('div');
             imgDiv.className = 'col-md-2 img-col-div';
             img = document.createElement('img');
-            img.className = 'img-fluid';
+            img.className = 'img-fluid summary-img';
             img.src = item[Cart.IMAGE];
             imgDiv.appendChild(img);
             itemRow.appendChild(imgDiv);
@@ -98,6 +102,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    function buttonListener() {
+        // // Get cart icon to add event listener
+        // const cartIcon = document.getElementById('navbar-cart');
+
+        // cartIcon.addEventListener('click', () => {
+        //     location.reload();
+        // });
+
+
+        // // Get cart icon to add event listener
+        // const checkoutBtn = document.querySelector('.btn.btn-primary.btn-checkout');
+
+        // checkoutBtn.addEventListener('click', () => {
+        //     window.location.href = "../html/checkout.html";
+        // });
+
+
+        const autofillBtn = document.querySelector('.btn-autofill');
+
+        autofillBtn.addEventListener('click', autofillCustInfo);
+    }
+
+
     // Function to adjust textarea height
     function adjustAddressTextareaHeight() {
         addressTextarea.style.height = 'auto';  // Reset the height
@@ -105,14 +132,50 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    function autofillCustInfo() {
+        // Element form 
+        custInfoForm = document.getElementById('cust-info-form');
+        // Array to store customer information
+        locCustInfo = [];
+        console.log('capy');
+
+
+        if (locCustInfo.length === 0) {
+            //fetch the information of customer
+            formData = new FormData();
+            formData.append('func', 'getUserInfo');
+            formData.append('user_id', localStorage.getItem('user_id'));
+
+            fetch('../php-script/checkout.php', { method: 'POST', body: formData, })
+                .then(phpResponse => phpResponse.json())
+                .then(row => locCustInfo = row)
+                .catch(error => console.error('ERROR: ', error))
+                .then(() => locAutoFill());
+        }
+        else {
+            locAutoFill();
+        }
+
+
+        function locAutoFill() {
+            custInfoForm.name.value = locCustInfo[0];
+            custInfoForm.phone.value = locCustInfo[1];
+            custInfoForm.address.value = locCustInfo[2];
+        }
+    }
+
+
     function updateTotalBreakdown() {
         let subtotal = 0;
-        let deliveryFee = 7;
+        let deliveryFee = 0;
         let totalAmount = 0;
 
 
         for (let price of priceArr)
             subtotal += parseFloat(price.textContent.slice(3));
+
+        if (subtotal > 0)
+            deliveryFee = 7;
 
         totalAmount = subtotal + deliveryFee;
 
@@ -120,6 +183,53 @@ document.addEventListener('DOMContentLoaded', function () {
         subtotalEl.textContent = "RM " + subtotal.toFixed(2).toString();
         deliveryFeeEl.textContent = "RM " + deliveryFee.toFixed(2).toString();
         totalAmountEl.textContent = "RM " + totalAmount.toFixed(2).toString();
+    }
+
+
+    function updatePaymentMethod() {
+        var paymentMethodSelect = document.getElementById('payment-method');
+        var creditMethod = document.getElementById('credit-method');
+        var tngMethod = document.getElementById('tng-method');
+        var codMethod = document.getElementById('cod-method');
+
+        function scrollToBottom() {
+            window.scroll({
+                top: document.body.scrollHeight,
+                left: 0,
+                behavior: 'smooth'
+              });
+        }
+
+        function togglePaymentMethod(value) {
+            if (value === "credit-card") {
+                creditMethod.style.display = 'block';
+                tngMethod.style.display = 'none';
+                codMethod.style.display = 'none';
+                scrollToBottom();
+
+            } 
+            else if (value === "tng-ewallet") {
+                creditMethod.style.display = 'none';
+                tngMethod.style.display = 'block';
+                codMethod.style.display = 'none';
+                scrollToBottom();
+
+            }  
+            else if (value === "cod") {
+                creditMethod.style.display = 'none';
+                tngMethod.style.display = 'none';
+                codMethod.style.display = 'block';
+                scrollToBottom();
+            } 
+        }
+
+        // Initially hide all card fields
+        togglePaymentMethod(paymentMethodSelect.value);
+
+        // Add event listener
+        paymentMethodSelect.addEventListener('change', function () {
+            togglePaymentMethod(this.value);
+        });
     }
 
 
@@ -135,14 +245,19 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let price of priceArr)
             totalAmount += parseFloat(price.textContent.slice(3));
 
+        // Total amount add on delivery fee
+        totalAmount += parseFloat(deliveryFeeEl.textContent.slice(3));
+
         // Write to the footer's element
-        footerTotalEl.textContent = "Items (" + item.toString() + ") : ";
+        footerTotalEl.textContent = "Items (" + item.toString() + ")  :  ";
 
         let footerTotalAmountEl = document.createElement('b');
         footerTotalAmountEl.className = 'footer-total-amount';
         footerTotalAmountEl.id = 'footer-total-amount';
+
         footerTotalEl.appendChild(footerTotalAmountEl);
 
         footerTotalAmountEl.textContent = "RM " + totalAmount.toFixed(2).toString();
+        codPriceEl.textContent = "RM " + totalAmount.toFixed(2).toString();
     }
 });

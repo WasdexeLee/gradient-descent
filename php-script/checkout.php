@@ -29,8 +29,8 @@ if ($connection->connect_error){
 
 
 if (isset($_POST['func'])){
-    if ($_POST['func'] === 'getCart')
-        getCart($connection);
+    if ($_POST['func'] === 'getUserInfo')
+        getUserInfo($connection);
     else if ($_POST['func'] === 'modifyCart')
         modifyCart($connection);
     else if ($_POST['func'] === 'deleteItem')
@@ -38,9 +38,9 @@ if (isset($_POST['func'])){
 }
 
 
-function getCart(&$connection){
+function getUserInfo(&$connection){
     // Create query, prepare and bind parameters
-    $query_template = "SELECT Cart.food_id, food_num, food_name, food_category_id, food_price, food_availability, food_image FROM Cart JOIN Food ON Cart.food_id = Food.food_id WHERE (user_id = ?) ORDER BY food_category_id";
+    $query_template = "SELECT user_name, user_phone, user_address FROM User WHERE (user_id = ?)";
     $prepared_query = $connection->prepare($query_template);
 
     $user_id = intval($_POST['user_id']);
@@ -49,17 +49,15 @@ function getCart(&$connection){
 
     // Init array to store response
     $result = [];
-    $pass = [];
 
     // Execute query and bind results to array
     $prepared_query->execute();
-    $prepared_query->bind_result($result[Cart::ID->value], $result[Cart::NUM->value], $result[Cart::NAME->value], $result[Cart::CATEGORY_ID->value], $result[Cart::PRICE->value], $result[Cart::AVAILABILITY->value], $result[Cart::IMAGE->value]);
+    $prepared_query->bind_result($result[0], $result[1], $result[2]);
 
-    // Fetch all response from server
-    while ($prepared_query->fetch())
-        $pass[] = [$result[Cart::ID->value], $result[Cart::NUM->value], $result[Cart::NAME->value], $result[Cart::CATEGORY_ID->value], $result[Cart::PRICE->value], $result[Cart::AVAILABILITY->value], $result[Cart::IMAGE->value]];
+    // Fetch response from server
+    $prepared_query->fetch();
 
-    echo json_encode($pass);
+    echo json_encode($result);
 
     // Close query
     $prepared_query->close();

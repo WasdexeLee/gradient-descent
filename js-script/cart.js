@@ -207,7 +207,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
     function getCart() {
         // Get all details of every cart food item from database
         formData = new FormData();

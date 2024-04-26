@@ -15,7 +15,7 @@
 
 
 <body>
-    <!-- User information -->
+    <!-- Customer information -->
     <div class="container-fluid justify-content-center">
         <div class="row justify-content-center">
             <div class="col-lg-7 container-col-div">
@@ -31,14 +31,15 @@
                 <!-- User Info -->
                 <div class="row child-div final-div">
                     <div class="col-12">
-                        <form>
+
+                        <form id="cust-info-form">
                             <div class="form-group row">
                                 <div class="col-lg-7">
                                     <div class="row">
                                         <label for="name" class="col-lg-12 form-label">Name</label>
                                         <div class="col-lg-12">
-                                            <input type="text" class="form-control" id="name" placeholder="e.g. Dr Tan"
-                                                required>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                placeholder="e.g. Dr Tan" required>
                                         </div>
                                     </div>
                                 </div>
@@ -47,7 +48,7 @@
                                     <div class="row">
                                         <label for="phone" class="col-lg-12 form-label">Phone</label>
                                         <div class="col-lg-12">
-                                            <input type="tel" class="form-control" id="phone"
+                                            <input type="tel" class="form-control" id="phone" name="phone"
                                                 placeholder="e.g. 012-789 3456" required>
                                         </div>
                                     </div>
@@ -57,12 +58,13 @@
                             <div class="form-group row">
                                 <label for="address" class="col-lg-12 form-label">Address</label>
                                 <div class="col-lg-12">
-                                    <textarea class="form-control" id="address"
+                                    <textarea class="form-control" id="address" name="address"
                                         placeholder="e.g. University Of Nottingham - University Of Nottingham, Semenyih, Hulu Langat, Selangor, Malaysia"
                                         rows="1" required style="overflow:hidden; resize: none;"></textarea>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
 
@@ -91,16 +93,16 @@
 
                 <!-- Total Breakdown -->
                 <div class="row child-div">
-                    <div class="col-6">
+                    <div class="col-6 subtotal">
                         <p>Subtotal</p>
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-6 text-right subtotal">
                         <p id="subtotal">RM </p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 delivery-fee">
                         <p>Delivery Fee</p>
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-6 text-right delivery-fee">
                         <p id="delivery-fee">RM </p>
                     </div>
                 </div>
@@ -140,8 +142,8 @@
                             <div class="form-group row">
                                 <label for="name" class="col-lg-12 form-label">Note to Driver</label>
                                 <div class="col-lg-12">
-                                    <input type="text" class="form-control" id="name" placeholder="e.g. Meet me at the lobby"
-                                        required>
+                                    <input type="text" class="form-control" id="name"
+                                        placeholder="e.g. Meet me at the lobby" required>
                                 </div>
                             </div>
                         </form>
@@ -168,64 +170,99 @@
                 <!-- Payment Method Form -->
                 <div class="row child-div final-div">
                     <div class="col-12">
+
                         <form>
                             <!-- Payment Method Dropdown -->
-                            <div class="form-group row">
-                                <label for="paymentMethod" class="col-lg-12 form-label">Select Payment Method</label>
+                            <div class="form-group row payment-selector">
+                                <label for="payment-method" class="col-lg-12 form-label">Select Payment Method</label>
                                 <div class="col-lg-12">
-                                    <select class="form-control" id="paymentMethod" required>
+                                    <select class="form-control" id="payment-method" required>
                                         <option value="" disabled selected>Select your option</option>
-                                        <option value="credit_card">Credit Card</option>
-                                        <option value="paypal">PayPal</option>
-                                        <option value="bank_transfer">Bank Transfer</option>
-                                        <!-- Add more payment methods here -->
+                                        <option value="credit-card">Credit Card</option>
+                                        <option value="tng-ewallet">TnG E-Wallet</option>
+                                        <option value="cod">Cash On Delivery</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <!-- Cardholder Name -->
-                            <div class="form-group row">
-                                <label for="cardholderName" class="col-lg-12 form-label">Cardholder Name</label>
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control" id="cardholderName"
-                                        placeholder="Enter your name" required>
+                            <!-- Credit Card Method -->
+                            <div class="container-fluid payment-container" id="credit-method">
+                                <!-- Cardholder Name -->
+                                <div class="form-group row">
+                                    <label for="cardholderName" class="col-lg-12 form-label">Cardholder Name</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" id="cardholderName"
+                                            placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+
+                                <!-- Card Number -->
+                                <div class="form-group row">
+                                    <label for="cardNumber" class="col-lg-12 form-label">Card Number</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" id="cardNumber"
+                                            placeholder="1234 5678 9012 3456" required>
+                                    </div>
+                                </div>
+
+                                <!-- Expiry Date and CVV -->
+                                <div class="form-group row">
+                                    <div class="col-lg-6">
+                                        <label for="expiryDate" class="form-label">Expiry Date</label>
+                                        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY"
+                                            required>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Card Number -->
-                            <div class="form-group row">
-                                <label for="cardNumber" class="col-lg-12 form-label">Card Number</label>
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control" id="cardNumber"
-                                        placeholder="1234 5678 9012 3456" required>
+
+                            <!-- TnG E-wallet -->
+                            <div class="container-fluid payment-container" id="tng-method">
+                                <!-- QR Code Placeholder -->
+                                <div class="row child-div final-div img-col-div">
+                                    <div class="col-12">
+                                        <img src="../webpage-image/tng-qr.jpg" alt="QR Code" class="img-fluid tng-img">
+                                    </div>
+                                </div>
+
+                                <!-- Instructions -->
+                                <div class="row child-div final-div">
+                                    <div class="col-12">
+                                        <h4 class="payment-instruction">Scan the QR code above with your e-wallet app to
+                                            make the payment.</h4>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Expiry Date and CVV -->
-                            <div class="form-group row">
-                                <div class="col-lg-6">
-                                    <label for="expiryDate" class="form-label">Expiry Date</label>
-                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY"
-                                        required>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="cvv" class="form-label">CVV</label>
-                                    <input type="text" class="form-control" id="cvv" placeholder="123" required>
-                                </div>
-                            </div>
 
-                            <!-- Submit Button -->
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    <button type="submit" class="btn btn-primary mt-3">Submit Payment</button>
+                            <!-- Cash On Delivery -->
+                            <div class="container-fluid payment-container" id="cod-method">
+                                <!-- Instructions -->
+                                <div class="row child-div final-div">
+                                    <div class="col-12">
+                                        <h4 class="payment-instruction">Please prepare the exact amount of : <b
+                                                id="cod-price">RM 0.00</b> to ease
+                                            collection of food.</h4>
+                                    </div>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+
 
 
     <!-- Sticky Footer -->
@@ -234,9 +271,10 @@
             <div class="col-lg-8 footer-item">
                 <div class="row">
                     <div class="col-lg-1"></div>
-                    <div class="col-lg-7 text-left footer-total" id="footer-total">Total Amount () : <b class="footer-total-amount" id="footer-total-amount">RM </b></div>
+                    <div class="col-lg-7 text-left footer-total" id="footer-total">Total Amount () : <b
+                            class="footer-total-amount" id="footer-total-amount">RM </b></div>
                     <div class="col-lg-4">
-                        <button type="button" class="btn btn-primary btn-checkout">Place Order</button>
+                        <button type="button" class="btn btn-primary btn-place-order">Place Order</button>
                     </div>
                 </div>
             </div>
