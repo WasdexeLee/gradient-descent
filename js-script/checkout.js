@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
         custInfoForm = document.getElementById('cust-info-form');
         // Array to store customer information
         locCustInfo = [];
-        console.log('capy');
 
 
         if (locCustInfo.length === 0) {
@@ -187,18 +186,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function updatePaymentMethod() {
+        var additionalRemark = document.getElementById('remark');
         var paymentMethodSelect = document.getElementById('payment-method');
         var creditMethod = document.getElementById('credit-method');
         var tngMethod = document.getElementById('tng-method');
         var codMethod = document.getElementById('cod-method');
+        
 
         function scrollToBottom() {
+            additionalRemark.scrollIntoView({ block: 'start' });
+            console.log(additionalRemark);
+
             window.scroll({
                 top: document.body.scrollHeight,
                 left: 0,
                 behavior: 'smooth'
-              });
+            });
         }
+
 
         function togglePaymentMethod(value) {
             if (value === "credit-card") {

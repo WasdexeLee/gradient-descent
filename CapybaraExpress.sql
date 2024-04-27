@@ -56,9 +56,6 @@ VALUES
 (NULL, 'Tandoori Chicken Rice Half', 2, 'You wanna eat big chicken', 44.9, 10, '../food-image/Tandoori Chicken Rice Half.webp', 20, DEFAULT),
 (NULL, 'Pan Mee Soup', 3, 'Broga broga broga broga', 11.4, 10, '../food-image/Pan Mee Soup.webp', 22, DEFAULT),
 (NULL, 'Iced Latte', 4, 'Freshly brewed Iced Latte using 100% Arabica coffee beans and fresh milk.', 8.8, 10, '../food-image/Iced Latte.webp', 38, DEFAULT)
-
-
-
 (NULL, 'Da Vinci Tau Fu Fah Ice', 5, 'Taro Creme, Pandan Tau Fu Fah, Soy Milk Ice, Four Seasons Ball, Red Bean', 17.46, 10, '../food-image/Da Vinci Tau Fu Fah Ice.webp', 38, DEFAULT)
 (NULL, 'Picasso Tau Fu Fah Ice', 5, 'Taro Creme, Pandan Tau Fu Fah, Soy Milk Ice, Sago, Cendol', 16.51, 13, '../food-image/Picasso Tau Fu Fah Ice.webp', 15, DEFAULT)
 (NULL, 'Genki Ice', 5, '(Serves 2 Pax) Soy Shaved Ice, Taro Crème Glutinous Ball, Matcha Red Bean Glutinous Ball, Black Sesame Glutinous Ball, Peanut Glutinous Ball, Cincau, Peach Resin, Barley, Brown Sugar', 31.04, 13, '../food-image/Genki Ice.webp', 15, DEFAULT)
@@ -76,18 +73,6 @@ VALUES
 (NULL, 'Classic Chicken Chop', 2, 'Chicken chop served with french fries, coleslaw, toasted garlic bread and homemade black pepper sauce', 24.16, 13, '../food-image/Classic Chicken Chop.webp', 15, DEFAULT)
 
 
-
-
-(NULL, '', 4, '', 2, 13, '../food-image/.webp', 15, DEFAULT)
-(NULL, '', 4, '', 2, 13, '../food-image/.webp', 15, DEFAULT)
-(NULL, '', 4, '', 2, 13, '../food-image/.webp', 15, DEFAULT)
-
-
-
-(NULL, '', 4, '', 2, 13, '../food-image/Iced Latte.webp', 15, DEFAULT)
-(NULL, '', 4, '', 2, 13, '../food-image/Iced Latte.webp', 15, DEFAULT)
-
-
 CREATE TABLE Cart (
     user_id INT NOT NULL,
     food_id INT NOT NULL, 
@@ -98,4 +83,26 @@ CREATE TABLE Cart (
 )ENGINE = InnoDB;
 
 
+CREATE TABLE Order (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    order_customer_name VARCHAR(100) NOT NULL, 
+    order_user_phone VARCHAR(30) NOT NULL, 
+    order_user_address VARCHAR(150) NOT NULL, 
+    order_time_placed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    order_payment_method VARCHAR(10) NOT NULL,
+    order_completed BOOLEAN NOT NULL DEFAULT FALSE,
+    order_delivery_instruction VARCHAR(300), 
+    FOREIGN KEY(user_id) REFERENCES User(user_id)
+)ENGINE = InnoDB;
 
+
+
+CREATE TABLE OrderItem (
+    order_id INT NOT NULL,
+    food_id INT NOT NULL, 
+    food_num INT NOT NULL,
+    PRIMARY KEY(order_id, food_id),
+    FOREIGN KEY(order_id) REFERENCES Order(order_id),
+    FOREIGN KEY(food_id) REFERENCES Food(food_id)
+)ENGINE = InnoDB;
