@@ -1,3 +1,9 @@
+body {
+    background-image: url(../webpage-image/background1.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 .navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
     background-color: #dcdcdc !important;
 }
@@ -196,4 +202,33 @@ button > * {
     padding: 1.8%;
     font-size: 1.32rem;
     font-weight: 500;
+}
+
+.navbar {
+    background: wheat;
+    color: black;
+    width: 100%;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    justify-content: center;
+    
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Line up the navigation items horizontally */
+    justify-content: center; /* Center the items horizontally */
+}
+
+.navbar ul li {
+    margin: 0 20px; /* Horizontal spacing between items */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black; /* Updated color to match the navbar text */
+    font-weight: bold;
 }

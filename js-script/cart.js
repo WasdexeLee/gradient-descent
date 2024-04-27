@@ -189,12 +189,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
 
-        // Get cart icon to add event listener
-        const cartIcon = document.getElementById('navbar-cart');
+        // // Get cart icon to add event listener
+        // const cartIcon = document.getElementById('navbar-cart');
 
-        cartIcon.addEventListener('click', () => {
-            location.reload();
-        });
+        // cartIcon.addEventListener('click', () => {
+        //     location.reload();
+        // });
 
 
         // Get cart icon to add event listener
