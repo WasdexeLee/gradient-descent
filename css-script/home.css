@@ -164,3 +164,58 @@
     font-family: 'Dancing Script', cursive; /* Fallback to cursive if Dancing Script doesn't load */
 }
 
+
+/* footer */
+.footer {
+    background-color: #45673a; /* Green shade for eco-friendly vibe */
+    color: #ffffff;
+    padding: 20px 0;
+}
+
+.footer h5 {
+    margin-bottom: 15px;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer .footer-bottom {
+    border-top: 1px solid #ffffff;
+    padding-top: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer form input {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.footer form button {
+    background-color: #394524;
+    border: none;
+    padding: 5px 10px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.footer form button:hover {
+    background-color: #2e3720;
+}
+
+.fcontainer {
+    color: wheat;
+}
