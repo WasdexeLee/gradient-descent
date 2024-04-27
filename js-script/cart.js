@@ -20,8 +20,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let itemId = [];
     // Array to store all numICDiv and price
     let numICDivArr, priceArr;
+    // Element of footer
+    let footer = document.getElementById('footer-container');
+    let mainContainerDiv = document.getElementById('main-container');
     // Element Item and Subtotal in footer 
-    let footerItem = document.querySelector('.col-lg-7.text-left.total-item')
+    let footerItem = document.querySelector('.col-lg-7.text-left.total-item');
     let footerSubtotal = document.querySelector('.subtotal-price');
 
 
@@ -39,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Page is unloading!');
         modifyCart();
     });
+
+
+    window.addEventListener('resize', updateMargin());
 
 
 
@@ -304,5 +310,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Write to the footer's element
         footerItem.textContent = "Items (" + item.toString() + ")";
         footerSubtotal.textContent = "RM " + subtotal.toFixed(2).toString();
+    }
+
+
+    function updateMargin() {
+        locHeight = parseInt(window.getComputedStyle(footer).getPropertyValue('height'), 10);
+        mainContainerDiv.style.marginBottom = (locHeight + 20).toString() + 'px';
     }
 });

@@ -83,19 +83,18 @@ CREATE TABLE Cart (
 )ENGINE = InnoDB;
 
 
-CREATE TABLE Order (
+CREATE TABLE OrderTable (
     order_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    order_customer_name VARCHAR(100) NOT NULL, 
-    order_user_phone VARCHAR(30) NOT NULL, 
-    order_user_address VARCHAR(150) NOT NULL, 
+    order_cust_name VARCHAR(100) NOT NULL, 
+    order_cust_phone VARCHAR(30) NOT NULL, 
+    order_cust_address VARCHAR(150) NOT NULL, 
     order_time_placed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    order_payment_method VARCHAR(10) NOT NULL,
+    order_payment_method VARCHAR(20) NOT NULL,
     order_completed BOOLEAN NOT NULL DEFAULT FALSE,
     order_delivery_instruction VARCHAR(300), 
     FOREIGN KEY(user_id) REFERENCES User(user_id)
 )ENGINE = InnoDB;
-
 
 
 CREATE TABLE OrderItem (
@@ -103,6 +102,6 @@ CREATE TABLE OrderItem (
     food_id INT NOT NULL, 
     food_num INT NOT NULL,
     PRIMARY KEY(order_id, food_id),
-    FOREIGN KEY(order_id) REFERENCES Order(order_id),
+    FOREIGN KEY(order_id) REFERENCES OrderTable(order_id),
     FOREIGN KEY(food_id) REFERENCES Food(food_id)
 )ENGINE = InnoDB;

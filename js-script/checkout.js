@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let totalAmountEl = document.getElementById('total-amount');
     // Element cod-price in payment method
     let codPriceEl = document.getElementById('cod-price');
+    // Element final-container-div
+    let finalContainerDiv = document.querySelector('.final-container-div');
+    // Element footer 
+    let footer = document.getElementById('footer');
     // Element Total in footer 
     let footerTotalEl = document.getElementById('footer-total')
 
@@ -33,10 +37,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     getCart()
         .then(() => dynamicLoadItem())
+        .then(() => adjustAddressTextareaHeight())
         .then(() => buttonListener())
         .then(() => updateTotalBreakdown())
         .then(() => updatePaymentMethod())
         .then(() => updateFooter());
+
+
+    window.addEventListener('resize', updateMargin());
 
 
 
@@ -85,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Event listener for input in textarea
         addressTextarea.addEventListener('input', adjustAddressTextareaHeight);
-        adjustAddressTextareaHeight();
     }
 
 
@@ -187,6 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updatePaymentMethod() {
         var additionalRemark = document.getElementById('remark');
+        var payementMethodTitleEl = document.getElementById('payment-title');
         var paymentMethodSelect = document.getElementById('payment-method');
         var creditMethod = document.getElementById('credit-method');
         var tngMethod = document.getElementById('tng-method');
@@ -194,14 +202,17 @@ document.addEventListener('DOMContentLoaded', function () {
         
 
         function scrollToBottom() {
-            additionalRemark.scrollIntoView({ block: 'start' });
-            console.log(additionalRemark);
+            additionalRemark.scrollIntoView({ block: 'end' });
+
+            const topPos = payementMethodTitleEl.getBoundingClientRect().top + window.scrollY;
 
             window.scroll({
-                top: document.body.scrollHeight,
+                top: topPos,
                 left: 0,
                 behavior: 'smooth'
             });
+
+            updateMargin();
         }
 
 
@@ -264,5 +275,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
         footerTotalAmountEl.textContent = "RM " + totalAmount.toFixed(2).toString();
         codPriceEl.textContent = "RM " + totalAmount.toFixed(2).toString();
+    }
+
+
+    function updateMargin() {
+        locHeight = parseInt(window.getComputedStyle(footer).getPropertyValue('height'), 10);
+        finalContainerDiv.style.marginBottom = (locHeight + 20).toString() + 'px';
+    }
+
+
+    function placeOrder() {
+
+            // Create json object to be passed to php (either to delete, update or insert to table)
+            let updateCartItem = {};
+    
+            // Checks through for changes to cart and carries out necessary changes ie. delete, update, insert
+            numICDivArr.forEach(item => {
+                // Find index of item in cart
+                let itemIndex = itemId.indexOf(parseInt(item.id));
+    
+                // If the num-in-cart div text content is not equal to the number of item from the cartItem list pulled from database
+                // Push to JSON updateCartItem to be passed to php
+                if (parseInt(item.textContent) !== cartItem[itemIndex][Cart.NUM])
+                    updateCartItem[parseInt(item.id)] = parseInt(item.textContent);
+            });
+    
+            // Append cart data into FormData object to pass to php
+            let locFormData = new FormData();
+    
+            // Append necessary info for php
+            locFormData.append('func', 'modifyCart');
+            locFormData.append('user_id', localStorage.getItem('user_id'));
+            locFormData.append('update_cart_item', JSON.stringify(updateCartItem));
+    
+            // Call fetch API to pass data to menu.php
+            // Use POST method, passes locFormData, wait for response and log to console
+            fetch('../php-script/cart.php', { method: 'POST', body: locFormData })
+                .then(response => response.text())
+                .then(responseText => console.log(responseText))
+                .catch(error => console.error("ERROR: ", error));
+    
+
     }
 });
