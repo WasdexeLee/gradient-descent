@@ -12,15 +12,6 @@ $connection = new mysqli($host, $username, $password, $dbname);
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
-
-// session_start();
-
-// Ensure the user is logged in
-// if (!isset($_SESSION['user_id'])) {
-//     header('Location: login.php');
-//     exit();
-// }
-
 // Determine the type of request and call the appropriate function
 if (isset($_POST['func'])) {
     if($_POST['func'] === 'getUser'){

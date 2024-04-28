@@ -1,5 +1,5 @@
 .navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
-    background-color: #dcdcdc !important;
+    background-color: darkgrey !important;
 }
 
 
@@ -33,18 +33,18 @@
     padding-top: 103px;
     width: 8.3333%;
     height: 100%;
-    background-color: #c6ffc2 !important;
+    background-color: wheat !important;
 }
 
 
 #category-bar {
-    width: 100%;
+    width: 8.3333%;
 }
 
 
 .nav-link {
     color: black !important;
-}
+    }
 
 
 .nav-link.active {
@@ -57,6 +57,10 @@
     display: flex;
     justify-content: center;
     margin-bottom: 10%;
+    background-image: url(../webpage-image/resturant_01.jpg); 
+
+    background-attachment: fixed;
+
 }
 
 
@@ -80,6 +84,7 @@
     font-weight: 500;
     padding-left: 46px;
     margin-top: 45px;
+    color: antiquewhite !important;
 }
 
 
@@ -90,6 +95,7 @@
 
 
 .card {
+    background-color: antiquewhite;
     margin: 1vw;
     height: 165px;
     overflow: hidden;
@@ -112,7 +118,10 @@
 .img-fluid {
     height: 95%;
     border-radius: 2%;
+    
 }
+
+
 
 
 .desc-onel {
@@ -172,4 +181,14 @@ button>* {
 .num-in-cart {
     width: 29px;
     text-align: center;
+}
+
+
+nav {
+    background-image: url("../webpage-image/woodtexture.webp");
+}
+
+
+.navbar-brand {
+    color: antiquewhite;
 }

@@ -1,0 +1,125 @@
+/* General Body and Text Styles */
+body {
+    font-family: Arial, sans-serif; /* Default font for the page */
+}
+
+/* Jumbotron Styling */
+.jumbotron {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    background-image: url('../webpage-image/background1.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 800px;
+    color: white; /* Sets text color to white */
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: wheat; /* Light background for the navbar */
+}
+
+/* Carousel Controls */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: brightness(0) saturate(100%) invert(73%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(93%) contrast(88%);
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 50%;
+}
+
+/* Scroll Button Style */
+#scrollButton {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Container and Grid System */
+.container {
+    margin-top: 30px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-sm-4, .col-sm-8 {
+    padding: 15px;
+}
+
+/* Text and Image Styling */
+.fakeimg {
+    height: 200px;
+    background: wheat;
+}
+
+.text-overlay img {
+    display: block;
+    width: 100%;
+}
+
+.text-overlay .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+    text-align: center;
+    box-sizing: border-box;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Font Import and Styling */
+@font-face {
+    font-family: 'Dancing Script';
+    src: url('../Dancing_Script/static/DancingScript-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Dancing Script';
+    src: url('../Dancing_Script/static/DancingScript-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.cursive {
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Link and Pill Styling */
+.nav-pills .nav-link {
+    border-radius: 0; /* Makes the pills squared */
+}
+
+.nav-pills .nav-item .nav-link.active {
+    background-color: #007bff; /* Bootstrap primary color */
+}
+
+/* Carousel Inner Styling */
+.carousel-inner {
+    position: relative;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
