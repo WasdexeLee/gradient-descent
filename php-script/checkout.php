@@ -6,10 +6,9 @@ enum Cart: int
     case ID = 0;
     case NUM = 1;
     case NAME = 2;
-    case CATEGORY_ID = 3;
-    case PRICE = 4;
-    case AVAILABILITY = 5;
-    case IMAGE = 6;
+    case PRICE = 3;
+    case AVAILABILITY = 4;
+    case IMAGE = 5;
 }
 
 
@@ -69,7 +68,7 @@ function getUserInfo(&$connection)
 function getCart(&$connection)
 {
     // Create query, prepare and bind parameters
-    $query_template = "SELECT Cart.food_id, food_num, food_name, food_category_id, food_price, food_availability, food_image FROM Cart JOIN Food ON Cart.food_id = Food.food_id WHERE (user_id = ?) ORDER BY food_category_id";
+    $query_template = "SELECT Cart.food_id, food_num, food_name, food_price, food_availability, food_image FROM Cart JOIN Food ON Cart.food_id = Food.food_id WHERE (user_id = ?) ORDER BY food_category_id";
     $prepared_query = $connection->prepare($query_template);
 
     $user_id = intval($_POST['user_id']);
@@ -82,11 +81,11 @@ function getCart(&$connection)
 
     // Execute query and bind results to array
     $prepared_query->execute();
-    $prepared_query->bind_result($result[Cart::ID->value], $result[Cart::NUM->value], $result[Cart::NAME->value], $result[Cart::CATEGORY_ID->value], $result[Cart::PRICE->value], $result[Cart::AVAILABILITY->value], $result[Cart::IMAGE->value]);
+    $prepared_query->bind_result($result[Cart::ID->value], $result[Cart::NUM->value], $result[Cart::NAME->value], $result[Cart::PRICE->value], $result[Cart::AVAILABILITY->value], $result[Cart::IMAGE->value]);
 
     // Fetch all response from server
     while ($prepared_query->fetch())
-        $pass[] = [$result[Cart::ID->value], $result[Cart::NUM->value], $result[Cart::NAME->value], $result[Cart::CATEGORY_ID->value], $result[Cart::PRICE->value], $result[Cart::AVAILABILITY->value], $result[Cart::IMAGE->value]];
+        $pass[] = [$result[Cart::ID->value], $result[Cart::NUM->value], $result[Cart::NAME->value], $result[Cart::PRICE->value], $result[Cart::AVAILABILITY->value], $result[Cart::IMAGE->value]];
 
     echo json_encode($pass);
 
@@ -153,7 +152,39 @@ function insertOrder(&$connection)
 
     // Bind parameter to query 
     foreach ($order_item as $item) {
-        $prepared_query->bind_param("iii", $order_id, $item[0], $item[1]);
+        $prepared_query->bind_param("iii", $order_id, $item[Cart::ID->value], $item[Cart::NUM->value]);
+        $prepared_query->execute();
+    }
+
+    // Close query
+    $prepared_query->close();
+
+
+
+
+    // Delete cart items for the user placing the order
+    // Create query, prepare and bind parameters for delete
+    $query_template = "DELETE FROM Cart WHERE (user_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    $prepared_query->bind_param("i", $user_id);
+    $prepared_query->execute();
+
+    // Close query
+    $prepared_query->close();
+
+
+
+
+    // Create query, prepare and bind parameters for update
+    $query_template = "UPDATE Food SET food_availability = ? WHERE (food_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    foreach ($order_item as $item) {
+        $temp_avail = $item[Cart::AVAILABILITY->value] - $item[Cart::NUM->value];
+        $prepared_query->bind_param("ii", $temp_avail, $item[Cart::ID->value]);
         $prepared_query->execute();
     }
 

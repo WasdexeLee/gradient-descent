@@ -8,10 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
         ID: 0,
         NUM: 1,
         NAME: 2,
-        CATEGORY_ID: 3,
-        PRICE: 4,
-        AVAILABILITY: 5,
-        IMAGE: 6,
+        PRICE: 3,
+        AVAILABILITY: 4,
+        IMAGE: 5
     })
     // Variable to store cart items
     let cartItem = [];
@@ -358,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('#orderPlacedModal').modal('show');
 
             // Update cuntdown timer
-            let timerLength = 10;
+            let timerLength = 5;
             
             let intervalCounter = setInterval(function () {
                 timerLength--;
