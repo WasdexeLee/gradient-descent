@@ -109,7 +109,32 @@ function getOrder(&$connection)
 
 function deleteOrder(&$connection)
 {
+    $order_id = intval($_POST['order_id']);
 
+    // Create query, prepare and bind parameters for update
+    $query_template = "UPDATE OrderTable SET order_completed = TRUE WHERE (order_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    $prepared_query->bind_param("i", $order_id);
+    $prepared_query->execute();
+
+    // Close query
+    $prepared_query->close();
+
+
+    // Create query, prepare and bind parameters for delete
+    $query_template = "DELETE FROM OrderItem WHERE (order_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    $prepared_query->bind_param("i", $order_id);
+    $prepared_query->execute();
+
+    // Close query
+    $prepared_query->close();
+
+    echo "Delete Success";
 }
 
 ?>

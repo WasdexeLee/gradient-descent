@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
         NAME: 2,
         PRICE: 3,
         AVAILABILITY: 4,
-        IMAGE: 5
+        IMAGE: 5,
+        SOLD: 6
     })
     // Variable to store cart items
     let cartItem = [];
@@ -319,14 +320,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 else
                     insertOrder();
             }
+            // Run insert order function
             else
                 insertOrder();
+
         }
 
 
         // Function to insert order details into database
         function insertOrder() {
-            console.log(orderCustName, orderCustPhone, orderCustAddress, orderPaymentMethod, orderDeliveryInstruction);
             // Append cart data into FormData object to pass to php
             let locFormData = new FormData();
 
@@ -341,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
             locFormData.append('order_item', JSON.stringify(cartItem));
 
 
-            // Call fetch API to pass data to menu.php
+            // Call fetch API to pass data to checkout.php
             // Use POST method, passes locFormData, wait for response and log to console
             fetch('../php-script/checkout.php', { method: 'POST', body: locFormData })
                 .then(response => response.text())
@@ -356,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Trigger to show modal
             $('#orderPlacedModal').modal('show');
 
-            // Update cuntdown timer
+            // Update countdown timer
             let timerLength = 5;
             
             let intervalCounter = setInterval(function () {

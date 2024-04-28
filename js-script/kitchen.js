@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     getOrder()
-        .then(() => dynamicLoadOrders());
+        .then(() => dynamicLoadOrders())
+        .then(() => addButtonListener());
 
 
 
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
                         </div>
 
-                        <button class="complete-btn" onclick="markCompleted(this)" id=${order[0]}>Complete</button>
+                        <button class="complete-btn" id=${order[0]}>Complete</button>
                     </div>
                 </div>`;
         });
@@ -130,32 +131,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function markCompleted(button) {
+        // Change the colour and text of button
         button.classList.add('completed');
-        button.textContent = 'Delete';
+        button.textContent = 'Completed';
+
+          // Append cart data into FormData object to pass to php
+          let locFormData = new FormData();
+
+          // Append necessary info for php
+          locFormData.append('func', 'deleteOrder');
+          locFormData.append('order_id', button.id);
+          
+          // Call fetch API to pass data to kitchen.php
+          // Use POST method, passes locFormData, wait for response and log to console
+          fetch('../php-script/kitchen.php', { method: 'POST', body: locFormData })
+              .then(response => response.text())
+              .then(responseText => console.log(responseText))
+              .catch(error => console.error("ERROR: ", error));
+    }
 
 
+    function addButtonListener() {
+        completedBtn = document.querySelectorAll('.complete-btn');
 
-            // Update cuntdown timer
-            let timerLength = 5;
-            
-            let intervalCounter = setInterval(function () {
-                timerLength--;
-                document.getElementById('countdownText').textContent = timerLength.toString();
+        console.log(completedBtn);
 
-                // If timer has gone down to 0, stop intervalCounter, hide modal and move to home page (or order pending page)
-                if (timerLength <= 0) {
-                    clearInterval(intervalCounter);
-                    $('#orderPlacedModal').modal('hide');
-                    window.location.href = "../html/home.html";
-                }
-            }, 1000);
-
-            // Button to close the modal manually
-            document.getElementById('OPCloseButton').addEventListener('click', function () {
-                clearInterval(intervalCounter);
-                $('#orderPlacedModal').modal('hide');
-                window.location.href = "../html/home.html";
+        completedBtn.forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('df');
+                markCompleted(this);
             });
+        });
+
+        clearBtn = document.getElementById('clearButton');
+
+        clearBtn.addEventListener('click', function() {
+            location.reload();
+        })
     }
 });
 
