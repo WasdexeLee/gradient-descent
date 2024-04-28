@@ -89,9 +89,9 @@ CREATE TABLE OrderTable (
     order_cust_name VARCHAR(100) NOT NULL, 
     order_cust_phone VARCHAR(30) NOT NULL, 
     order_cust_address VARCHAR(150) NOT NULL, 
-    order_time_placed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    order_time_placed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     order_payment_method VARCHAR(20) NOT NULL,
-    order_completed BOOLEAN DEFAULT FALSE,
+    order_completed BOOLEAN NOT NULL DEFAULT FALSE,
     order_delivery_instruction VARCHAR(300), 
     FOREIGN KEY(user_id) REFERENCES User(user_id)
 )ENGINE = InnoDB;

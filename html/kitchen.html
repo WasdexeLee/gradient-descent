@@ -1,274 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kitchen Display System</title>
-<link rel="stylesheet" href="../css-script/kitchen.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Display System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css-script/kitchen.css">
+    <script src="../js-script/kitchen.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-<nav>
-    <div id="timeDisplay" class="time-display"></div>
-</nav>
-<br><br>
-<div class="order-container">
-    <div class="order-header">
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <td>Time Placed: </td>
-                    <td style="text-align: right;">12:34 PM</td>
-                </tr>
-                <tr>
-                    <td>Order ID:</td>
-                    <td style="text-align: right;">123456</td>
-                </tr>
-                <tr>
-                    <td>Phone Number:</td>
-                    <td style="text-align: right;">9876543210</td>
-                </tr>
-            </table>
-        </div>
+    <nav>
+        <div id="timeDisplay" class="time-display"></div>
+    </nav>
+    <br><br>
 
+    <div class="container-fluid" id="main-container">
 
-        <hr> <!-- Solid line separator -->
     </div>
-    <div class="order-body">
-        <p>Request for this ORDER:</p>
-        <p>No onions, extra sauce</p>
-        <hr class="dotted"> <!-- Dotted line separator -->
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <th>Food Name</th>
-                    <th style="text-align: right;">Quantity</th>
-                </tr>
-                <tr>
-                    <td>Pizza</td>
-                    <td style="text-align: right;">2</td>
-                </tr>
-                <tr>
-                    <td>Burger</td>
-                    <td style="text-align: right;">4</td>
-                </tr>
-                <tr>
-                    <td>Fries</td>
-                    <td style="text-align: right;">1</td>
-                </tr>
-            </table>
-        </div>
-        
-    </div>
-    <button class="complete-btn" onclick="markCompleted(this)">Complete</button>
-</div>
-
-<div class="order-container">
-    <div class="order-header">
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <td>Time Placed: </td>
-                    <td style="text-align: right;">12:34 PM</td>
-                </tr>
-                <tr>
-                    <td>Order ID:</td>
-                    <td style="text-align: right;">123456</td>
-                </tr>
-                <tr>
-                    <td>Phone Number:</td>
-                    <td style="text-align: right;">9876543210</td>
-                </tr>
-            </table>
-        </div>
 
 
-        <hr> <!-- Solid line separator -->
-    </div>
-    <div class="order-body">
-        <p>Request for this ORDER:</p>
-        <p>No onions, extra sauce</p>
-        <hr class="dotted"> <!-- Dotted line separator -->
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <th>Food Name</th>
-                    <th style="text-align: right;">Quantity</th>
-                </tr>
-                <tr>
-                    <td>Pizza</td>
-                    <td style="text-align: right;">2</td>
-                </tr>
-                <tr>
-                    <td>Burger</td>
-                    <td style="text-align: right;">4</td>
-                </tr>
-                <tr>
-                    <td>Fries</td>
-                    <td style="text-align: right;">1</td>
-                </tr>
-            </table>
-        </div>
-        
-    </div>
-    <button class="complete-btn" onclick="markCompleted(this)">Complete</button>
-</div>
-
-<div class="order-container">
-    <div class="order-header">
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <td>Time Placed: </td>
-                    <td style="text-align: right;">12:34 PM</td>
-                </tr>
-                <tr>
-                    <td>Order ID:</td>
-                    <td style="text-align: right;">123456</td>
-                </tr>
-                <tr>
-                    <td>Phone Number:</td>
-                    <td style="text-align: right;">9876543210</td>
-                </tr>
-            </table>
-        </div>
-
-
-        <hr> <!-- Solid line separator -->
-    </div>
-    <div class="order-body">
-        <p>Request for this ORDER:</p>
-        <p>No onions, extra sauce</p>
-        <hr class="dotted"> <!-- Dotted line separator -->
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <th>Food Name</th>
-                    <th style="text-align: right;">Quantity</th>
-                </tr>
-                <tr>
-                    <td>Pizza</td>
-                    <td style="text-align: right;">2</td>
-                </tr>
-                <tr>
-                    <td>Burger</td>
-                    <td style="text-align: right;">4</td>
-                </tr>
-                <tr>
-                    <td>Fries</td>
-                    <td style="text-align: right;">1</td>
-                </tr>
-            </table>
-        </div>
-        
-    </div>
-    <button class="complete-btn" onclick="markCompleted(this)">Complete</button>
-</div>
-
-
-
-<div class="order-container">
-    <div class="order-header">
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <td>Time Placed: </td>
-                    <td style="text-align: right;">12:34 PM</td>
-                </tr>
-                <tr>
-                    <td>Order ID:</td>
-                    <td style="text-align: right;">123456</td>
-                </tr>
-                <tr>
-                    <td>Phone Number:</td>
-                    <td style="text-align: right;">9876543210</td>
-                </tr>
-            </table>
-        </div>
-
-
-        <hr> <!-- Solid line separator -->
-    </div>
-    <div class="order-body">
-        <p>Request for this ORDER:</p>
-        <p>No onions, extra sauce</p>
-        <hr class="dotted"> <!-- Dotted line separator -->
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <th>Food Name</th>
-                    <th style="text-align: right;">Quantity</th>
-                </tr>
-                <tr>
-                    <td>Pizza</td>
-                    <td style="text-align: right;">2</td>
-                </tr>
-                <tr>
-                    <td>Burger</td>
-                    <td style="text-align: right;">4</td>
-                </tr>
-                <tr>
-                    <td>Fries</td>
-                    <td style="text-align: right;">1</td>
-                </tr>
-            </table>
-        </div>
-        
-    </div>
-    <button class="complete-btn" onclick="markCompleted(this)">Complete</button>
-</div>
-
-<div class="order-container">
-    <div class="order-header">
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <td>Time Placed: </td>
-                    <td style="text-align: right;">12:34 PM</td>
-                </tr>
-                <tr>
-                    <td>Order ID:</td>
-                    <td style="text-align: right;">123456</td>
-                </tr>
-                <tr>
-                    <td>Phone Number:</td>
-                    <td style="text-align: right;">9876543210</td>
-                </tr>
-            </table>
-        </div>
-
-
-        <hr> <!-- Solid line separator -->
-    </div>
-    <div class="order-body">
-        <p>Request for this ORDER:</p>
-        <p>No onions, extra sauce</p>
-        <hr class="dotted"> <!-- Dotted line separator -->
-        <div class="food-items">
-            <table style="width: 100%;">
-                <tr>
-                    <th>Food Name</th>
-                    <th style="text-align: right;">Quantity</th>
-                </tr>
-                <tr>
-                    <td>Pizza</td>
-                    <td style="text-align: right;">2</td>
-                </tr>
-                <tr>
-                    <td>Burger</td>
-                    <td style="text-align: right;">4</td>
-                </tr>
-                <tr>
-                    <td>Fries</td>
-                    <td style="text-align: right;">1</td>
-                </tr>
-            </table>
-        </div>
-        
-    </div>
-    <button class="complete-btn" onclick="markCompleted(this)">Complete</button>
-</div>
-
-
-<script src="script.js"></script>
 </body>
+
 </html>

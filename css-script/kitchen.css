@@ -4,76 +4,105 @@ body {
     margin: 0;
     padding: 20px;
     display: flex;
-    justify-content: center; /* Centers the content horizontally */
-  }
-  
-  .order-container {
+    justify-content: center;
+    /* Centers the content horizontally */
+}
+
+
+.order-container {
     background: #fff;
     padding: 15px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
-    width: 25%; /* Adjust this value as needed to make the container narrower */
-    max-width: 600px; /* Ensures the container doesn't get too wide on large screens */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
-  }
-  
-  
-  
-  .order-header p, .order-body p {
+    max-width: 600px;
+    /* Ensures the container doesn't get too wide on large screens */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Optional: adds shadow for better visibility */
+}
+
+
+.order-header p,
+.order-body p {
     margin: 5px 0;
-  }
-  
-  hr {
+}
+
+
+.td-right {
+    text-align: right;
+}
+
+
+hr {
     border: none;
     height: 1px;
-    background-color: black; /* Solid line */
-  }
-  
-  hr.dotted {
-    border-top: 1px dotted black; /* Dotted line */
-  }
-  
-  .complete-btn {
+    background-color: black;
+    /* Solid line */
+}
+
+
+hr.dotted {
+    border-top: 1px dotted black;
+    /* Dotted line */
+}
+
+
+.complete-btn {
     background-color: green;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%; /* Makes the button stretch to the full width of the container */
-    margin-top: 10px; /* Adds some space above the button */
-  }
-  
-  .complete-btn.completed {
+    width: 100%;
+    /* Makes the button stretch to the full width of the container */
+    margin-top: 10px;
+    /* Adds some space above the button */
+}
+
+
+.complete-btn.completed {
     background-color: red;
-    pointer-events: none; /* Disables further clicks */
-  }
-  
-  .food-items table {
+    pointer-events: none;
+    /* Disables further clicks */
+}
+
+
+.food-items table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .food-items th, .food-items td {
+}
+
+
+.food-items th,
+.food-items td {
     padding: 8px;
     text-align: left;
-  }
-  
-  .food-items th:last-child, .food-items td:last-child {
+}
+
+
+.food-items th:last-child,
+.food-items td:last-child {
     text-align: right;
-  }
-  
-  
-  .time-display {
-    position: fixed; /* Fixed positioning to keep it viewable */
-    top: 10px; /* Distance from the top */
-    right: 10px; /* Distance from the left */
-    background-color: #f8f9fa; /* Light background color */
+}
+
+
+.time-display {
+    position: fixed;
+    /* Fixed positioning to keep it viewable */
+    top: 10px;
+    /* Distance from the top */
+    right: 10px;
+    /* Distance from the left */
+    background-color: #f8f9fa;
+    /* Light background color */
     padding: 5px 10px;
-    border-radius: 5px; /* Optional: rounds the corners of the background */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional: adds shadow for better visibility */
+    border-radius: 5px;
+    /* Optional: rounds the corners of the background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Optional: adds shadow for better visibility */
     font-size: 20px;
-    font-family: Arial, sans-serif; /* Ensures the font is consistent */
-    z-index: 1000; /* Ensures the time display is above other content */
-  }
-  
+    font-family: Arial, sans-serif;
+    /* Ensures the font is consistent */
+    z-index: 1000;
+    /* Ensures the time display is above other content */
+}

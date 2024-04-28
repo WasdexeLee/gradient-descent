@@ -108,7 +108,7 @@ function insertOrder(&$connection)
     $order_item = json_decode(($_POST['order_item']));
 
     // Create query, prepare and bind parameters for delete
-    $query_template = "INSERT INTO OrderTable VALUES (NULL, ?, ?, ?, ?, NULL, ?, NULL, ?)";
+    $query_template = "INSERT INTO OrderTable VALUES (NULL, ?, ?, ?, ?, DEFAULT, ?, DEFAULT, ?)";
     $prepared_query = $connection->prepare($query_template);
 
     // Bind parameter to query 
