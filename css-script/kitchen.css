@@ -89,7 +89,7 @@ hr.dotted {
 .time-display {
     position: fixed;
     /* Fixed positioning to keep it viewable */
-    top: 10px;
+    top: 5px;
     /* Distance from the top */
     right: 10px;
     /* Distance from the left */
@@ -105,4 +105,26 @@ hr.dotted {
     /* Ensures the font is consistent */
     z-index: 1000;
     /* Ensures the time display is above other content */
+}
+
+#main-container {
+    margin-top: 40px;
+}
+
+#clearButton {
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+    cursor: pointer;
+    width: 400px;
+    z-index: 1000;
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+nav {
+    height: 40px;
 }
