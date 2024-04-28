@@ -4,121 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Summary</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.9/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        .order-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .order-summary {
-            padding: 10px 0;
-        }
-
-        .total-amount {
-            font-weight: bold;
-
-        }
-
-
-
-
-
-
-    </style>
+    <title>Order Confirmation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-
-    <!-- User information -->
-
-
-
-    <!-- Order Summary -->
-    <div class="container-fluid justify-content-center" style="margin-top: 5%; border-radius: 15px;">
-        <div class="row justify-content-center">
-            <div class="col-lg-7" style="background-color: antiquewhite;">
-
-                <!-- Title -->
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="my-4">Order Summary</h2>
-                    </div>
+    <!-- Order Confirmation Modal -->
+    <div class="modal" id="orderPlacedModal" tabindex="-1" role="dialog" aria-labelledby="OPModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="OPModalLabel">Order Placed !</h5>
                 </div>
-
-
-
-                <!-- Order items -->
-                <div class="row order-item">
-                    <div class="col-3">
-                        <img src="path/to/food-thumbnail.jpg" alt="Food Thumbnail" class="img-fluid">
-                    </div>
-                    <div class="col-6">
-                        <p>Item Description</p>
-                    </div>
-                    <div class="col-3 text-right">
-                        <p>¥15.69</p>
-                    </div>
+                <div class="modal-body">
+                    Payment success! Your order has been successfully placed!
+                    <br><br><br>This window will close in <span id="countdownText">10</span> seconds.
                 </div>
-
-
-
-
-                <!-- Repeat for other items -->
-                <div class="row order-summary">
-                    <div class="col-6">
-                        <p>Subtotal</p>
-                    </div>
-                    <div class="col-6 text-right">
-                        <p>¥18.19</p>
-                    </div>
-                    <div class="col-6">
-                        <p>Delivery Fee</p>
-                    </div>
-                    <div class="col-6 text-right">
-                        <p>¥3.00</p>
-                    </div>
-                    <div class="col-6">
-                        <p>Discount</p>
-                    </div>
-                    <div class="col-6 text-right">
-                        <p>-¥3.00</p>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="OPCloseButton">Close Now</button>
                 </div>
-
-
-
-                <div class="row order-summary" style="border-top: 1px solid #ccc;">
-                    <div class="col-6 total-amount">
-                        <p>Total</p>
-                    </div>
-                    <div class="col-6 text-right total-amount">
-                        <p>¥25.17</p>
-                    </div>
-                </div>
-
-
-
             </div>
         </div>
-
     </div>
 
-    
+    <form action="ha.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload File" name="submit">
+    </form>
 
-    <!-- Additional Remark -->
 
 
 
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Trigger to show modal
+            $('#orderPlacedModal').modal('show');
+
+            // Update cuntdown timer
+            let timerLength = 10;
+
+            let intervalCounter = setInterval(function () {
+                timerLength--;
+                document.getElementById('countdownText').textContent = timerLength.toString();
+
+                // If timer has gone down to 0, stop intervalCounter, hide modal and move to home page (or order pending page)
+                if (timerLength <= 0) {
+                    clearInterval(intervalCounter);
+                    $('#orderPlacedModal').modal('hide');
+                    window.location.href = "";
+                }
+            }, 1000);
+
+            // Button to close the modal manually
+            document.getElementById('OPCloseButton').addEventListener('click', function () {
+                clearInterval(interval);
+                $('#orderPlacedModal').modal('hide');
+            });
+        })
+    </script>
 </body>
 
 </html>
-
-
 
 
 
@@ -199,7 +152,3 @@
 </body>
 </html>
  -->
-
-
-
-

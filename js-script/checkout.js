@@ -19,12 +19,18 @@ document.addEventListener('DOMContentLoaded', function () {
     var addressTextarea = document.getElementById('address');
     // Array to store all numincart and price
     let numICDivArr, priceArr;
+    // Element form 
+    let custInfoForm = document.getElementById('cust-info-form');
     // Element subtotal, deliveryFee, totalAmount
     let subtotalEl = document.getElementById('subtotal');
     let deliveryFeeEl = document.getElementById('delivery-fee');
     let totalAmountEl = document.getElementById('total-amount');
+    // Element for payment method selection
+    let paymentMethodSelect = document.getElementById('payment-method');
     // Element cod-price in payment method
     let codPriceEl = document.getElementById('cod-price');
+    // Element additional remark for driver
+    let additionalRemark = document.getElementById('remark');
     // Element final-container-div
     let finalContainerDiv = document.querySelector('.final-container-div');
     // Element footer 
@@ -102,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('func', 'getCart');
         formData.append('user_id', localStorage.getItem('user_id'));
         // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
-        return fetch('../php-script/cart.php', { method: 'POST', body: formData, })
+        return fetch('../php-script/checkout.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => cartItem.push(row)))
             .catch(error => console.error('ERROR: ', error));
@@ -110,6 +116,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function buttonListener() {
+        const placeOrderBtn = document.querySelector('.btn.btn-primary.btn-place-order');
+
+        placeOrderBtn.addEventListener('click', function () {
+            placeOrder();
+
+        });
         // // Get cart icon to add event listener
         // const cartIcon = document.getElementById('navbar-cart');
 
@@ -140,8 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function autofillCustInfo() {
-        // Element form 
-        custInfoForm = document.getElementById('cust-info-form');
         // Array to store customer information
         locCustInfo = [];
 
@@ -193,13 +203,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function updatePaymentMethod() {
-        var additionalRemark = document.getElementById('remark');
-        var payementMethodTitleEl = document.getElementById('payment-title');
-        var paymentMethodSelect = document.getElementById('payment-method');
-        var creditMethod = document.getElementById('credit-method');
-        var tngMethod = document.getElementById('tng-method');
-        var codMethod = document.getElementById('cod-method');
-        
+        let payementMethodTitleEl = document.getElementById('payment-title');
+        let creditMethod = document.getElementById('credit-method');
+        let tngMethod = document.getElementById('tng-method');
+        let codMethod = document.getElementById('cod-method');
+
 
         function scrollToBottom() {
             additionalRemark.scrollIntoView({ block: 'end' });
@@ -223,20 +231,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 codMethod.style.display = 'none';
                 scrollToBottom();
 
-            } 
+            }
             else if (value === "tng-ewallet") {
                 creditMethod.style.display = 'none';
                 tngMethod.style.display = 'block';
                 codMethod.style.display = 'none';
                 scrollToBottom();
 
-            }  
+            }
             else if (value === "cod") {
                 creditMethod.style.display = 'none';
                 tngMethod.style.display = 'none';
                 codMethod.style.display = 'block';
                 scrollToBottom();
-            } 
+            }
         }
 
         // Initially hide all card fields
@@ -285,36 +293,112 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function placeOrder() {
+        // Get all order detail 
+        let orderCustName = custInfoForm.name.value;
+        let orderCustPhone = custInfoForm.phone.value;
+        let orderCustAddress = custInfoForm.address.value;
+        let orderPaymentMethod = paymentMethodSelect.value;
+        let orderDeliveryInstruction = additionalRemark.value;
 
-            // Create json object to be passed to php (either to delete, update or insert to table)
-            let updateCartItem = {};
-    
-            // Checks through for changes to cart and carries out necessary changes ie. delete, update, insert
-            numICDivArr.forEach(item => {
-                // Find index of item in cart
-                let itemIndex = itemId.indexOf(parseInt(item.id));
-    
-                // If the num-in-cart div text content is not equal to the number of item from the cartItem list pulled from database
-                // Push to JSON updateCartItem to be passed to php
-                if (parseInt(item.textContent) !== cartItem[itemIndex][Cart.NUM])
-                    updateCartItem[parseInt(item.id)] = parseInt(item.textContent);
-            });
-    
+
+        // Check if payment detail is not empty
+        if ((orderCustName.length === 0) || (orderCustPhone.length === 0) || (orderCustAddress.length === 0) || (orderPaymentMethod.length === 0))
+            $('#alertModal').modal('show'); // Show Bootstrap modal
+        else {
+            // Check if using credit card as payment 
+            // If true, check for empty
+            if (orderPaymentMethod === 'credit-card') {
+                let paymentMethodForm = document.getElementById('payment-method-form');
+                let cardName = paymentMethodForm.cardholderName.value;
+                let cardNumber = paymentMethodForm.cardNumber.value;
+                let expiryDate = paymentMethodForm.expiryDate.value;
+                let cvv = paymentMethodForm.cvv.value
+
+                // Then run insert order function
+                if ((cardName.length === 0) || (cardNumber.length === 0) || (expiryDate.length === 0) || (cvv.length === 0))
+                    $('#alertModal').modal('show'); // Show Bootstrap modal
+                else
+                    insertOrder();
+            }
+            else
+                insertOrder();
+        }
+
+
+        // Function to insert order details into database
+        function insertOrder() {
+            console.log(orderCustName, orderCustPhone, orderCustAddress, orderPaymentMethod, orderDeliveryInstruction);
             // Append cart data into FormData object to pass to php
             let locFormData = new FormData();
-    
+
             // Append necessary info for php
-            locFormData.append('func', 'modifyCart');
+            locFormData.append('func', 'insertOrder');
             locFormData.append('user_id', localStorage.getItem('user_id'));
-            locFormData.append('update_cart_item', JSON.stringify(updateCartItem));
-    
+            locFormData.append('order_cust_name', orderCustName);
+            locFormData.append('order_cust_phone', orderCustPhone);
+            locFormData.append('order_cust_address', orderCustAddress);
+            locFormData.append('order_payment_method', orderPaymentMethod);
+            locFormData.append('order_delivery_instruction', orderDeliveryInstruction);
+            locFormData.append('order_item', JSON.stringify(cartItem));
+
+
             // Call fetch API to pass data to menu.php
             // Use POST method, passes locFormData, wait for response and log to console
-            fetch('../php-script/cart.php', { method: 'POST', body: locFormData })
+            fetch('../php-script/checkout.php', { method: 'POST', body: locFormData })
                 .then(response => response.text())
                 .then(responseText => console.log(responseText))
-                .catch(error => console.error("ERROR: ", error));
-    
+                .catch(error => console.error("ERROR: ", error))
+                .then(() => triggerOPModal());
+        }
 
+
+        // Function to trigger order placed modal
+        function triggerOPModal() {
+            // Trigger to show modal
+            $('#orderPlacedModal').modal('show');
+
+            // Update cuntdown timer
+            let timerLength = 10;
+            
+            let intervalCounter = setInterval(function () {
+                timerLength--;
+                document.getElementById('countdownText').textContent = timerLength.toString();
+
+                // If timer has gone down to 0, stop intervalCounter, hide modal and move to home page (or order pending page)
+                if (timerLength <= 0) {
+                    clearInterval(intervalCounter);
+                    $('#orderPlacedModal').modal('hide');
+                    window.location.href = "../html/home.html";
+                }
+            }, 1000);
+
+            // Button to close the modal manually
+            document.getElementById('OPCloseButton').addEventListener('click', function () {
+                clearInterval(intervalCounter);
+                $('#orderPlacedModal').modal('hide');
+                window.location.href = "../html/home.html";
+            });
+        }
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

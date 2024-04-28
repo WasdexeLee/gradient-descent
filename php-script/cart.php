@@ -1,7 +1,8 @@
-<?php 
+<?php
 
 // Enum to address different food details
-enum Cart: int {
+enum Cart: int
+{
     case ID = 0;
     case NUM = 1;
     case NAME = 2;
@@ -23,12 +24,12 @@ $dbname = "capybaraexpress";
 // Create new connection to MySQL database
 $connection = new mysqli($host, $username, $password, $dbname);
 
-if ($connection->connect_error){
+if ($connection->connect_error) {
     die("Connnection ERROR !!!  " . $connection->connect_error);
 }
 
 
-if (isset($_POST['func'])){
+if (isset($_POST['func'])) {
     if ($_POST['func'] === 'getCart')
         getCart($connection);
     else if ($_POST['func'] === 'modifyCart')
@@ -38,13 +39,14 @@ if (isset($_POST['func'])){
 }
 
 
-function getCart(&$connection){
+function getCart(&$connection)
+{
     // Create query, prepare and bind parameters
     $query_template = "SELECT Cart.food_id, food_num, food_name, food_category_id, food_price, food_availability, food_image FROM Cart JOIN Food ON Cart.food_id = Food.food_id WHERE (user_id = ?) ORDER BY food_category_id";
     $prepared_query = $connection->prepare($query_template);
 
     $user_id = intval($_POST['user_id']);
-    
+
     $prepared_query->bind_param("i", $user_id);
 
     // Init array to store response
@@ -66,7 +68,8 @@ function getCart(&$connection){
 }
 
 
-function modifyCart(&$connection){
+function modifyCart(&$connection)
+{
     $update_cart_item = json_decode(($_POST['update_cart_item']));
     $user_id = intval($_POST['user_id']);
 
@@ -75,7 +78,7 @@ function modifyCart(&$connection){
     $prepared_query = $connection->prepare($query_template);
 
     // Bind parameter to query 
-    foreach ($update_cart_item as $food_id => $food_num){
+    foreach ($update_cart_item as $food_id => $food_num) {
         $prepared_query->bind_param("iii", $food_num, $user_id, $food_id);
         $prepared_query->execute();
     }
@@ -87,7 +90,8 @@ function modifyCart(&$connection){
 }
 
 
-function deleteItem(&$connection){
+function deleteItem(&$connection)
+{
     $user_id = intval($_POST['user_id']);
     $food_id = intval($_POST['delete_cart_item']);
 
@@ -96,8 +100,8 @@ function deleteItem(&$connection){
     $prepared_query = $connection->prepare($query_template);
 
     // Bind parameter to query 
-        $prepared_query->bind_param("ii", $user_id, $food_id);
-        $prepared_query->execute();
+    $prepared_query->bind_param("ii", $user_id, $food_id);
+    $prepared_query->execute();
 
     // Close query
     $prepared_query->close();
