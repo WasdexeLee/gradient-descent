@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             //modify the information
             formData = new FormData();
-            formData.append('func', 'modifyUser')
+            formData.append('func', 'modifyUser');
             formData.append('user_id', localStorage.getItem('user_id'));
             formData.append('user_name', profileForm.username.value);
             formData.append('user_email', profileForm.email.value);
