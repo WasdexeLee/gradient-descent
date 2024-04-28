@@ -1,9 +1,3 @@
-function markCompleted(button) {
-    button.classList.add('completed');
-    button.textContent = 'Completed';
-}
-
-
 document.addEventListener('DOMContentLoaded', function () {
     // Init array to store orders and the food items in each order
     let orders = [];
@@ -128,10 +122,40 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
                         </div>
 
-                        <button class="complete-btn" onclick="markCompleted(this)">Complete</button>
+                        <button class="complete-btn" onclick="markCompleted(this)" id=${order[0]}>Complete</button>
                     </div>
                 </div>`;
         });
+    }
+
+
+    function markCompleted(button) {
+        button.classList.add('completed');
+        button.textContent = 'Delete';
+
+
+
+            // Update cuntdown timer
+            let timerLength = 5;
+            
+            let intervalCounter = setInterval(function () {
+                timerLength--;
+                document.getElementById('countdownText').textContent = timerLength.toString();
+
+                // If timer has gone down to 0, stop intervalCounter, hide modal and move to home page (or order pending page)
+                if (timerLength <= 0) {
+                    clearInterval(intervalCounter);
+                    $('#orderPlacedModal').modal('hide');
+                    window.location.href = "../html/home.html";
+                }
+            }, 1000);
+
+            // Button to close the modal manually
+            document.getElementById('OPCloseButton').addEventListener('click', function () {
+                clearInterval(intervalCounter);
+                $('#orderPlacedModal').modal('hide');
+                window.location.href = "../html/home.html";
+            });
     }
 });
 
