@@ -44,7 +44,7 @@ if (isset($_POST['func'])){
 
 function getFoodDetail(&$connection){
     // Create query, prepare and bind parameters
-    $query_template = "SELECT food_id, food_name, food_category_id, food_description, food_price, food_availability, food_image, food_prep_time, food_num_sold FROM Food";
+    $query_template = "SELECT food_id, food_name, food_category_id, food_description, food_price, food_availability, food_image, food_prep_time, food_num_sold FROM Food WHERE food_availability > 0";
     $prepared_query = $connection->prepare($query_template);
 
     // Init array to store response
