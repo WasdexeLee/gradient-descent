@@ -203,11 +203,15 @@ document.addEventListener('DOMContentLoaded', function () {
         // });
 
 
-        // Get cart icon to add event listener
+        // Get checkout button to add event listener
         const checkoutBtn = document.querySelector('.btn.btn-primary.btn-checkout');
 
+        // Add eventlistener to the checkout button to redirect to checkout page
         checkoutBtn.addEventListener('click', () => {
-            window.location.href = "../html/checkout.html";
+            // If there are items in the cart, enable to redirect to checkout
+            // Else, dont redirect
+            if (cartItem.length !== 0)
+                window.location.href = "../html/checkout.html";
         });
  
     }

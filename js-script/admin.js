@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Forces user to login 
+    if (localStorage.getItem('user_id') === null)
+        window.location.href = '../html/login.html';
+
+
     let foodItem = [];
 
     // Init enum to make code more readable
@@ -22,12 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(() => dynamicLoadItem())
         .then(() => addButtonListener())
         .then(() => adjustAddressTextareaHeight());
-
-
-
-
-
-
 
 
 
