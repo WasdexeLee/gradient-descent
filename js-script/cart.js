@@ -317,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    // Automatically update the last div's margin to not be covered by the footer
     function updateMargin() {
         locHeight = parseInt(window.getComputedStyle(footer).getPropertyValue('height'), 10);
         mainContainerDiv.style.marginBottom = (locHeight + 20).toString() + 'px';
