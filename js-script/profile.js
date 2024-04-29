@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const editButton = document.getElementById('editButton');
     const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
     const profileForm = document.getElementById('profileForm');
+    const addressTextarea = document.getElementById('address');
     // const username = document.getElementById('username');
     // const useremail = document.getElementById('email');
     // const useraddress = document.getElementById('address');
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(userInfo);
             profileForm.username.value = userInfo[0];
             profileForm.email.value = userInfo[1];
-            profileForm.address.value = userInfo[2];
+            addressTextarea.value = userInfo[2];
             profileForm.phone.value = userInfo[3];
         });
 
@@ -40,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 input.classList.add('editable');
                 input.readOnly = false;
             });
+            addressTextarea.readOnly = false;
+            addressTextarea.disabled = false;
+            addressTextarea.classList.add('editable');
             editButton.innerText = "Submit";
         } else {
             //modify the information
@@ -48,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             formData.append('user_id', localStorage.getItem('user_id'));
             formData.append('user_name', profileForm.username.value);
             formData.append('user_email', profileForm.email.value);
-            formData.append('user_address', profileForm.address.value);
+            formData.append('user_address', addressTextarea.value);
             formData.append('user_phone', profileForm.phone.value);
 
             //for check
@@ -71,7 +75,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         input.readOnly = true;
 
                     });
-
+                    addressTextarea.classList.remove('editable');
+                    addressTextarea.readOnly = true;
+                    addressTextarea.disabled = true;
 
 
 
@@ -82,4 +88,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(error => console.error('Error:', error));
         }
     });
+
+
+    adjustTextareaHeight();
+
+    function adjustTextareaHeight() {
+        addressTextarea.style.height = 'auto';  // Reset the height
+        addressTextarea.style.height = addressTextarea.scrollHeight + 'px';  // Set height equal to scroll height
+        console.log('as');
+    }
 });

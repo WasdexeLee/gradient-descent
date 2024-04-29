@@ -5,9 +5,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     margin: 0;
     flex-direction: column; /* to stack nav and profile container */
+    
 }
 
 .navbar {
@@ -56,7 +57,7 @@ form {
 input[type="text"],
 input[type="email"],
 input[type="tel"] {
-    padding: 8px;
+    padding: 5px;
     margin: 8px 0;
     border: 0;
     border-radius: 4px;
@@ -98,6 +99,27 @@ textarea {
     /* user-select: none; */
     outline: none;
     font-size: 16px;
+    color: black;
     resize: none;
-    width: 100% !important;
+    font-family: 'Arial', sans-serif;
+    /* margin-left: 5px; */
+    padding: 5px;
+}
+
+/* textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: none;
+} */
+
+
+
+textarea.editable {
+    background-color: white; /* Visible change when editable */
+    cursor: text;
+    user-select: text;
+    border: 0;
 }
