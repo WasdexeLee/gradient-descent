@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Check identity of user to redirect page
             if (userDetail[userIndex][User.IDENTITY] === 0){
                 // Redirect to the homepage
-                window.location.href = '../html/menu.html';
+                window.location.href = '../html/index.html';
             }
             else if (userDetail[userIndex][User.IDENTITY] === 1){
                 // Redirect to the operatorpage
