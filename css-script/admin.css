@@ -70,3 +70,49 @@ textarea.editable {
     user-select: text;
     border: 2cap;
 }
+
+select {
+    border: none; /* Remove borders */
+    outline: none; /* Remove focus outline */
+    appearance: none; /* Remove default system appearance */
+    background: none; /* Remove background */
+    font-size: 16px; /* Set font size */
+    font-family: Arial, sans-serif; /* Set font family */
+    color: black; /* Set text color */
+}
+
+
+select.editable {
+    background-color: white; /* Visible change when editable */
+    cursor: pointer;
+    user-select: text;
+    border: 2cap;
+}
+
+
+label {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex; /* Use flexbox to layout children horizontally */
+    justify-content: center; /* Center the buttons in the navbar */
+    padding: 10px 0; /* Padding around the navbar */
+    border-bottom: 1px solid #e7e7e7; /* Bottom border for some styling */
+}
+
+.navbar button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding inside the buttons */
+    margin: 0 10px; /* Space between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.navbar button:hover {
+    background-color: #45a049; /* Darker shade of green on hover */
+}

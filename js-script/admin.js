@@ -5,13 +5,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const Food = Object.freeze({
         ID: 0,
         NAME: 1,
-        CATEGORY_NAME: 2,
-        DESCRIPTION: 3,
-        PRICE: 4,
-        AVAILABILITY: 5,
-        IMAGE: 6,
-        PREP_TIME: 7,
-        NUM_SOLD: 8
+        CATEGORY_ID: 2,
+        CATEGORY_NAME: 3,
+        DESCRIPTION: 4,
+        PRICE: 5,
+        AVAILABILITY: 6,
+        IMAGE: 7,
+        PREP_TIME: 8,
+        NUM_SOLD: 9
     })
 
 
@@ -60,7 +61,15 @@ document.addEventListener('DOMContentLoaded', function () {
                             </tr>
                             <tr>
                                 <th>Category:</th>
-                                <td><textarea class='food_category_name' rows='1' id=${item[Food.ID]} readonly>${item[Food.CATEGORY_NAME]}</textarea></td>
+                                <td>
+                                    <select class='food_category_name' id="${item[Food.ID]}" readonly>
+                                        <option value="1">Fried</option>
+                                        <option value="2">Chicken</option>
+                                        <option value="3">Noodle</option>
+                                        <option value="4">Drinks</option>
+                                        <option value="5">Dessert</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Description:</th>
@@ -92,8 +101,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 `;
         });
-    }
 
+        foodItem.forEach(item => {
+            select = document.querySelector(`select[id='${item[Food.ID]}']`);
+            select.value = item[Food.CATEGORY_ID].toString();
+        })
+    }
 
 
     // Add event listener to all buttons
@@ -109,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             editButton.addEventListener('click', function () {
                 // Get all textarea tied to the button
                 let textAreaList = document.querySelectorAll(`textarea[id="${this.id}"]`);
+                let select = document.querySelector(`select[id='${this.id}']`);
                 console.log(this);
 
                 // If the inner text of the button is edit, then change to submit 
@@ -127,18 +141,29 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.innerText = "Submit";
                 } 
                 else {
-                    formData = new FormData();
+                    let formData = new FormData();
                     formData.append('func', 'modifyFoodItem');
-                    formData.append('food_id', this.id);
-                    formData.append('food_name', findElement('food_name', textAreaList));
-                    formData.append('food_category_name', findElement('food_category_name', textAreaList));
-                    formData.append('food_description', findElement('food_description', textAreaList));
-                    formData.append('food_price', findElement('food_price', textAreaList));
-                    formData.append('food_availability', findElement('food_availability', textAreaList));
-                    formData.append('food_prep_time', findElement('food_prep_time', textAreaList));
-                    formData.append('food_num_sold', findElement('food_num_sold', textAreaList));
+                    formData.append('food_id', parseInt(this.id));
+                    formData.append('food_name', findElement('food_name', textAreaList).value);
+                    formData.append('food_category_id', select.value);
+                    formData.append('food_description', findElement('food_description', textAreaList).value);
+                    formData.append('food_price', parseFloat(findElement('food_price', textAreaList).value));
+                    formData.append('food_availability', parseInt(findElement('food_availability', textAreaList).value));
+                    formData.append('food_prep_time', parseInt(findElement('food_prep_time', textAreaList).value));
+                    formData.append('food_num_sold', parseInt(findElement('food_num_sold', textAreaList).value));
+
+                    for (const pair of formData.entries()) {
+                        console.log(pair[0] + ':', (pair[1]));
+                    }
 
 
+                    
+                    // Call fetch API to pass data to admin.php
+                    // Use POST method, passes formData, wait for response and log to console
+                    fetch('../php-script/admin.php', { method: 'POST', body: formData })
+                        .then(response => response.text())
+                        .then(responseText => console.log(responseText))
+                        .catch(error => console.error("ERROR: ", error));
 
 
                     // Loops through all textarea
@@ -153,16 +178,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
 
-
-                // let textAreaList = document.querySelectorAll(`.${ editButton.id } `);
-                // console.log(`.${ editButton.id } `);
-                // console.log(textAreaList);
-                // textAreaList.forEach(textArea => {
-                //     textArea.classList.add('editable');
-                //     textArea.readOnly = false;
-                //     textArea.addEventListener('input', adjustAddressTextareaHeight);  
-                //     console.log('asdf');
-                // });
 
 
             });
