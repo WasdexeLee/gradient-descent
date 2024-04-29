@@ -1,0 +1,150 @@
+```css
+/* Styles for carousel control icons */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: brightness(0) saturate(100%) invert(73%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(93%) contrast(88%);
+    border: 2px solid white; /* Sets a white border around the icons */
+    border-radius: 50%; /* Optional: makes the border rounded */
+    width: 40px; /* Sets the width of the icons including the border */
+    height: 40px; /* Sets the height of the icons including the border */
+    display: flex; /* Ensures the content is centered */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    background-size: 50%; /* Adjust the size of the background image if necessary */
+}
+
+/* Styles for navigation bar */
+.navbar {
+    background-color: grey !important; /* Sets background color for the navbar */
+}
+
+.navbar-brand,
+.nav-link {
+    color:aliceblue !important; /* Sets text color for navbar links */
+}
+
+/* Styles for text overlay on carousel images */
+.text-overlay {
+    position: relative;
+    display: inline-block;
+}
+
+.text-overlay img {
+    display: block; /* Removes bottom space/gap */
+    width: 100%; /* Adjusts image width */
+}
+
+.text-overlay .overlay {
+    position: absolute;
+    bottom: 0; /* Aligns to the bottom of the parent */
+    left: 0;
+    width: 100%; /* Full width of the image */
+    padding: 20px 0; /* Padding around the text */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* Vertically fading background */
+    text-align: center; /* Centers text horizontally */
+    box-sizing: border-box;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for better readability */
+}
+
+.text-overlay .overlay h2 {
+    color: white;
+    font-size: 24px; /* Adjusts font size */
+    margin: 0; /* Removes default margin */
+    padding: 0 20px; /* Horizontal padding */
+    display: inline-block; /* Keeps text aligned to its own content */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for better readability */
+}
+
+/* Additional styles */
+.row, .container {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.container {
+    width: 100vw !important; /* Viewport width */
+    max-width: 100% !important; /* Prevents any overflow beyond the view width */
+    background-image: url(../webpage-image/woodcolor.png); /* Background image */
+    color: antiquewhite; /* Text color */
+}
+
+#scrollButton {
+    background: none; /* Removes background */
+    border: none; /* Removes border */
+    color: white; /* Sets text color */
+    padding: 0; /* Removes padding */
+    font: inherit; /* Inherits font from parent container */
+    cursor: pointer; /* Indicates clickable */
+    text-decoration: none; /* Adds underline to mimic a hyperlink */
+}
+
+/* Styles for jumbotron */
+.jumbotron {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center+100px; /* Adjusts content alignment */
+    margin-bottom: 0;
+    background-image: url('../webpage-image/welcomeimg.jpg'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white; /* Text color */
+    background-color: wheat;
+    margin: 0 !important;
+    border-radius: 0% !important;
+}
+
+/* Styles for bestSeller images */
+.bestSeller img {
+    width:100%; /* Adjusts image width */
+    height: auto; /* Maintains aspect ratio */
+}
+
+/* Styles for footer */
+.foot {
+    background-image: url(../webpage-image/woodtexture.webp); /* Background image */
+    height: auto;
+}
+
+/* Google Font styles */
+@font-face {
+    font-family: 'Dancing Script';
+    src: url('../Dancing_Script/static/DancingScript-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Dancing Script';
+    src: url('../Dancing_Script/static/DancingScript-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.cursive h1 {
+    font-family: 'Dancing Script', cursive; /* Fallback to cursive if Dancing Script doesn't load */
+}
+
+/* Footer styles */
+.footer {
+    background-color: #45673a; /* Green shade for eco-friendly vibe */
+    color: #ffffff; /* Text color */
+    padding: 20px 0; /* Padding */
+}
+
+.footer h5 {
+    margin-bottom: 15px; /* Margin bottom for h5 elements */
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0; /* Resets padding for ul */
+}
+
+/* Container styles for footer */
+.fcontainer {
+    color: antiquewhite; /* Text color */
+}

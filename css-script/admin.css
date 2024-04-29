@@ -60,7 +60,15 @@ th {
 }
 
 .buttons {
-    text-align: right;
+    text-align: right !important;
+}
+
+.buttonrow {
+    width: 100%;
+}
+
+.buttondata {
+    width: 100%;
 }
 
 

@@ -23,7 +23,7 @@ const numSoldElement3 = document.getElementById('foodNum3');
 
 
 // Fetch top sold food items from the database
-fetch('../php-script/home.php', { method: 'POST', })
+fetch('../php-script/index.php', { method: 'POST', })
     .then(phpResponse => phpResponse.json())
     .then(topFood => {
         // Updating the text inside the spans
