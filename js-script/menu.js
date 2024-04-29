@@ -24,9 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let prevCartItem = [];
 
 
+    // Enable scrollspy which listens to scrolling and position of screen to highlight category bar
     $('body').scrollspy({ target: '#category-bar', offset: 80 });
 
 
+    // Get all food detail and process all data
     getFoodDetail()
         .then(() => {
             getCart()
@@ -34,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     getCategory()
                         .then(() => dynamicLoadCard())
                         .then(() => buttonListener())
-                        .then(() => console.log(category))
                         .then(() => addCartEventListener());
                 });
         });
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', checkTitleLine());
 
 
+    // Before page unload, push all items in cart to update cart in database
     window.addEventListener('beforeunload', function () {
         console.log('Page is unloading!');
         updateCart();
@@ -72,7 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let currentRow;
         let col6, card, innerRow, col4, foodImg, col8, cardBody, cardTitle, cardDesc, cardPrice, btnRm, rmImg, numICDiv, btnAdd, addImg, btnAvailDiv, btnDiv, avail;
         foodDetail.forEach(item => {
-            console.log(item[Food.CATEGORY_ID]);
+            // Check if current category is the same as previous category
+            // If true continue
+            // If false, add category text for new category and append all cards into the container
             if (item[Food.CATEGORY_ID] != prevCategory) {
                 categoryDiv = document.createElement('div');
                 categoryDiv.className = 'category-text';
@@ -85,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 col2 = false;
             }
 
+            // If on first column, create new row
             if (!col2) {
                 currentRow = document.createElement('div');
                 currentRow.className = 'row';
