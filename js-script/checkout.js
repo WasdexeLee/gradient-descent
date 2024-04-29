@@ -305,25 +305,29 @@ document.addEventListener('DOMContentLoaded', function () {
         if ((orderCustName.length === 0) || (orderCustPhone.length === 0) || (orderCustAddress.length === 0) || (orderPaymentMethod.length === 0))
             $('#alertModal').modal('show'); // Show Bootstrap modal
         else {
-            // Check if using credit card as payment 
-            // If true, check for empty
-            if (orderPaymentMethod === 'credit-card') {
-                let paymentMethodForm = document.getElementById('payment-method-form');
-                let cardName = paymentMethodForm.cardholderName.value;
-                let cardNumber = paymentMethodForm.cardNumber.value;
-                let expiryDate = paymentMethodForm.expiryDate.value;
-                let cvv = paymentMethodForm.cvv.value
+            console.log(orderCustPhone);
+            if (validateUserDetails(orderCustPhone)) {
+                // Check if using credit card as payment 
+                // If true, check for empty
+                if (orderPaymentMethod === 'credit-card') {
+                    let paymentMethodForm = document.getElementById('payment-method-form');
+                    let cardName = paymentMethodForm.cardholderName.value;
+                    let cardNumber = paymentMethodForm.cardNumber.value;
+                    let expiryDate = paymentMethodForm.expiryDate.value;
+                    let cvv = paymentMethodForm.cvv.value
 
-                // Then run insert order function
-                if ((cardName.length === 0) || (cardNumber.length === 0) || (expiryDate.length === 0) || (cvv.length === 0))
-                    $('#alertModal').modal('show'); // Show Bootstrap modal
+                    // Then run insert order function
+                    if ((cardName.length === 0) || (cardNumber.length === 0) || (expiryDate.length === 0) || (cvv.length === 0))
+                        $('#alertModal').modal('show'); // Show Bootstrap modal
+                    else{
+                        if (validateCardDetails(cardNumber,expiryDate,cvv))
+                            insertOrder();
+                    }
+                }
+                // Run insert order function
                 else
                     insertOrder();
             }
-            // Run insert order function
-            else
-                insertOrder();
-
         }
 
 
@@ -360,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Update countdown timer
             let timerLength = 5;
-            
+
             let intervalCounter = setInterval(function () {
                 timerLength--;
                 document.getElementById('countdownText').textContent = timerLength.toString();
@@ -379,6 +383,42 @@ document.addEventListener('DOMContentLoaded', function () {
                 $('#orderPlacedModal').modal('hide');
                 window.location.href = "../html/home.html";
             });
+        }
+
+
+        function validateUserDetails(phoneNumber) {
+            // Validate phone number
+            const phoneRegex = /^(\+?0|\+?[1-9])([\d\s-]){1,14}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                alert("Invalid phone number.");
+                return false;
+            }
+            return true;
+        }
+
+
+        function validateCardDetails(cardNumber, expiryDate, cvv) {
+            // Validate bank card number assuming is visa, master, american express card
+            const cardNumberRegex = /^(?:4[0-9]{3}\s?[0-9]{4}\s?[0-9]{4}\s?[0-9]{1,4}|5[1-5][0-9]{2}\s?[0-9]{4}\s?[0-9]{4}\s?[0-9]{4}|3[47][0-9]{2}\s?[0-9]{6}\s?[0-9]{5})$/;
+            if (!cardNumberRegex.test(cardNumber)) {
+                alert("Invalid card number.");
+                return false;
+            }
+
+            // Validate card expiry date (MM/YY)
+            const expiryDateRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+            if (!expiryDateRegex.test(expiryDate)) {
+                alert("Invalid expiry date. Format should be MM/YY.");
+                return false;
+            }
+
+            // Validate CVV
+            const cvvRegex = /^[0-9]{3,4}$/;
+            if (!cvvRegex.test(cvv)) {
+                alert("Invalid CVV.");
+                return false;
+            }
+            return true;
         }
     }
 });

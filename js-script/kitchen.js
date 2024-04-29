@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Loops through all orders and creates dynamic order cards to be inserted into the 
         orders.forEach(order => {
             // Check if there is 4 cards in the row, if true, create new row
-            if (col4 > 4) {
+            if (col4 > 3) {
                 currentRow = document.createElement('div');
                 currentRow.className = 'row';
                 orderItemContainer.appendChild(currentRow);

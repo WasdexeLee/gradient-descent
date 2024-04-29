@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             else if (userDetail[userIndex][User.IDENTITY] === 1){
                 // Redirect to the operatorpage
-                window.location.href = '/operatorPage.html';
+                window.location.href = '../html/admin.html';
             }
         } 
         else {

@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <tr>
                                 <th>Category:</th>
                                 <td>
-                                    <select class='food_category_name' id="${item[Food.ID]}" readonly>
+                                    <select class='food_category_name' id="${item[Food.ID]}" disabled>
                                         <option value="1">Fried</option>
                                         <option value="2">Chicken</option>
                                         <option value="3">Noodle</option>
