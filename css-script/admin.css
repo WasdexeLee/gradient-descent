@@ -71,6 +71,32 @@ textarea.editable {
     border: 2cap;
 }
 
+
+select {
+    border: none; /* Remove borders */
+    outline: none; /* Remove focus outline */
+    appearance: none; /* Remove default system appearance */
+    background: none; /* Remove background */
+    font-size: 16px; /* Set font size */
+    font-family: Arial, sans-serif; /* Set font family */
+    color: black; /* Set text color */
+}
+
+
+select.editable {
+    background-color: white; /* Visible change when editable */
+    cursor: pointer;
+    user-select: text;
+    border: 2cap;
+}
+
+
+label {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+
 .navbar {
     display: flex; /* Use flexbox to layout children horizontally */
     justify-content: center; /* Center the buttons in the navbar */
@@ -90,5 +116,5 @@ textarea.editable {
 }
 
 .navbar button:hover {
-    background-color: #45a049; /* Darker shade of green on hover */
+  background-color: #45a049; /* Darker shade of green on hover */
 }
