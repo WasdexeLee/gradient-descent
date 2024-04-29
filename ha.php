@@ -8,18 +8,15 @@
 
 
 
+$target_dir = "food-image/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $targetDir = "food-image/"; // Specify the directory where files will be stored
-    $targetFile = $targetDir . basename($_FILES["fileToUpload"]["name"]);
-
-    // Check if the file is valid
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile)) {
-        echo "File uploaded successfully!";
-    } else {
-        echo "Error uploading file.";
-    }
+if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    echo "File uploaded successfully.";
+} else {
+    echo "Sorry, there was an error uploading your file.";
 }
+
 
 
 

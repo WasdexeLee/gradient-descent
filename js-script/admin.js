@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class='food-container'>
                         <table>
                             <tr>
-                                <td colspan="2"><img src='${item[Food.IMAGE]}' alt='Food Image' style="width:100px; height:auto;"></td>
+                                <td colspan="2"><img src='${item[Food.IMAGE]}' alt='Food Image' style="width:100px; height:auto;" id="${item[Food.ID]}"></td>
                             </tr>
                             <tr>
                                 <th>Name:</th>
-                                <td><textarea class='food_name' rows='1' id=${item[Food.ID]} readonly>${item[Food.NAME]}</textarea></td>
+                                <td><textarea class='food_name' rows='1' id="${item[Food.ID]}" readonly>${item[Food.NAME]}</textarea></td>
                             </tr>
                             <tr>
                                 <th>Category:</th>
@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Get all textarea tied to the button
                 let textAreaList = document.querySelectorAll(`textarea[id="${this.id}"]`);
                 let select = document.querySelector(`select[id='${this.id}']`);
+                let imgParent = document.querySelector(`img[id='${this.id}']`).parentElement;
                 console.log(this);
 
                 // If the inner text of the button is edit, then change to submit 
@@ -139,6 +140,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Add editable class to select element
                     select.classList.add('editable');
+
+                    // Create input to take in the photo
+                    fileInput = document.createElement('input');
+                    fileInput.setAttribute('type', 'file');
+                    fileInput.setAttribute('id', 'file-input');
+
+                    // Append the input into the card
+                    imgParent.appendChild(fileInput);
 
                     // Changes edit button to submit button
                     this.innerText = "Submit";
@@ -159,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log(pair[0] + ':', (pair[1]));
                     }
 
-
                     
                     // Call fetch API to pass data to admin.php
                     // Use POST method, passes formData, wait for response and log to console
@@ -179,6 +187,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Remove editable class to select element
                     select.classList.remove('editable');
 
+                    // Remove the input element 
+                    inputEl = document.querySelector(`img[id='${this.id}']`).nextElementSibling;
+                    imgParent.removeChild(inputEl);
+
                     // Changes submit button to edit button
                     editButton.innerText = "Edit";
                 }
@@ -188,10 +200,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             });
         });
-
-
-
-
     }
 
 
