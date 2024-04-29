@@ -27,35 +27,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-            function handleFileUpload() {
-                const fileInput = document.getElementById('fileInput');
-                const file = fileInput.files[0];
-
-                if (file) {
-                    // Create a FormData object
-                    const formData = new FormData();
-                    formData.append('fileToUpload', file);
-
-                    // Send the FormData object to the PHP server using fetch
-                    fetch('ha.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.text(); // Assuming PHP script returns text
-                        })
-                        .then(data => {
-                            console.log(data); // Handle server response
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                } else {
-                    console.error('No file selected.');
-                }
+            function handleFileUpload(file) {
+              
             }
 
 

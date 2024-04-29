@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function addButtonListener() {
         // Get all edit button element
         let editButtonList = document.querySelectorAll('.editBtn');
+        let deleteButtonList = document.querySelectorAll('.deleteBtn');
         console.log(editButtonList);
 
         // Loop through all buttons and add eventlistener
@@ -151,9 +152,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Changes edit button to submit button
                     this.innerText = "Submit";
-                } 
+                }
                 else {
+                    // Append all data needed to update the food item 
                     let formData = new FormData();
+
                     formData.append('func', 'modifyFoodItem');
                     formData.append('food_id', parseInt(this.id));
                     formData.append('food_name', findElement('food_name', textAreaList).value);
@@ -168,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log(pair[0] + ':', (pair[1]));
                     }
 
-                    
+
                     // Call fetch API to pass data to admin.php
                     // Use POST method, passes formData, wait for response and log to console
                     fetch('../php-script/admin.php', { method: 'POST', body: formData })
@@ -187,19 +190,59 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Remove editable class to select element
                     select.classList.remove('editable');
 
-                    // Remove the input element 
+                    // Push to php and remove the input element 
                     inputEl = document.querySelector(`img[id='${this.id}']`).nextElementSibling;
+                    const file = inputEl.files[0];
+                    fileUpload(file);
                     imgParent.removeChild(inputEl);
 
                     // Changes submit button to edit button
                     editButton.innerText = "Edit";
                 }
-
-
-
-
             });
         });
+
+
+        deleteButtonList.forEach(deleteButton => {
+            // For all delete button
+            deleteButton.addEventListener('click', function () {
+                // Init formData to prompt php to delete a particular food item 
+                let formData = new FormData();
+
+                formData.append('func', 'deleteFoodItem');
+                formData.append('food_id', parseInt(this.id));
+
+
+                // Call fetch API to pass data to admin.php
+                // Use POST method, passes formData, wait for response and log to console
+                fetch('../php-script/admin.php', { method: 'POST', body: formData })
+                    .then(response => response.text())
+                    .then(responseText => console.log(responseText))
+                    .catch(error => console.error("ERROR: ", error))
+                    .then(() => location.reload());
+            })
+        });
+
+
+        function fileUpload(file) {
+            // Check if file exists
+            if (file) {
+                // Create a FormData object
+                const formData = new FormData();
+                formData.append('func', 'fileUpload')
+                formData.append('file_to_upload', file);
+
+                // Send the FormData object to the PHP server using fetch
+                fetch('../php-script/admin.php', { method: 'POST', body: formData })
+                    .then(response => response.text())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error))
+            }
+            else {
+                // If file does not exists, show error
+                console.error('No file selected.');
+            }
+        }
     }
 
 
@@ -222,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Loop through all textarea elements and add event listener to them to adjust their heights
         textAreaList.forEach(textArea => {
             adjustHeight(textArea);
-            textArea.addEventListener('input', function() {adjustHeight(textArea);});
+            textArea.addEventListener('input', function () { adjustHeight(textArea); });
         });
 
 
@@ -233,11 +276,4 @@ document.addEventListener('DOMContentLoaded', function () {
             tArea.style.height = tArea.scrollHeight + 'px';  // Set height equal to scroll height
         }
     }
-
-
-
-
-
-
-
 });

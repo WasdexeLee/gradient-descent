@@ -36,31 +36,11 @@ if (isset($_POST['func'])) {
         getFoodItem($connection);
     else if ($_POST['func'] === 'modifyFoodItem')
         modifyFoodItem($connection);
+    else if ($_POST['func'] === 'fileUpload')
+        fileUpload($connection);
+    else if ($_POST['func'] === 'deleteFoodItem')
+        deleteFoodItem($connection);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function getFoodItem(&$connection)
@@ -91,26 +71,9 @@ function getFoodItem(&$connection)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function modifyFoodItem(&$connection)
 {
+    // Get all values to be updated into the food table after admin has edited the items
     $food_id = intval($_POST['food_id']);
     $food_name = $_POST['food_name'];
     $food_category_id = intval($_POST['food_category_id']);
@@ -132,6 +95,38 @@ function modifyFoodItem(&$connection)
     $prepared_query->close();
 
     echo "Modify Success";
+}
+
+
+function fileUpload(&$connection)
+{
+    $target_dir = "../food-image/";
+    $target_file_name = $target_dir . basename($_FILES["file_to_upload"]["name"]);
+
+    if (move_uploaded_file($_FILES["file_to_upload"]["tmp_name"], $target_file_name)) {
+        echo "File uploaded successfully.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
+
+
+function deleteFoodItem(&$connection)
+{
+    $food_id = intval($_POST['food_id']);
+
+    // Create query, prepare and bind parameters for delete
+    $query_template = "DELETE FROM Food WHERE (food_id = ?)";
+    $prepared_query = $connection->prepare($query_template);
+
+    // Bind parameter to query 
+    $prepared_query->bind_param("i", $food_id);
+    $prepared_query->execute();
+
+    // Close query
+    $prepared_query->close();
+
+    echo "Delete Success";
 }
 
 
