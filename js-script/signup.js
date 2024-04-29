@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         alertPasswordBox.style.display = 'none';
 
         // Init var to store the username and password entered by user
-        const username = document.getElementById('username').value;
+        const username = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const phone = document.getElementById('phone').value;
@@ -40,18 +40,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check if username has been used
         fetchExistingUsername()
-            .then(() => console.log(existingUsername))
             .then(() => userSignupValidation(username, password, confirmPassword))
             .then(validationReturn => {
                 if (validationReturn) {
-                    // Insert user detail to database 
-                    insertUser(username, email, password, phone, address, operator, notification);
+                    if (validateForm(email, password, phone)) {
+                        // Insert user detail to database 
+                        insertUser(username, email, password, phone, address, operator, notification);
 
-                    // Print to console for validation
-                    console.log("Sign-up successful. Redirecting to login page.");
+                        // Print to console for validation
+                        console.log("Sign-up successful. Redirecting to login page.");
 
-                    // Redirect to the homepage
-                    window.location.href = '../html/login.html';
+                        // Redirect to the homepage
+                        window.location.href = '../html/login.html';
+
+
+
+
+                    }
                 }
             });
     });
@@ -74,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function adjustTextareaHeight() {
         addressTextarea.style.height = 'auto';  // Reset the height
         addressTextarea.style.height = addressTextarea.scrollHeight + 'px';  // Set height equal to scroll height
-        console.log('as');
     }
 
 
@@ -87,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return fetch('../php-script/signup.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(array => existingUsername = array)
-            .then(() => console.log(existingUsername))
             .catch(error => console.error('ERROR: ', error));
     }
 
@@ -133,5 +136,31 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(responseText => console.log(responseText))
             .catch(error => console.error("ERROR: ", error));
+    }
+
+
+    function validateForm(email, password, phoneNumber) {
+        // Validate Email
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailRegex.test(email)) {
+            alert("Invalid email address.");
+            return false;
+        }
+
+        // Validate Phone Number
+        const phoneRegex = /^(\+?0|\+?[1-9])([\d\s-]){1,14}$/;
+        if (!phoneRegex.test(phoneNumber)) {
+            alert("Invalid phone number.");
+            return false;
+        }
+
+        // Validate Password
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+            alert("Password must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters.");
+            return false;
+        }
+
+        return true;
     }
 });
