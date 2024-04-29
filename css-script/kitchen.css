@@ -125,6 +125,21 @@ hr.dotted {
     margin-left: 20px;
 }
 
+#manageButton {
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    background-color: wheat;
+    color: black;
+    cursor: pointer;
+    width: 400px;
+    z-index: 1000;
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 40%;
+}
+
+
 nav {
     height: 40px;
 }

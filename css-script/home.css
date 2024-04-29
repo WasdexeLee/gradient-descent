@@ -90,7 +90,7 @@
     width: 100vw !important;  /* Viewport width */
     max-width: 100% !important;  /* Prevents any overflow beyond the view width */
     background-image: url(../webpage-image/woodcolor.png);
-    color: wheat;
+    color: antiquewhite;
 }
   
 
@@ -117,10 +117,11 @@
     background-image: url('../webpage-image/welcomeimg.jpg');
     background-size: cover;
     background-position: center;
-    height: 800px;
+    height: 100vh;
     color: white; /* Sets text color to white */
     background-color: wheat;
     margin: 0 !important;
+    border-radius: 0% !important;
 }
 
 
@@ -181,27 +182,9 @@
     padding: 0;
 }
 
-.footer ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.footer a:hover {
-    text-decoration: underline;
-}
-
-.footer form input {
-    margin-right: 10px;
-    padding: 5px;
-}
 
 
-.footer form button:hover {
-    background-color: #2e3720;
-}
 
 .fcontainer {
-    color: wheat;
+    color: antiquewhite;
 }
