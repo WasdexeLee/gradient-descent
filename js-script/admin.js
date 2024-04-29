@@ -90,10 +90,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <th>Number Sold:</th>
                                 <td><textarea class='food_num_sold' rows='1' id=${item[Food.ID]} readonly>${item[Food.NUM_SOLD]}</textarea></td>
                             </tr>
-                            <tr>
-                                <td class="buttons">
+                            <tr class="buttonrow"><th></th>
+                                <td class="buttondata">
+                                    <div class="buttons">
                                     <button type="button" class='editBtn' id="${item[Food.ID]}">Edit</button>
                                     <button type="button" class='deleteBtn' id="${item[Food.ID]}">Delete</button>
+                                    </div>
                                 </td>
                             </tr>
                         </table> 

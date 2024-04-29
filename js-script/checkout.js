@@ -369,11 +369,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 timerLength--;
                 document.getElementById('countdownText').textContent = timerLength.toString();
 
-                // If timer has gone down to 0, stop intervalCounter, hide modal and move to home page (or order pending page)
+                // If timer has gone down to 0, stop intervalCounter, hide modal and move to index page (or order pending page)
                 if (timerLength <= 0) {
                     clearInterval(intervalCounter);
                     $('#orderPlacedModal').modal('hide');
-                    window.location.href = "../html/home.html";
+                    window.location.href = "../html/index.html";
                 }
             }, 1000);
 
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('OPCloseButton').addEventListener('click', function () {
                 clearInterval(intervalCounter);
                 $('#orderPlacedModal').modal('hide');
-                window.location.href = "../html/home.html";
+                window.location.href = "../html/index.html";
             });
         }
 
