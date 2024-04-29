@@ -1,5 +1,5 @@
 .navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
-    background-color: darkgrey !important;
+    background-color: wheat !important;
 }
 
 
@@ -33,7 +33,7 @@
     padding-top: 103px;
     width: 8.3333%;
     height: 100%;
-    background-color: wheat !important;
+    background-color: rgb(225, 179, 93) !important;
 }
 
 
@@ -57,7 +57,8 @@
     display: flex;
     justify-content: center;
     margin-bottom: 10%;
-    background-image: url(../webpage-image/resturant_01.jpg); 
+    background-image: url(../webpage-image/background1.jpg); 
+    background-size: cover;
 
     background-attachment: fixed;
 
@@ -184,11 +185,12 @@ button>* {
 }
 
 
-nav {
-    background-image: url("../webpage-image/woodtexture.webp");
+.navbar li {
+    display: inline; /* Makes list items appear in a row */
+    margin-right: 10px; /* Adds some space between the items */
 }
 
-
-.navbar-brand {
-    color: antiquewhite;
+.navbar a {
+    text-decoration: none; /* Removes underline from links */
+    color: #333; /* Sets the text color */
 }
