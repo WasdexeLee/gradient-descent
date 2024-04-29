@@ -1,124 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Home Page</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css-script/home.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Text-Like Dropdown</title>
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
-
-<div class="jumbotron text-center cursive">
-  <h1 style="color: white;">Welcome to CapyExpress</h1>
-  <div class="scroll">
-    <button id="scrollButton">Click here or Scroll Down for more information</button>
-  </div>
-</div>
-
-<nav id="navbar" class="navbar navbar-expand-sm navbar-light">
-  <a class="navbar-brand" href="#"><b>Go to:</b></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="login.html">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="profile.html">My Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="menu.html">Menu</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-sm-4">
-      <h2>About Us</h2>
-      <h5>Photos:</h5>
-      <div class="first_row_image">
-        <img src="../webpage-image/background1.jpg" alt="About Us Photo" height="200">
-      </div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      <h3>Some Links</h3>
-      <p>Lorem ipsum dolor sit ame.</p>
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Active</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
-      <hr class="d-sm-none">
-    </div>
-    <div class="col-sm-5 bestSeller">
-      <h2>Best Seller</h2>
-      <h6>based on the number of sold</h6>
-      <div id="demo" class="carousel slide" data-ride="carousel" style="width: 500px; height: 500px">
-        <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-          <li data-target="#demo" data-slide-to="1"></li>
-          <li data-target="#demo" data-slide-to="2"></li>
-        </ul>
-        <div class="carousel-inner text-overlay">
-          <div class="carousel-item active">
-            <img src="../food-image/Drumstick Fried Chikin Combo.webp" alt="Best seller" >
-            <div class="carousel-caption overlay">
-              <h3>Food Name</h3>
-              <p>Num of Sold: 99</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="../food-image/Iced Latte.webp" alt="Best seller" >
-            <div class="carousel-caption overlay">
-              <h3>Food Name</h3>
-              <p>Num of Sold: 99</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="../food-image/Peach Gum Snow Fungus with Longan.webp" alt="Best seller">
-            <div class="carousel-caption overlay">
-              <h3>Food Name</h3>
-              <p>Num of Sold: 99</p>
-            </div>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </a>
-      </div>
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text...</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit...</p>
-    </div>
-  </div>
-</div>
-
-<script src="../js-script/home.js"></script>
-
+    <label for="foodSelection">Choose a food category:</label>
+    <select id="foodSelection" name="food">
+        <option value="fried">Fried</option>
+        <option value="chicken">Chicken</option>
+        <option value="noodle">Noodle</option>
+        <option value="drinks">Drinks</option>
+        <option value="dessert">Dessert</option>
+    </select>
 </body>
 </html>
-

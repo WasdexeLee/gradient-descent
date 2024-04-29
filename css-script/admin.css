@@ -71,6 +71,7 @@ textarea.editable {
     border: 2cap;
 }
 
+
 select {
     border: none; /* Remove borders */
     outline: none; /* Remove focus outline */
@@ -95,6 +96,7 @@ label {
     font-family: Arial, sans-serif;
 }
 
+
 .navbar {
     display: flex; /* Use flexbox to layout children horizontally */
     justify-content: center; /* Center the buttons in the navbar */
@@ -114,5 +116,5 @@ label {
 }
 
 .navbar button:hover {
-    background-color: #45a049; /* Darker shade of green on hover */
+  background-color: #45a049; /* Darker shade of green on hover */
 }

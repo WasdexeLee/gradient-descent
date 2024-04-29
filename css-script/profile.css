@@ -88,3 +88,16 @@ button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+textarea {
+    padding: 0;
+    margin-top: 5px;
+    border: 0;
+    border-radius: 4px;
+    background-color: transparent; /* Ensure background matches form */
+    /* user-select: none; */
+    outline: none;
+    font-size: 16px;
+    resize: none;
+    width: 100% !important;
+}
