@@ -1,4 +1,4 @@
-// the scroll button
+// the scroll button js script
 document.getElementById('scrollButton').addEventListener('click', function () {
     var navbar = document.getElementById('navbar');
     navbar.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -8,6 +8,7 @@ document.getElementById('scrollButton').addEventListener('click', function () {
 
 
 //the js code for best seller
+// Gets all the elements needed to manipulate the carousel 
 const imageElement1 = document.getElementById('carousel1');
 const foodNameElement1 = document.getElementById('foodName1');
 const numSoldElement1 = document.getElementById('foodNum1');
@@ -25,7 +26,6 @@ const numSoldElement3 = document.getElementById('foodNum3');
 fetch('../php-script/home.php', { method: 'POST', })
     .then(phpResponse => phpResponse.json())
     .then(topFood => {
-        console.log(topFood);
         // Updating the text inside the spans
         foodNameElement1.textContent = topFood[0][0];
         imageElement1.src = topFood[0][1];

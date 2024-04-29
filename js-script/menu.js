@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Get all details of every food item from database and sort according to category
         let formData = new FormData();
         formData.append('func', 'getFoodDetail');
-        // Call login.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
+        // Call menu.php script and take response from script, convert to json array, push all rows in json array to foodDetail 2D array and catch error
         return fetch('../php-script/menu.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
             .then(table => table.forEach(row => foodDetail.push(row)))
