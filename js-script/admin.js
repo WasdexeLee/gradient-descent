@@ -137,6 +137,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         textArea.readOnly = false;
                     });
 
+                    // Add editable class to select element
+                    select.classList.add('editable');
+
                     // Changes edit button to submit button
                     this.innerText = "Submit";
                 } 
@@ -172,6 +175,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         textArea.classList.remove('editable');
                         textArea.readOnly = true;
                     });
+
+                    // Remove editable class to select element
+                    select.classList.remove('editable');
 
                     // Changes submit button to edit button
                     editButton.innerText = "Edit";
