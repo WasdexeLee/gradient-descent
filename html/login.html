@@ -5,30 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="../css-script/login.css">
-    <script src="../js-script/login.js"></script>
+    <link rel="stylesheet" href="../css-script/login.css"> <!-- Link to external stylesheet for login page styling -->
+    <script src="../js-script/login.js"></script> <!-- Link to external JavaScript file for login functionality -->
 </head>
 
 <body>
     <div class="login-container">
+        <!-- Login form -->
         <form id="loginForm">
-            <h2 id="brand">CapyExpress</h2>
-            <h2>Login</h2>
+            <h2 id="brand">CapyExpress</h2> <!-- Brand name -->
+            <h2>Login</h2> <!-- Heading -->
 
+            <!-- Username input field -->
             <div class="form-group">
                 <input type="text" id="username" name="username" required placeholder="Username">
             </div>
 
+            <!-- Password input field -->
             <div class="form-group">
                 <input type="password" id="password" name="password" required placeholder="Password">
             </div>
 
+            <!-- Alert for invalid credentials (initially hidden) -->
             <div id="alert" class="alert" style="display: none;"><p>
                 Username or Password is not valid.</p>
             </div>
 
+            <!-- Login button -->
             <button type="submit" class="btn-login">Login</button>
 
+            <!-- Text prompting to sign up -->
             <p class="sign-up-text">Don't have an account? <span id="signUp">Sign Up</span></p>
         </form>
     </div>
