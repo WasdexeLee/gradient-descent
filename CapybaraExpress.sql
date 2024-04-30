@@ -93,6 +93,7 @@ CREATE TABLE OrderTable (
     order_payment_method VARCHAR(20) NOT NULL,
     order_completed BOOLEAN NOT NULL DEFAULT FALSE,
     order_delivery_instruction VARCHAR(300), 
+    order_kitchen_instruction VARCHAR(300), 
     FOREIGN KEY(user_id) REFERENCES User(user_id)
 )ENGINE = InnoDB;
 

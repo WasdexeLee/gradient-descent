@@ -91,16 +91,17 @@ function insertOrder(&$connection, $user_id)
     $order_cust_phone = $_POST['order_cust_phone'];
     $order_cust_address = $_POST['order_cust_address'];
     $order_payment_method = $_POST['order_payment_method'];
+    $order_kitchen_instruction = $_POST['order_kitchen_instruction'];
     $order_delivery_instruction = $_POST['order_delivery_instruction'];
 
     $order_item = json_decode(($_POST['order_item']));
 
     // Create query, prepare and bind parameters for delete
-    $query_template = "INSERT INTO OrderTable VALUES (NULL, ?, ?, ?, ?, DEFAULT, ?, DEFAULT, ?)";
+    $query_template = "INSERT INTO OrderTable VALUES (NULL, ?, ?, ?, ?, DEFAULT, ?, DEFAULT, ?, ?)";
     $prepared_query = $connection->prepare($query_template);
 
     // Bind parameter to query 
-    $prepared_query->bind_param("isssss", $user_id, $order_cust_name, $order_cust_phone, $order_cust_address, $order_payment_method, $order_delivery_instruction);
+    $prepared_query->bind_param("issssss", $user_id, $order_cust_name, $order_cust_phone, $order_cust_address, $order_payment_method, $order_delivery_instruction, $order_kitchen_instruction);
     $prepared_query->execute();
 
     // Close query

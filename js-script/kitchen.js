@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         <div class="order-body">
                             <p>Request for this ORDER:</p>
-                            <p>No onions, extra sauce</p>
+                            <p>>>>  ${order[3]}</p>
                             <hr class="dotted">
                                 <div class="food-items">
                                     <table>
@@ -162,20 +162,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addButtonListener() {
         completedBtn = document.querySelectorAll('.complete-btn');
-
-        console.log(completedBtn);
-
         completedBtn.forEach(button => {
             button.addEventListener('click', function () {
-                console.log('df');
                 markCompleted(this);
             });
         });
 
-        clearBtn = document.getElementById('clearButton');
 
+        clearBtn = document.getElementById('clearButton');
         clearBtn.addEventListener('click', function () {
             location.reload();
+        });
+
+
+        logoutBtn = document.getElementById('logoutButton');
+        logoutBtn.addEventListener('click', function () {
+            // Select log out function
+            formData = new FormData();
+            formData.append('func', 'logOut');
+
+            // Call log out function in php script
+            fetch('../php-script/kitchen.php', { method: 'POST', body: formData })
+                .then(response => response.text())
+                .then(() => window.location.href = '../html/login.html');
         })
+
+
     }
 });

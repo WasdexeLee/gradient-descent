@@ -6,6 +6,7 @@ enum OrderTable: int
     case ID = 0;
     case PHONE = 1;
     case TIME = 2;
+    case INSTRUCTION = 3;
 }
 
 
@@ -26,6 +27,8 @@ if (isset($_POST['func'])) {
         getOrder($connection);
     else if ($_POST['func'] === 'deleteOrder')
         deleteOrder($connection);
+    else if ($_POST['func'] === 'logOut')
+        logOut();
 }
 
 
@@ -42,17 +45,17 @@ function getOrder(&$connection)
     $compile = [];
 
     // Create query, prepare and bind parameters
-    $query_template = "SELECT order_id, order_cust_phone, order_time_placed FROM OrderTable WHERE (order_completed = FALSE)";
+    $query_template = "SELECT order_id, order_cust_phone, order_time_placed, order_kitchen_instruction FROM OrderTable WHERE (order_completed = FALSE)";
     $prepared_query = $connection->prepare($query_template);
 
 
     // Execute query and bind results to array
     $prepared_query->execute();
-    $prepared_query->bind_result($result[OrderTable::ID->value], $result[OrderTable::PHONE->value], $result[OrderTable::TIME->value]);
+    $prepared_query->bind_result($result[OrderTable::ID->value], $result[OrderTable::PHONE->value], $result[OrderTable::TIME->value], $result[OrderTable::INSTRUCTION->value]);
 
     // Fetch all response from server
     while ($prepared_query->fetch())
-        $orders[] = [$result[OrderTable::ID->value], $result[OrderTable::PHONE->value], $result[OrderTable::TIME->value]];
+        $orders[] = [$result[OrderTable::ID->value], $result[OrderTable::PHONE->value], $result[OrderTable::TIME->value], $result[OrderTable::INSTRUCTION->value]];
 
     // Close query
     $prepared_query->close();
@@ -128,5 +131,35 @@ function deleteOrder(&$connection)
 
     echo "Delete Success";
 }
+
+
+function logOut()
+{
+    // Unset all of the session variables
+    $_SESSION = array();
+
+
+    // Delete the session cookie.
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(
+            session_name(),
+            '',
+            time() - 42000,
+            $params["path"],
+            $params["domain"],
+            $params["secure"],
+            $params["httponly"]
+        );
+    }
+
+
+    // Destroy session
+    session_destroy();
+}
+
+
+// Close database connection
+$connection->close();
 
 ?>

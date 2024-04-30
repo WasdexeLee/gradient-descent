@@ -34,8 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let paymentMethodSelect = document.getElementById('payment-method');
     // Element cod-price in payment method
     let codPriceEl = document.getElementById('cod-price');
-    // Element additional remark for driver
-    let additionalRemark = document.getElementById('remark');
+    // Element additional remark for kitchen and delivery driver
+    let kitchenRemark = document.getElementById('kitchenRemark');
+    let deliveryRemark = document.getElementById('deliveryRemark');
     // Element final-container-div
     let finalContainerDiv = document.querySelector('.final-container-div');
     // Element footer 
@@ -126,22 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
             placeOrder();
 
         });
-        // // Get cart icon to add event listener
-        // const cartIcon = document.getElementById('navbar-cart');
-
-        // cartIcon.addEventListener('click', () => {
-        //     location.reload();
-        // });
-
-
-        // // Get cart icon to add event listener
-        // const checkoutBtn = document.querySelector('.btn.btn-primary.btn-checkout');
-
-        // checkoutBtn.addEventListener('click', () => {
-        //     window.location.href = "../html/checkout.html";
-        // });
-
-
         const autofillBtn = document.querySelector('.btn-autofill');
 
         autofillBtn.addEventListener('click', autofillCustInfo);
@@ -213,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         function scrollToBottom() {
-            additionalRemark.scrollIntoView({ block: 'end' });
+            kitchenRemark.scrollIntoView({ block: 'end' });
 
             const topPos = payementMethodTitleEl.getBoundingClientRect().top + window.scrollY;
 
@@ -301,14 +286,14 @@ document.addEventListener('DOMContentLoaded', function () {
         let orderCustPhone = custInfoForm.phone.value;
         let orderCustAddress = custInfoForm.address.value;
         let orderPaymentMethod = paymentMethodSelect.value;
-        let orderDeliveryInstruction = additionalRemark.value;
+        let orderKitchenInstruction = kitchenRemark.value;
+        let orderDeliveryInstruction = deliveryRemark.value;
 
 
         // Check if payment detail is not empty
         if ((orderCustName.length === 0) || (orderCustPhone.length === 0) || (orderCustAddress.length === 0) || (orderPaymentMethod.length === 0))
             $('#alertModal').modal('show'); // Show Bootstrap modal
         else {
-            console.log(orderCustPhone);
             if (validateUserDetails(orderCustPhone)) {
                 // Check if using credit card as payment 
                 // If true, check for empty
@@ -345,6 +330,7 @@ document.addEventListener('DOMContentLoaded', function () {
             locFormData.append('order_cust_phone', orderCustPhone);
             locFormData.append('order_cust_address', orderCustAddress);
             locFormData.append('order_payment_method', orderPaymentMethod);
+            locFormData.append('order_kitchen_instruction', orderKitchenInstruction);
             locFormData.append('order_delivery_instruction', orderDeliveryInstruction);
             locFormData.append('order_item', JSON.stringify(cartItem));
 
