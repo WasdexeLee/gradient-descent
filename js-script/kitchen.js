@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Forces user to login 
+    fetch('../php-script/get_session_data.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!(data.loggedIn))
+                window.location.href = '../html/login.html';
+        });
+
+
     // Init array to store orders and the food items in each order
     let orders = [];
     let orderItems = [];
@@ -135,19 +144,19 @@ document.addEventListener('DOMContentLoaded', function () {
         button.classList.add('completed');
         button.textContent = 'Completed';
 
-          // Append cart data into FormData object to pass to php
-          let locFormData = new FormData();
+        // Append cart data into FormData object to pass to php
+        let locFormData = new FormData();
 
-          // Append necessary info for php
-          locFormData.append('func', 'deleteOrder');
-          locFormData.append('order_id', button.id);
-          
-          // Call fetch API to pass data to kitchen.php
-          // Use POST method, passes locFormData, wait for response and log to console
-          fetch('../php-script/kitchen.php', { method: 'POST', body: locFormData })
-              .then(response => response.text())
-              .then(responseText => console.log(responseText))
-              .catch(error => console.error("ERROR: ", error));
+        // Append necessary info for php
+        locFormData.append('func', 'deleteOrder');
+        locFormData.append('order_id', button.id);
+
+        // Call fetch API to pass data to kitchen.php
+        // Use POST method, passes locFormData, wait for response and log to console
+        fetch('../php-script/kitchen.php', { method: 'POST', body: locFormData })
+            .then(response => response.text())
+            .then(responseText => console.log(responseText))
+            .catch(error => console.error("ERROR: ", error));
     }
 
 
@@ -157,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(completedBtn);
 
         completedBtn.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 console.log('df');
                 markCompleted(this);
             });
@@ -165,40 +174,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         clearBtn = document.getElementById('clearButton');
 
-        clearBtn.addEventListener('click', function() {
+        clearBtn.addEventListener('click', function () {
             location.reload();
         })
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

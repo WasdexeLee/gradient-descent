@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const signUpText = document.getElementById('signUp');
     const alertBox = document.getElementById('alert');
     // To store user details
-    let validity = '';
     let identity = -1;
     let user_id = -1;
 
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         userLoginValidation(username, password)
             .then(() => {
                 // Check if password matches for the username
-                if (validity === "true") {
+                if (identity > -1) {
                     localStorage.setItem('user_id', user_id);
 
                     // Check identity of user to redirect page
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         window.location.href = '../html/admin.html';
                     }
                 }
-                else if (validity === "false") {
+                else if (identity <= -1) {
                     // Display error message
                     alertBox.style.display = 'block';
                 }
@@ -66,9 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return fetch('../php-script/login.php', { method: 'POST', body: locFormData })
             .then(response => response.json())
             .then(data => {
-                validity = data[0];
-                identity = parseInt(data[1]);
-                user_id = data[2];
+                identity = parseInt(data[0]);
+                user_id = data[1];
             })
             .catch(error => console.error("ERROR: ", error));
     }

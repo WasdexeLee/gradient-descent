@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Forces user to login 
-    if (localStorage.getItem('user_id') === null)
-        window.location.href = '../html/login.html';
+    fetch('../php-script/get_session_data.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!(data.loggedIn))
+                window.location.href = '../html/login.html';
+        });
 
 
     const editButton = document.getElementById('editButton');
@@ -14,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //fetch and show the information of user
     formData = new FormData();
     formData.append('func', 'getUser');
-    formData.append('user_id', localStorage.getItem('user_id'));
 
     fetch('../php-script/profile.php', { method: 'POST', body: formData, })
         .then(phpResponse => phpResponse.json())
@@ -44,14 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 //modify the information
                 formData = new FormData();
                 formData.append('func', 'modifyUser');
-                formData.append('user_id', localStorage.getItem('user_id'));
                 formData.append('user_name', profileForm.username.value);
                 formData.append('user_email', profileForm.email.value);
                 formData.append('user_address', addressTextarea.value);
                 formData.append('user_phone', profileForm.phone.value);
-
-                //for check
-                console.log(formData);
 
                 fetch('../php-script/profile.php', { method: 'POST', body: formData })
                     .then(response => response.text())
@@ -76,8 +75,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     logoutButton.addEventListener('click', function () {
-        localStorage.removeItem('user_id');
-        window.location.href = '../html/login.html';
+        // Select log out function
+        formData = new FormData();
+        formData.append('func', 'logOut');
+
+        // Call log out function in php script
+        fetch('../php-script/profile.php', { method: 'POST', body: formData })
+            .then(response => response.text())
+            .then(() => window.location.href = '../html/login.html');
     })
 
 

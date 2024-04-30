@@ -52,10 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Redirect to the homepage
                         window.location.href = '../html/login.html';
-
-
-
-
                     }
                 }
             });

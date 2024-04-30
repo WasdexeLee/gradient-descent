@@ -1,21 +1,9 @@
-<?php 
+<?php
 
-// Credentials
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "capybaraexpress";
+require_once 'database_config.php';
 
 
-// Create new connection to MySQL database
-$connection = new mysqli($host, $username, $password, $dbname);
-
-if ($connection->connect_error){
-    die("Connnection ERROR !!!  " . $connection->connect_error);
-}
-
-
-if (isset($_POST['func'])){
+if (isset($_POST['func'])) {
     if ($_POST['func'] === 'getUserName')
         getUserName($connection);
     else if ($_POST['func'] === 'insertUser')
@@ -23,7 +11,11 @@ if (isset($_POST['func'])){
 }
 
 
-function getUserName(&$connection){
+function getUserName(&$connection)
+{
+    // Notify client incoming response is json
+    header('Content-Type: application/json');
+
     // Create query, prepare and bind parameters
     $query_template = "SELECT user_name FROM User";
     $prepared_query = $connection->prepare($query_template);
@@ -50,15 +42,19 @@ function getUserName(&$connection){
 }
 
 
-function insertUser(&$connection){
-     // Create query, prepare and bind parameters
+function insertUser(&$connection)
+{
+    // Notify client incoming response is text
+    header('Content-Type: text/plain');
+
+    // Create query, prepare and bind parameters
     $query_template = "INSERT INTO User VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
     $prepared_query = $connection->prepare($query_template);
 
     // Convert back to boolean 
     $user_notification = $_POST['user_notification'] === "TRUE" ? 1 : 0;
     $user_operator = $_POST['user_operator'] === "TRUE" ? 1 : 0;
-    
+
 
     // Bind parameter to query 
     $prepared_query->bind_param("sssssii", $_POST['user_name'], $_POST['user_password'], $_POST['user_email'], $_POST['user_address'], $_POST['user_phone'], $user_notification, $user_operator);

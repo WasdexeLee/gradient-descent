@@ -1,35 +1,36 @@
 <?php
 
-// Credentials 
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "capybaraexpress";
-//connection
-$connection = new mysqli($host, $username, $password, $dbname);
+require_once 'session_config.php';
+require_once 'database_config.php';
 
-// Check connection
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
+
+// Start session and get user_id
+session_start();
+$user_id = $_SESSION['user_id'];
+
+
 // Determine the type of request and call the appropriate function
 if (isset($_POST['func'])) {
-    if($_POST['func'] === 'getUser'){
-    getUserInfo($connection);
-    }
-    else if ($_POST['func'] === 'modifyUser'){
-        // Fetch user information
-        updateUserInfo($connection);
-    }
-} 
+    if ($_POST['func'] === 'getUser')
+        getUserInfo($connection, $user_id);
+    else if ($_POST['func'] === 'modifyUser')
+        updateUserInfo($connection, $user_id);
+    else if ($_POST['func'] === 'logOut')
+        logOut();
+}
+
 
 // Function to get user information
-function getUserInfo(&$connection) {
-    $user_id = intval($_POST['user_id']);
-    
+function getUserInfo(&$connection, $user_id)
+{
+    // Notify client incoming response is json
+    header('Content-Type: application/json');
+
+    // Create query, prepare and bind parameters
     $query_template = "SELECT user_name, user_email, user_address, user_phone FROM user WHERE user_id = ?";
     $prepared_query = $connection->prepare($query_template);
     $prepared_query->bind_param("i", $user_id);
+
     // Init array to store response
     $pass = [null, null, null, null];
 
@@ -45,23 +46,59 @@ function getUserInfo(&$connection) {
 
 }
 
+
 // Function to update user information
-function updateUserInfo(&$connection) {
-    $userId = intval($_POST['user_id']);
+function updateUserInfo(&$connection, $user_id)
+{
+    // Notify client incoming response is text
+    header('Content-Type: text/plain');
+
+    // Create query, prepare and bind parameters
     $username = $_POST['user_name'];
     $email = $_POST['user_email'];
     $address = $_POST['user_address'];
     $phone = $_POST['user_phone'];
     $query = "UPDATE user SET user_name = ?, user_email = ?, user_address = ?, user_phone = ? WHERE user_id = ?";
     $stmt = $connection->prepare($query);
-    $stmt->bind_param("ssssi", $username, $email, $address, $phone, $userId);
-    if ($stmt->execute()) {
+    $stmt->bind_param("ssssi", $username, $email, $address, $phone, $user_id);
+
+
+    // Execute query
+    if ($stmt->execute())
         echo "Profile updated successfully!";
-    } else {
+    else
         echo "Error updating profile.";
-    }
+
+
     $stmt->close();
 }
+
+
+function logOut()
+{
+    // Unset all of the session variables
+    $_SESSION = array();
+
+
+    // Delete the session cookie.
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(
+            session_name(),
+            '',
+            time() - 42000,
+            $params["path"],
+            $params["domain"],
+            $params["secure"],
+            $params["httponly"]
+        );
+    }
+
+
+    // Destroy session
+    session_destroy();
+}
+
 
 // Close database connection
 $connection->close();

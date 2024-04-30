@@ -18,19 +18,7 @@ enum OrderItem: int
 }
 
 
-// Credentials
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "capybaraexpress";
-
-
-// Create new connection to MySQL database
-$connection = new mysqli($host, $username, $password, $dbname);
-
-if ($connection->connect_error) {
-    die("Connnection ERROR !!!  " . $connection->connect_error);
-}
+require_once 'database_config.php';
 
 
 if (isset($_POST['func'])) {
@@ -43,9 +31,10 @@ if (isset($_POST['func'])) {
 
 function getOrder(&$connection)
 {
+    // Notify client incoming response is json
+    header('Content-Type: application/json');
+
     // Get order first, then only get orderItem seperately as we dont want to join the tables as it will be very intensive
-
-
     // Init array to store response
     $result = [];
     $orders = [];
@@ -109,6 +98,9 @@ function getOrder(&$connection)
 
 function deleteOrder(&$connection)
 {
+    // Notify client incoming response is text
+    header('Content-Type: text/plain');
+
     $order_id = intval($_POST['order_id']);
 
     // Create query, prepare and bind parameters for update

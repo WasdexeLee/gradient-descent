@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Forces user to login 
-    if (localStorage.getItem('user_id') === null)
-        window.location.href = '../html/login.html';
+   // Forces user to login 
+   fetch('../php-script/get_session_data.php')
+   .then(response => response.json())
+   .then(data => {
+       if (!(data.loggedIn))
+           window.location.href = '../html/login.html';
+   });
 
 
     let foodItem = [];
@@ -142,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Add editable class to select element
                     select.classList.add('editable');
+                    select.disabled = false;
 
                     // Create input to take in the photo
                     fileInput = document.createElement('input');
@@ -168,11 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     formData.append('food_prep_time', parseInt(findElement('food_prep_time', textAreaList).value));
                     formData.append('food_num_sold', parseInt(findElement('food_num_sold', textAreaList).value));
 
-                    for (const pair of formData.entries()) {
-                        console.log(pair[0] + ':', (pair[1]));
-                    }
-
-
+             
                     // Call fetch API to pass data to admin.php
                     // Use POST method, passes formData, wait for response and log to console
                     fetch('../php-script/admin.php', { method: 'POST', body: formData })
@@ -190,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Remove editable class to select element
                     select.classList.remove('editable');
+                    select.disabled = true;
 
                     // Push to php and remove the input element 
                     inputEl = document.querySelector(`img[id='${this.id}']`).nextElementSibling;

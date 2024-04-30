@@ -1,18 +1,7 @@
 <?php
 
-// Credentials
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "capybaraexpress";
-
-
-// Create new connection to MySQL database
-$connection = new mysqli($host, $username, $password, $dbname);
-
-if ($connection->connect_error) {
-    die("Connnection ERROR !!!  " . $connection->connect_error);
-}
+require_once 'session_config.php';
+require_once 'database_config.php';
 
 
 // Get username and password from post
@@ -28,34 +17,37 @@ $prepared_query = $connection->prepare($query_template);
 // Init arrays to store response
 $result = [];
 
-
 // Bind parameters, execute query and bind results to array
 $prepared_query->bind_param("ss", $user_name, $user_password);
 $prepared_query->execute();
-$prepared_query->bind_result($result[1], $result[2]);
+$prepared_query->bind_result($result[0], $result[1]);
 
 
 // Get all rows and count
-while ($prepared_query->fetch()) 
+while ($prepared_query->fetch())
     $num_rowz++;
 
 // If number of rows > 0
 // username password match
 if ($num_rowz > 0) {
-    // Set validity true
-    $result[0] = "true";
+    // Starts a session for this particular user
+    session_start();
+
+    // Set session variable
+    // Essentially, only user_id is needed as user_id would be sufficient to fetch all other data
+    $_SESSION["user_id"] = $result[1];
 }
-// Else validity false and associated value
+// Else validity false and associated values
 else {
-    $result[0] = "false";
-    $result[1] = 0;
-    $result[2] = 0;
+    $result[0] = -1;
+    $result[1] = -1;
 }
 
 
-// Encode into json formate and echo back to Javascript 
+// Notify client response type is json 
+header('Content-Type: application/json');
+// Encode into json format and echo back to Javascript 
 echo json_encode($result);
-
 
 // Close query and connection
 $prepared_query->close();

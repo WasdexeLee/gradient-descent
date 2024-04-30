@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Forces user to login 
-    if (localStorage.getItem('user_id') === null)
-        window.location.href = '../html/login.html';
+    fetch('../php-script/get_session_data.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!(data.loggedIn))
+                window.location.href = '../html/login.html';
+        });
+
 
     // Init enum to make code more readable
     const Cart = Object.freeze({
@@ -106,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Get all details of every cart food item from database
         formData = new FormData();
         formData.append('func', 'getCart');
-        formData.append('user_id', localStorage.getItem('user_id'));
         // Call login.php script and take response from script, convert to json array, push all rows in json array to prevCartItem 2D array and catch error
         return fetch('../php-script/checkout.php', { method: 'POST', body: formData, })
             .then(phpResponse => phpResponse.json())
@@ -160,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
             //fetch the information of customer
             formData = new FormData();
             formData.append('func', 'getUserInfo');
-            formData.append('user_id', localStorage.getItem('user_id'));
 
             fetch('../php-script/checkout.php', { method: 'POST', body: formData, })
                 .then(phpResponse => phpResponse.json())
@@ -319,8 +322,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Then run insert order function
                     if ((cardName.length === 0) || (cardNumber.length === 0) || (expiryDate.length === 0) || (cvv.length === 0))
                         $('#alertModal').modal('show'); // Show Bootstrap modal
-                    else{
-                        if (validateCardDetails(cardNumber,expiryDate,cvv))
+                    else {
+                        if (validateCardDetails(cardNumber, expiryDate, cvv))
                             insertOrder();
                     }
                 }
@@ -338,7 +341,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Append necessary info for php
             locFormData.append('func', 'insertOrder');
-            locFormData.append('user_id', localStorage.getItem('user_id'));
             locFormData.append('order_cust_name', orderCustName);
             locFormData.append('order_cust_phone', orderCustPhone);
             locFormData.append('order_cust_address', orderCustAddress);

@@ -16,21 +16,10 @@ enum Food: int
 }
 
 
-// Credentials
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "capybaraexpress";
+require_once 'database_config.php';
 
 
-// Create new connection to MySQL database
-$connection = new mysqli($host, $username, $password, $dbname);
-
-if ($connection->connect_error) {
-    die("Connnection ERROR !!!  " . $connection->connect_error);
-}
-
-
+// Logic for function selection
 if (isset($_POST['func'])) {
     if ($_POST['func'] === 'getFoodItem')
         getFoodItem($connection);
@@ -45,6 +34,9 @@ if (isset($_POST['func'])) {
 
 function getFoodItem(&$connection)
 {
+    // Notify client incoming response is json
+    header('Content-Type: application/json');
+
     // Create query, prepare and bind parameters
     $query_template = "SELECT food_id, food_name, Food.food_category_id, food_category_name, food_description, food_price, food_availability, food_image, food_prep_time, food_num_sold FROM Food JOIN FoodCategory ON Food.food_category_id=FoodCategory.food_category_id";
     $prepared_query = $connection->prepare($query_template);
@@ -73,6 +65,9 @@ function getFoodItem(&$connection)
 
 function modifyFoodItem(&$connection)
 {
+    // Notify client incoming response is text
+    header('Content-Type: text/plain');
+
     // Get all values to be updated into the food table after admin has edited the items
     $food_id = intval($_POST['food_id']);
     $food_name = $_POST['food_name'];
@@ -100,9 +95,15 @@ function modifyFoodItem(&$connection)
 
 function fileUpload(&$connection)
 {
+    // Notify client incoming response is text
+    header('Content-Type: text/plain');
+
+    // Store path of folder to be saved
+    // Create name of file to be saved
     $target_dir = "../food-image/";
     $target_file_name = $target_dir . basename($_FILES["file_to_upload"]["name"]);
 
+    // Move the uploaded file to the folder to be saved 
     if (move_uploaded_file($_FILES["file_to_upload"]["tmp_name"], $target_file_name)) {
         echo "File uploaded successfully.";
     } else {
@@ -113,6 +114,9 @@ function fileUpload(&$connection)
 
 function deleteFoodItem(&$connection)
 {
+    // Notify client incoming response is text
+    header('Content-Type: text/plain');
+
     $food_id = intval($_POST['food_id']);
 
     // Create query, prepare and bind parameters for delete

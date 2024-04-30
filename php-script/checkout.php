@@ -1,5 +1,9 @@
 <?php
 
+require_once 'session_config.php';
+require_once 'database_config.php';
+
+
 // Enum to address different food details
 enum Cart: int
 {
@@ -13,39 +17,27 @@ enum Cart: int
 }
 
 
-
-// Credentials
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "capybaraexpress";
+// Start session and get user_id
+session_start();
+$user_id = $_SESSION['user_id'];
 
 
-// Create new connection to MySQL database
-$connection = new mysqli($host, $username, $password, $dbname);
-
-if ($connection->connect_error) {
-    die("Connnection ERROR !!!  " . $connection->connect_error);
-}
-
-
+// Logic for function selection
 if (isset($_POST['func'])) {
     if ($_POST['func'] === 'getUserInfo')
-        getUserInfo($connection);
+        getUserInfo($connection, $user_id);
     else if ($_POST['func'] === 'getCart')
-        getCart($connection);
+        getCart($connection, $user_id);
     else if ($_POST['func'] === 'insertOrder')
-        insertOrder($connection);
+        insertOrder($connection, $user_id);
 }
 
 
-function getUserInfo(&$connection)
+function getUserInfo(&$connection, $user_id)
 {
     // Create query, prepare and bind parameters
     $query_template = "SELECT user_name, user_phone, user_address FROM User WHERE (user_id = ?)";
     $prepared_query = $connection->prepare($query_template);
-
-    $user_id = intval($_POST['user_id']);
 
     $prepared_query->bind_param("i", $user_id);
 
@@ -66,13 +58,11 @@ function getUserInfo(&$connection)
 }
 
 
-function getCart(&$connection)
+function getCart(&$connection, $user_id)
 {
     // Create query, prepare and bind parameters
     $query_template = "SELECT Cart.food_id, food_num, food_name, food_price, food_availability, food_image, food_num_sold FROM Cart JOIN Food ON Cart.food_id = Food.food_id WHERE (user_id = ?) ORDER BY food_category_id";
     $prepared_query = $connection->prepare($query_template);
-
-    $user_id = intval($_POST['user_id']);
 
     $prepared_query->bind_param("i", $user_id);
 
@@ -95,11 +85,8 @@ function getCart(&$connection)
 }
 
 
-function insertOrder(&$connection)
+function insertOrder(&$connection, $user_id)
 {
-    // Insert into OrderTable
-    $user_id = intval($_POST['user_id']);
-
     $order_cust_name = $_POST['order_cust_name'];
     $order_cust_phone = $_POST['order_cust_phone'];
     $order_cust_address = $_POST['order_cust_address'];
